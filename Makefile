@@ -26,6 +26,8 @@ LEAKS= -g3 -fsanitize=address
 INC_DIR = incs
 
 INCLUDES =	${INC_DIR}/parsing.h \
+			${INC_DIR}/mini.h \
+			${INC_DIR}/lib.h \
 
 ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 				mkdir -p objs
@@ -37,7 +39,7 @@ ${NAME}:	Makefile ${OBJS}
 			${CC} ${FLAGS} ${OBJS} ${LEAKS} -lreadline ${LIBFT_PATH}/libft.a -o ${NAME}
 
 makelib:
-		${MAKE} -C ${LIBFT_PATH}/ all
+		${MAKE} -C ${LIBFT_PATH}/ bonus
 
 clean:
 			${MAKE} -C ${LIBFT_PATH}/ fclean

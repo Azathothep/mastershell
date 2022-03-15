@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 11:30:22 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:49:36 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	tabsize(char **tab)
 		size++;
 	return (size);
 }
-
+#include <stdio.h>
 char	*append(char *str, char *add)
 {
 	char	*to_free;

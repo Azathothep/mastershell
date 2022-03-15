@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 11:27:27 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:53:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,17 @@ static char	*pull_quotes(char const *s)
 
 	len = ft_strlen(s);
 	ret = malloc (sizeof(char) * (len - 1));
+	if (ret)
+		ft_strlcpy(ret, s + 1, len - 1);
 	if (!ret)
+	{
+		//free(s);
 		return (NULL);
-	ft_strlcpy(ret, s + 1, len - 1);
-	if (!ret)
-		return (NULL);
+	}
 	return (ret);
 }
 
-static char	*single_quotes(char const *s)
+static char	*double_quotes(char const *s)
 {
 	int		i;
 	char	*ret;
@@ -56,6 +58,7 @@ static char	*single_quotes(char const *s)
 
 	i = -1;
 	cut_tab = cut(pull_quotes(s), "n_quotes");
+	ret = NULL;
 	if (!cut_tab)
 		return (NULL);
 	while (cut_tab[++i])
@@ -85,10 +88,10 @@ static char	*interpret_token(char const *token)
 	while (cut_tab[++i])
 	{
 		len = ft_strlen(cut_tab[i]);
-		if (cut_tab[i][0] == '\"' && cut_tab[i][len - 1] == '\"')
+		if (cut_tab[i][0] == '\'' && cut_tab[i][len - 1] == '\'')
 			translation = append(translation, pull_quotes(cut_tab[i]));
-		else if (cut_tab[i][0] == '\'' && cut_tab[i][len - 1] == '\'')
-			translation = append(translation, single_quotes(cut_tab[i]));
+		else if (cut_tab[i][0] == '\"' && cut_tab[i][len - 1] == '\"')
+			translation = append(translation, double_quotes(cut_tab[i]));
 		else if (cut_tab[i][0] == '$' && cut_tab[i][1])
 			translation = append(translation, replace_env(cut_tab[i]));
 		else
