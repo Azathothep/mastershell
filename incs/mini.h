@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/15 12:48:09 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/15 12:49:57 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@ donnees necessaires en sortie de parsing */
 
 #include "lib.h"
 
-typedef struct s_file2
+typedef struct s_inout
 {
 	char	*name;
 	int		pos;
 	int		type;
-}	t_file2;
+}	t_inout;
 
 typedef struct s_file
 {
@@ -43,10 +43,10 @@ typedef struct s_mini
 	char	***commands; /* La table de commande qui regroupe dans chaque tableau
 	 					les commandes entre les pipes et leurs arguments. Exemple : tab[0] = [ls, -l, -a], tab[1] = [cd, ..]*/
 						 
-	t_file2	*infile; /* Une structure qui est compose d'un char * (represente la nouvelle entree, filename ou texte pour le <<)
+	t_inout	*infile; /* Une structure qui est compose d'un char * (represente la nouvelle entree, filename ou texte pour le <<)
 						et un bouleen (definit si la redirection d'entree est un <(0) ou un <<(1)) */
 
-	t_file	*outfile; /* Idem mais pour l'outfile avec le booleen qui donne l'info sur <(0) ou <<(1) */
+	t_inout	*outfile; /* Idem mais pour l'outfile avec le booleen qui donne l'info sur <(0) ou <<(1) */
 
 	t_file	*errfile;	/* idem mais sortie d'erreur */
 
