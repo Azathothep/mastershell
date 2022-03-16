@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/16 10:43:03 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/16 14:41:25 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ donnees necessaires en sortie de parsing */
 
 typedef struct s_inout
 {
-	char	*name;
+	char	*name; /* Un tableau de char avec toutes les redirections d'affiles qu'il y a */
 	int		pos;
 	int		type;
+	char	**files;
 }	t_inout;
 
 typedef struct s_file
@@ -29,7 +30,6 @@ typedef struct s_file
 	char	*name;
 	int		type;
 }	t_file;
-
 
 typedef struct s_pipex
 {
