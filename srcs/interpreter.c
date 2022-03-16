@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 13:53:45 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:31:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,68 +15,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../incs/parsing.h"
+#include "../incs/lib.h"
 
-static char	*replace_env(char const *s)
+static char	*add_translate(char *translation, char *cut_str)
 {
-	char	*env;
+	int	len;
 
-	if (s[1] == '$')
-		env = ft_itoa(getpid());
+	len = ft_strlen(cut_str);
+	if (cut_str[0] == '\'' && cut_str[len - 1] == '\'')
+		translation = append(translation, pull_quotes(cut_str));
+	else if (cut_str[0] == '\"' && cut_str[len - 1] == '\"')
+		translation = append(translation, double_quotes(cut_str));
+	else if (cut_str[0] == '$' && cut_str[1])
+		translation = append(translation, replace_env(cut_str));
 	else
-	{
-		env = ft_strdup(getenv(&s[1]));
-		if (!env)
-			env = ft_strdup("");
-	}
-	if (!env)
+		translation = append(translation, ft_strdup(cut_str));
+	if (!translation)
 		return (NULL);
-	return (env);
-}
-
-static char	*pull_quotes(char const *s)
-{
-	int		len;
-	char	*ret;
-
-	len = ft_strlen(s);
-	ret = malloc (sizeof(char) * (len - 1));
-	if (ret)
-		ft_strlcpy(ret, s + 1, len - 1);
-	if (!ret)
-	{
-		//free(s);
-		return (NULL);
-	}
-	return (ret);
-}
-
-static char	*double_quotes(char const *s)
-{
-	int		i;
-	char	*ret;
-	char	**cut_tab;
-
-	i = -1;
-	cut_tab = cut(pull_quotes(s), "n_quotes");
-	ret = NULL;
-	if (!cut_tab)
-		return (NULL);
-	while (cut_tab[++i])
-	{
-		if (cut_tab[i][0] == '$' && cut_tab[i][1])
-			ret = append(ret, replace_env(cut_tab[i]));
-		else
-			ret = append(ret, cut_tab[i]);
-		if (!ret)
-			return (NULL);
-	}
-	return (ret);
+	return (translation);
 }
 
 static char	*interpret_token(char const *token)
 {
 	int		i;
-	int		len;
 	char	**cut_tab;
 	char	*translation;
 
@@ -86,47 +47,30 @@ static char	*interpret_token(char const *token)
 	if (!cut_tab)
 		return (NULL);
 	while (cut_tab[++i])
-	{
-		len = ft_strlen(cut_tab[i]);
-		if (cut_tab[i][0] == '\'' && cut_tab[i][len - 1] == '\'')
-			translation = append(translation, pull_quotes(cut_tab[i]));
-		else if (cut_tab[i][0] == '\"' && cut_tab[i][len - 1] == '\"')
-			translation = append(translation, double_quotes(cut_tab[i]));
-		else if (cut_tab[i][0] == '$' && cut_tab[i][1])
-			translation = append(translation, replace_env(cut_tab[i]));
-		else
-			translation = append(translation, cut_tab[i]);
-		if (!translation)
-			return (NULL);
-	}
+		translation = add_translate(translation, cut_tab[i]);
+	free_tabtwo(cut_tab);
 	return (translation);
 }
 
-char	**interpreter(char **lexicon)
+t_list	*interpreter(char **lexicon)
 {
+	char	*token;
+	t_list	*begin_lst;
+	t_list	*lst;
 	int		i;
-	int		w_i;
-	int		size;
-	char	**translate;
 
 	i = -1;
-	w_i = 0;
-	size = tabsize(lexicon);
-	translate = malloc(sizeof (char *) * (size + 1));
-	if (!translate)
-		return (NULL);
-	while (++i < size)
+	begin_lst = NULL;
+	while (lexicon[++i])
 	{
-		translate[w_i] = interpret_token(lexicon[i]);
-		if (!translate[w_i])
-			return (ft_free_split(translate));
-		if (translate[w_i][0] == '\0')
+		token = interpret_token(lexicon[i]);
+		lst = ft_lstnew((void *)token);
+		if (!token || !lst)
 		{
-			free (translate[w_i]);
-			w_i--;
+			ft_lstclear(&begin_lst, &lst_del);
+			return (NULL);
 		}
-		++w_i;
+		ft_lstadd_back(&begin_lst, lst);
 	}
-	translate[w_i] = NULL;
-	return (translate);
+	return (begin_lst);
 }

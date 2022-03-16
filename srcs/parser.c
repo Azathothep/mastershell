@@ -3,101 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 13:03:18 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:37:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
-#include <stdlib.h>
 
-char	***free_cmd(char ***commands)
+static char	*get_token(t_list *lst)
 {
-	int	i;
-	int	j;
+	return ((char *)lst->content);
+}
 
-	i = -1;
-	if (commands)
+static t_mini	process_datas(t_list **begin_lexicon)
+{
+	t_mini	mini;
+	t_list	*lst;
+	t_list	*prev_lst;
+	char	*token;
+
+	lst = *begin_lexicon;
+	prev_lst = NULL;
+	while (lst)
 	{
-		while (commands[++i])
+		token = get_token(lst);
+		if (token[0] == '\0')
 		{
-			j = -1;
-			while (commands[i][++j])
-				free(commands[i][j]);
-			free(commands[i]);
+			if (prev_lst)
+				prev_lst->next = lst->next;
+			else
+				*begin_lexicon = lst->next;
+			ft_lstdelone(lst, &lst_del);
 		}
-		free(commands);
-		commands = NULL;
+		prev_lst = lst;
+		lst = lst->next;
 	}
-	return (NULL);
+	mini.nbc = 0;
+	return (mini);
 }
 
-static int	get_cmd_size(char **lexicon)
+static char	***get_commands(t_list *lst)
 {
-	int	i;
-
-	i = 0;
-	while (lexicon[i] && ft_strncmp(lexicon[i], "|", 1))
-		i++;
-	return (i);
-}
-
-static char	**get_cmd_line(char **lexicon)
-{
-	char	**cmd_line;
-	int		cmd_size;
 	int		i;
-
-	i = -1;
-	cmd_size = get_cmd_size(lexicon);
-	cmd_line = malloc(sizeof(char *) * (cmd_size + 1));
-	if (!cmd_line)
-		return (NULL);
-	while (++i < cmd_size)
-	{
-		cmd_line[i] = ft_strdup(lexicon[i]);
-		if (!cmd_line[i])
-			return (NULL);
-	}
-	cmd_line[i] = NULL;
-	return (cmd_line);
-}
-
-static int	get_cmd_nb(char **lexicon)
-{
-	int	cmd_nb;
-	int	i;
-
-	cmd_nb = 1;
-	i = -1;
-	while (lexicon[++i])
-		if (!ft_strncmp(lexicon[i], "|", 1))
-			cmd_nb++;
-	return (cmd_nb);
-}
-
-char	***parser(char **lexicon)
-{
-	char	***commands;
 	int		cmd_nb;
-	int		i;
+	char	***commands;
 
 	i = -1;
-	cmd_nb = get_cmd_nb(lexicon);
+	cmd_nb = get_cmdnb(lst);
 	commands = malloc(sizeof(char **) * (cmd_nb + 1));
 	if (!commands)
 		return (NULL);
 	while (++i < cmd_nb)
 	{
-		commands[i] = get_cmd_line(lexicon);
+		commands[i] = get_cmdline(lst);
 		if (!commands[i])
 			return (free_cmd(commands));
-		lexicon += get_cmd_size(lexicon) + 1;
+		while (lst->next && ft_strncmp(get_token(lst), "|\0", 2))
+			lst = lst->next;
+		lst = lst->next;
 	}
 	commands[i] = NULL;
 	return (commands);
+}
+
+t_mini	parser(t_list **begin_lexicon)
+{
+	t_mini	mini;
+
+	mini = process_datas(begin_lexicon);
+	mini.commands = get_commands(*begin_lexicon);
+	return (mini);
 }

@@ -3,8 +3,10 @@ SRCS_DIR = srcs/
 SRCS=	minishell.c \
 		lexer.c \
 		parser.c \
+		commands.c \
 		tokenize.c \
 		interpreter.c \
+		translation.c \
 		cuts.c \
 		chunks.c \
 		utils.c \

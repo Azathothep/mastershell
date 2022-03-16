@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 11:27:51 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:11:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**tokenize(char const *s)
 			i++;
 		i += alloc_token(&tab[tab_index], s + i);
 		if (!tab[tab_index])
-			return (ft_free_split(tab));
+			return (free_tabtwo(tab));
 		i++;
 	}
 	tab[tab_index] = NULL;

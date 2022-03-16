@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cuts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 13:37:56 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:11:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**cut(char const *s, char const *mode)
 		len = get_chunk(s + i, mode);
 		tab[tab_index] = allocstr(s + i, len);
 		if (!tab[tab_index])
-			return (ft_free_split(tab));
+			return (free_tabtwo(tab));
 		i += len;
 	}
 	tab[tab_index] = NULL;

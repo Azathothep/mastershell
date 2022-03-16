@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/15 12:49:57 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/16 10:43:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*Explications sur la structure et sur le format des 
 donnees necessaires en sortie de parsing */
 
-#include "lib.h"
+#ifndef MINI_H
+# define MINI_H
+# include "lib.h"
 
 typedef struct s_inout
 {
@@ -61,3 +63,4 @@ typedef struct s_mini
 	t_pipex	*pipex; /* structure pipex */ 
 	//Quelque chose pour les signaux ? Uniquement pour le Ctrl + C les autres n'envoient pas de signaux mais je n'y connais rien
 }	t_mini;
+#endif

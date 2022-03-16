@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 11:30:48 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:15:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../incs/parsing.h"
+#include "../incs/mini.h"
+#include "../incs/lib.h"
 
 static int	isempty(char *line)
 {
@@ -38,9 +40,9 @@ static void	display(char ***commands)
 
 static void	launch_shell(void)
 {
+	t_mini	mini;
+	t_list	*begin_lexicon;
 	char	*buffer;
-	char	**lexicon;
-	char	***commands;
 
 	while (1)
 	{
@@ -50,14 +52,14 @@ static void	launch_shell(void)
 		if (!isempty(buffer))
 		{
 			add_history(buffer);
-			lexicon = lexer(buffer);
+			begin_lexicon = lexer(buffer);
 			free(buffer);
-			if (!lexicon)
+			if (!begin_lexicon)
 				return ;
-			commands = parser(lexicon);
-			free_lexicon(lexicon);
-			display(commands); //line to delete
-			free_cmd(commands);
+			mini = parser(&begin_lexicon);
+			ft_lstclear(&begin_lexicon, &lst_del);
+			display(mini.commands); //line to delete
+			free_cmd(mini.commands);
 		}
 	}
 }

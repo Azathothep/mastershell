@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 13:49:36 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/16 11:33:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,38 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char	**ft_free_split(char **tab)
+char	**free_tabtwo(char **tab)
 {
 	int	index;
 
 	index = -1;
+	if (!tab)
+		return (NULL);
 	while (tab[++index])
 		free(tab[index]);
 	free(tab);
+	tab = NULL;
+	return (NULL);
+}
+
+char	***free_cmd(char ***commands)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	if (commands)
+	{
+		while (commands[++i])
+		{
+			j = -1;
+			while (commands[i][++j])
+				free(commands[i][j]);
+			free(commands[i]);
+		}
+		free(commands);
+		commands = NULL;
+	}
 	return (NULL);
 }
 
@@ -34,7 +58,7 @@ int	tabsize(char **tab)
 		size++;
 	return (size);
 }
-#include <stdio.h>
+
 char	*append(char *str, char *add)
 {
 	char	*to_free;
@@ -52,4 +76,9 @@ char	*append(char *str, char *add)
 	if (!str)
 		return (NULL);
 	return (str);
+}
+
+void	lst_del(void *content)
+{
+	free((char *)content);
 }
