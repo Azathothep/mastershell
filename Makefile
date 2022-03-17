@@ -2,6 +2,7 @@ SRCS_DIR = srcs/
 
 SRCS=	minishell.c \
 		lexer.c \
+		chevrons.c \
 		parser.c \
 		commands.c \
 		tokenize.c \

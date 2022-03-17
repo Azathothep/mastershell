@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 12:12:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/17 13:07:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		chunk_wquotes(char const *s);
 int		chunk_nquotes(char const *s);
 int		tabsize(char **tab);
 char	*append(char *str, char *add);
+char	*add_input(char *del);
 
 #endif

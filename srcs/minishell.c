@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 12:11:05 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/17 12:45:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	launch_shell(char **envp)
 	{
 		buffer = readline("-> mastershell #> ");
 		if (!buffer)
-			return ;
+			return ; //free all
 		if (!isempty(buffer))
 		{
 			add_history(buffer);
