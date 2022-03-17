@@ -13,12 +13,12 @@
 #include "../incs/parsing.h"
 #include "../incs/lib.h"
 
-char	*replace_env(char const *s)
+char	*replace_env(char const *s, int exit_status)
 {
 	char	*env;
 
-	if (s[1] == '$')
-		env = ft_itoa(getpid());
+	if (s[1] == '?')
+		env = ft_itoa(exit_status);
 	else
 	{
 		env = ft_strdup(getenv(&s[1]));
@@ -44,7 +44,7 @@ char	*pull_quotes(char const *s)
 	return (ret);
 }
 
-char	*double_quotes(char const *s)
+char	*double_quotes(char const *s, int exit_status)
 {
 	int		i;
 	char	*no_quotes;
@@ -63,7 +63,7 @@ char	*double_quotes(char const *s)
 	while (cut_tab[++i])
 	{
 		if (cut_tab[i][0] == '$' && cut_tab[i][1])
-			ret = append(ret, replace_env(cut_tab[i]));
+			ret = append(ret, replace_env(cut_tab[i], exit_status));
 		else
 			ret = append(ret, ft_strdup(cut_tab[i]));
 		if (!ret)

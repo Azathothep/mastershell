@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/16 11:13:06 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/17 12:08:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-t_list	*lexer(char *buffer)
+t_list	*lexer(char *buffer, int exit_status)
 {
 	char	**lexicon;
 	t_list	*begin_lexicon;
@@ -24,7 +24,7 @@ t_list	*lexer(char *buffer)
 	lexicon = tokenize(buffer);
 	if (!lexicon)
 		return (NULL);
-	begin_lexicon = interpreter(lexicon);
+	begin_lexicon = interpreter(lexicon, exit_status);
 	free_tabtwo(lexicon);
 	if (!begin_lexicon)
 		return (NULL);

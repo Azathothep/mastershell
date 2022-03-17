@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chunks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:42:28 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/15 11:27:11 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/17 12:04:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	get_endenv(char const *s)
 	int	i;
 
 	i = 1;
-	if (s[1] == '$')
+	if (s[1] == '?')
 		return (2);
 	else
-		while (s[i] && !ft_inbase(s[i], "\"\'$"))
+		while (s[i] && ft_isalnum(s[i]))
 			i++;
 	return (i);
 }
@@ -48,7 +48,7 @@ int	chunk_nquotes(char const *s)
 	{
 		while (s[i] && s[i] != '$')
 			i++;
-		if (s[i] == '$' && s[i + 1])
+		if (s[i] == '$' && isenv(s[i + 1]))
 		{
 			if (i == 0)
 				return (get_endenv(&s[i]));
@@ -84,7 +84,7 @@ int	chunk_wquotes(char const *s)
 			if (quote > 0)
 				return (quote_index(i, quote));
 		}
-		else if (s[i] == '$' && s[i + 1])
+		else if (s[i] == '$' && isenv(s[i + 1]))
 		{
 			if (i == 0)
 				return (get_endenv(&s[i]));
