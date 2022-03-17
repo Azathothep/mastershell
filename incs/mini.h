@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/16 14:41:25 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 11:16:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ typedef struct s_mini
 
 	t_pipex	*pipex; /* structure pipex */ 
 	//Quelque chose pour les signaux ? Uniquement pour le Ctrl + C les autres n'envoient pas de signaux mais je n'y connais rien
+	char	**envp; /* L'environnement au format char ** pour que je le convertisse depuis la liste et que je le donne a execve */
 }	t_mini;
 #endif
