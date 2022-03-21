@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 16:22:11 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 17:19:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	display(char ***commands)
 	{
 		j = -1;
 		while (commands[i][++j])
-			printf("%s ", commands[i][j]);
+			printf("%s$\n", commands[i][j]);
 		printf("\n");
 	}
 }

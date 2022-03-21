@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 16:24:20 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 17:27:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void	interpreter(t_list **begin_lst, int exit_status)
 	while (lst)
 	{
 		token = get_token(lst);
-		if (!ft_strncmp(token, "<<", 2))
-			lst = lst->next;
-		else
+		if (ft_strncmp(token, "<<", 2))
 		{
 			token = translate(token, &tl_all, exit_status);
 			if (!token)
@@ -96,6 +94,8 @@ void	interpreter(t_list **begin_lst, int exit_status)
 			if (token != lst->content)
 				replace_content(lst, token);
 		}
+		else
+			lst = lst->next;
 		if (lst)
 			lst = lst->next;
 	}
