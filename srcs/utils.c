@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 11:34:26 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:09:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	tabsize(char **tab)
+int	isenv(char c)
 {
-	int	size;
-
-	size = 0;
-	while (tab[size])
-		size++;
-	return (size);
+	if (ft_isalnum(c) || c == '?')
+		return (1);
+	return (0);
 }
 
 char	*append(char *str, char *add)
 {
 	char	*to_free;
 
-	if (!add)
-	{
-		free (str);
-		str = NULL;
-		return (NULL);
-	}
 	to_free = str;
 	str = ft_strjoin(str, add);
 	free (to_free);
-	free (add);
 	if (!str)
 		return (NULL);
 	return (str);
@@ -45,12 +35,14 @@ char	*append(char *str, char *add)
 
 char	*get_token(t_list *lst)
 {
+	if (!lst)
+		return (NULL);
 	return ((char *)lst->content);
 }
 
 char	*lst_joinstr(t_list **begin_lst)
 {
-	t_list *lst;
+	t_list	*lst;
 	int		size;
 	char	*str;
 

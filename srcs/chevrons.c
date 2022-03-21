@@ -5,65 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 12:41:22 by marvin            #+#    #+#             */
-/*   Updated: 2022/03/17 12:41:22 by marvin           ###   ########.fr       */
+/*   Created: 2022/03/21 15:16:37 by marvin            #+#    #+#             */
+/*   Updated: 2022/03/21 15:16:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
-// static char	*pull_all_quotes(char *s)
-// {
-// 	int		i;
-// 	int		len;
-// 	char	*ret;
-// 	char	**cut_tab;
-	
-// 	i = -1;
-// 	ret = NULL;
-// 	cut_tab = cut(s, "w_quotes");
-// 	if (!cut_tab)
-// 		return (NULL);
-// 	while (cut_tab[++i])
-// 	{
-// 		len = ft_strlen(cut_tab[i]);
-// 		if ((cut_tab[i][0] == '\'' && cut_tab[i][len - 1] == '\'')
-// 			|| (cut_tab[i][0] == '\"' && cut_tab[i][len - 1] == '\"'))
-// 			ret = append(ret, pull_quotes(cut_tab[i]));
-// 		else
-// 			ret = append(ret, ft_strdup(cut_tab[i]));
-// 		if (!ret)
-// 			return (NULL);
-// 	}
-// 	return (ret);
-// }
-
-char	*add_input(char *del)
+static char	*get_heredoc(t_list *lst)
 {
-	char	*str;
-	char	*input;
-	int		len_del;
+	char	*token;
+	char	*del;
 
-	str = NULL;
-	len_del = ft_strlen(del);
-	while (1)
+	token = get_token(lst);
+	del = get_token(lst->next);
+	if (token[2])
+		del = &token[2];
+	if (del && del[0] == '\"' && del[ft_strlen(del) - 1] == '\"')
 	{
-		input = readline("> ");
-		if (!input)
-			return (NULL); // free str
-		if (!ft_strncmp(input, del, len_del))
-		{
-			free (input);
-			break ;
-		}
-		input = double_quotes(input, 0); //exit_status
-		str = append(str, input);
-		if (!str)
-			return (NULL); //free all
+		del = pull_quotes(del);
+		token = add_input(del, "quoted");
 	}
-	return (str);
+	else if (!del || !ft_isalpha(del[0]))
+	{
+		if (!del || del[0] == '\0')
+			del = "\\n";
+		printf("mastershell: parse error near '%s'\n", del);
+		return (NULL);
+	}
+	else
+		token = add_input(del, "n_quoted");
+	return (token);
+}
+
+void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst)
+{
+	char	*token;
+	t_list	*lst_new;
+
+	if (!ft_strncmp(get_token(lst), "<<", 2))
+	{
+		token = get_heredoc(lst);
+		lst_new = ft_lstnew(token);
+		if (!token || !lst_new)
+		{
+			ft_lstdelone(lst_new, &lst_del);
+			ft_lstclear(begin_lexicon, &lst_del);
+			return ;
+		}
+		remove_lst(begin_lexicon, lst->next, lst);
+		remove_lst(begin_lexicon, lst, prev_lst);
+		insert_lst(prev_lst, lst_new);
+	}
 }

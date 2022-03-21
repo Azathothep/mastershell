@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translation.c                                      :+:      :+:    :+:   */
+/*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 11:31:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/03/16 11:31:39 by marvin           ###   ########.fr       */
+/*   Created: 2022/03/21 15:21:28 by marvin            #+#    #+#             */
+/*   Updated: 2022/03/21 15:21:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parsing.h"
+#include "../incs/mini.h"
 #include "../incs/lib.h"
 
-char	*replace_env(char const *s, int exit_status)
+void	remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 {
-	char	*env;
-
-	if (s[1] == '?')
-		env = ft_itoa(exit_status);
+	if (!lst)
+		return ;
+	if (prev_lst)
+		prev_lst->next = lst->next;
 	else
-	{
-		env = ft_strdup(getenv(&s[1]));
-		if (!env)
-			env = ft_strdup("");
-	}
-	if (!env)
-		return (NULL);
-	return (env);
+		*begin_lst = lst->next;
+	ft_lstdelone(lst, &lst_del);
 }
 
-char	*pull_quotes(char *s)
+void	insert_lst(t_list *lst, t_list *lst_new)
 {
-	int		len;
+	t_list	*next_lst;
 
-	len = ft_strlen(s);
-	ft_memmove(s, s + 1, len);
-	if (len > 1)
-		s[len - 2] = '\0';
-	return (s);
+	next_lst = lst->next;
+	lst->next = lst_new;
+	lst_new->next = next_lst;
 }

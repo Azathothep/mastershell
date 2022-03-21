@@ -60,10 +60,10 @@ INCLUDES = libft.h
 all: ${NAME}
 
 %.o : %.c libft.h
-	${CC} ${FLAGS} -c $< -o $@ -I.
+		${CC} ${FLAGS} -c $< -o $@ -I.
 
-${NAME}:	${OBJS} ${INCLUDES}
-		ar rcs ${NAME} ${OBJS}
+${NAME}:	${OBJS} ${OBJS_BONUS} ${INCLUDES}
+		ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
 
 bonus:		${OBJS} ${OBJS_BONUS} ${INCLUDES}
 		ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}

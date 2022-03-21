@@ -2,12 +2,14 @@ SRCS_DIR = srcs/
 
 SRCS=	minishell.c \
 		lexer.c \
-		chevrons.c \
+		heredoc.c \
 		parser.c \
 		commands.c \
 		tokenize.c \
 		interpreter.c \
 		translation.c \
+		chevrons.c \
+		lst.c \
 		cuts.c \
 		chunks.c \
 		utils.c \
@@ -43,7 +45,7 @@ ${NAME}:	Makefile ${OBJS}
 			${CC} ${FLAGS} ${OBJS} ${LEAKS} -lreadline ${LIBFT_PATH}/libft.a -o ${NAME}
 
 makelib:
-		${MAKE} -C ${LIBFT_PATH}/ bonus
+			${MAKE} -C ${LIBFT_PATH}/ all
 
 clean:
 			${MAKE} -C ${LIBFT_PATH}/ fclean

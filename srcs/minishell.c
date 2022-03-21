@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 12:45:33 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:22:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static t_mini	init_mini(char **envp)
 	mini.pipex = NULL;
 	mini.envp = envp;
 	mini.exit_status = 0;
+	mini.error = 0;
 	return (mini);
 }
 
@@ -65,8 +66,6 @@ static void	launch_shell(char **envp)
 	while (1)
 	{
 		buffer = readline("-> mastershell #> ");
-		if (!buffer)
-			return ; //free all
 		if (!isempty(buffer))
 		{
 			add_history(buffer);
@@ -76,8 +75,10 @@ static void	launch_shell(char **envp)
 				return ;
 			mini = parser(&begin_lexicon, mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
-			display(mini.commands); //line to delete
+			if (!mini.error)
+				display(mini.commands); //line to delete
 			free_cmd(mini.commands);
+			mini.error = 0;
 		}
 	}
 }

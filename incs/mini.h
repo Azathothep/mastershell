@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/17 11:51:12 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:14:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ typedef struct s_mini
 	char	**envp; /* L'environnement au format char ** pour que je le convertisse depuis la liste et que je le donne a execve */
 
 	int	exit_status;
+	int	error;
 }	t_mini;
 #endif

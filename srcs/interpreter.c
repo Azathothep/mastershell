@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 12:01:15 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:24:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,61 @@
 #include "../incs/parsing.h"
 #include "../incs/lib.h"
 
-int	isenv(char c)
+static void	replace_content(t_list *lst, char *token)
 {
-	if (ft_isalnum(c) || c == '?')
-		return (1);
-	return (0);
+	free(lst->content);
+	lst->content = token;
 }
 
-static char	*add_translate(char *translation, char *cut_str, int exit_status)
+char	*tl_only_env(char *s, int exit_status)
+{
+	if (s[0] == '$' && s[1])
+		return (replace_env(s, exit_status));
+	else
+		return (s);
+}
+
+char	*translate(char const *token, char *(*f)(char *, int), int exit_status)
+{
+	t_list	*begin_cutlst;
+	t_list	*lst;
+	char	*translation;
+	char	*word;
+
+	begin_cutlst = cut_list(token, &chunk_wquotes);
+	if (!begin_cutlst)
+		return (NULL);
+	lst = begin_cutlst;
+	while (lst)
+	{
+		word = (f)(get_token(lst), exit_status);
+		if (!word)
+		{
+			ft_lstclear(&begin_cutlst, &lst_del);
+			return (NULL);
+		}
+		if (word != get_token(lst))
+			free(lst->content);
+		lst->content = (void *)word;
+		lst = lst->next;
+	}
+	translation = lst_joinstr(&begin_cutlst);
+	ft_lstclear(&begin_cutlst, &lst_del);
+	return (translation);
+}
+
+static char	*tl_all(char *token, int exit_status)
 {
 	int	len;
 
-	len = ft_strlen(cut_str);
-	if (cut_str[0] == '\'' && cut_str[len - 1] == '\'')
-		translation = append(translation, pull_quotes(cut_str));
-	else if (cut_str[0] == '\"' && cut_str[len - 1] == '\"')
-		translation = append(translation, double_quotes(pull_quotes(cut_str), exit_status));
-	else if (cut_str[0] == '$' && isenv(cut_str[1]))
-		translation = append(translation, replace_env(cut_str, exit_status));
-	else
-		translation = append(translation, ft_strdup(cut_str));
-	if (!translation)
-		return (NULL);
-	return (translation);
-}
-
-static char	*interpret_token(char const *token, int exit_status)
-{
-	int		i;
-	char	**cut_tab;
-	char	*translation;
-
-	i = -1;
-	cut_tab = cut(token, "w_quotes");
-	translation = NULL;
-	if (!cut_tab)
-		return (NULL);
-	while (cut_tab[++i])
-		translation = add_translate(translation, cut_tab[i], exit_status);
-	free_tabtwo(cut_tab);
-	return (translation);
+	len = ft_strlen(token);
+	if (token[0] == '\'' && token[len - 1] == '\'')
+		return (pull_quotes(token));
+	else if (token[0] == '\"' && token[len - 1] == '\"')
+		return (translate(pull_quotes(token), &tl_only_env, exit_status));
+	else if (token[0] == '$' && isenv(token[1]))
+		return (replace_env(token, exit_status));
+	return (token);
 }
 
 void	interpreter(t_list **begin_lst, int exit_status)
@@ -67,14 +82,21 @@ void	interpreter(t_list **begin_lst, int exit_status)
 	lst = *begin_lst;
 	while (lst)
 	{
-		token = interpret_token(get_token(lst), exit_status);
-		if (!token)
+		token = get_token(lst);
+		if (!ft_strncmp(token, "<<", 2))
+			lst = lst->next;
+		else
 		{
-			ft_lstclear(begin_lst, &lst_del);
-			return ;
+			token = translate(token, &tl_all, exit_status);
+			if (!token)
+			{
+				ft_lstclear(begin_lst, &lst_del);
+				return ;
+			}
+			if (token != lst->content)
+				replace_content(lst, token);
 		}
-		free(lst->content);
-		lst->content = (void *)token;
-		lst = lst->next;
+		if (lst)
+			lst = lst->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/18 11:49:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:58:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,54 +28,26 @@ static char	*allocstr(char const *s, int len)
 	return (str);
 }
 
-static int	get_chunk(char const *s, char const *mode)
+t_list	*cut_list(char const *s, int (*f)(char const *))
 {
-	if (!ft_strncmp(mode, "w_quotes", 8))
-		return (chunk_wquotes(s));
-	else if (!ft_strncmp(mode, "n_quotes", 8))
-		return (chunk_nquotes(s));
-	return (-1);
-}
-
-static int	cutsize(char const *s, char const *mode)
-{
-	int	i;
-	int	size;
+	t_list	*begin_lst;
+	t_list	*lst;
+	char	*token;
+	int		i;
 
 	i = 0;
-	size = 0;
+	begin_lst = NULL;
 	while (s[i])
 	{
-		size++;
-		i += get_chunk(&s[i], mode);
+		token = allocstr(s + i, (f)(s + i));
+		lst = ft_lstnew((void *)token);
+		if (!token || !lst)
+		{
+			ft_lstclear(&begin_lst, &lst_del);
+			return (NULL);
+		}
+		ft_lstadd_back(&begin_lst, lst);
+		i += (f)(s + i);
 	}
-	return (size);
-}
-
-char	**cut(char const *s, char const *mode)
-{
-	char	**tab;
-	int		i;
-	int		len;
-	int		size;
-	int		tab_index;
-
-	if (!s)
-		return (NULL);
-	size = cutsize(s, mode);
-	tab = malloc (sizeof (*tab) * (size + 1));
-	if (!tab)
-		return (NULL);
-	i = 0;
-	tab_index = -1;
-	while (++tab_index < size)
-	{
-		len = get_chunk(s + i, mode);
-		tab[tab_index] = allocstr(s + i, len);
-		if (!tab[tab_index])
-			return (free_tabtwo(tab));
-		i += len;
-	}
-	tab[tab_index] = NULL;
-	return (tab);
+	return (begin_lst);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 12:01:47 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:58:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	size_str(char const *s)
 	return (i);
 }
 
-static char *alloc_token(char const *s)
+static char	*alloc_token(char const *s)
 {
 	int		i;
 	int		len;
