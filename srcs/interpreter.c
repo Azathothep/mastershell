@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/18 11:15:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 12:01:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,22 @@ static char	*interpret_token(char const *token, int exit_status)
 	return (translation);
 }
 
-t_list	*interpreter(char **lexicon, int exit_status)
+void	interpreter(t_list **begin_lst, int exit_status)
 {
-	char	*token;
-	t_list	*begin_lst;
 	t_list	*lst;
-	int		i;
+	char	*token;
 
-	i = -1;
-	begin_lst = NULL;
-	while (lexicon[++i])
+	lst = *begin_lst;
+	while (lst)
 	{
-		token = interpret_token(lexicon[i], exit_status);
-		lst = ft_lstnew((void *)token);
-		if (!token || !lst)
+		token = interpret_token(get_token(lst), exit_status);
+		if (!token)
 		{
-			ft_lstclear(&begin_lst, &lst_del);
-			return (NULL);
+			ft_lstclear(begin_lst, &lst_del);
+			return ;
 		}
-		ft_lstadd_back(&begin_lst, lst);
+		free(lst->content);
+		lst->content = (void *)token;
+		lst = lst->next;
 	}
-	return (begin_lst);
 }

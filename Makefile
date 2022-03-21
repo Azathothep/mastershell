@@ -11,6 +11,7 @@ SRCS=	minishell.c \
 		cuts.c \
 		chunks.c \
 		utils.c \
+		free.c \
 
 OBJ_DIR = objs/
 

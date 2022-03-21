@@ -6,18 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 13:11:04 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:34:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
-
-static char	*get_token(t_list *lst)
-{
-	return ((char *)lst->content);
-}
 
 static void	remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 {

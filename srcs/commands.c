@@ -14,11 +14,6 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
-static char	*get_token(t_list *lst)
-{
-	return ((char *)lst->content);
-}
-
 static int	get_linesize(t_list *lst)
 {
 	int	i;
