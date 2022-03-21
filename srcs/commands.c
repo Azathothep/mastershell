@@ -36,7 +36,7 @@ int	get_cmdnb(t_list *lst)
 		cmd_nb = 1;
 	while (lst)
 	{
-		if (!ft_strncmp(get_token(lst), "|\0", 2))
+		if (!ft_strncmp(get_token(lst), "|\0", 2) && lst->next)
 			cmd_nb++;
 		lst = lst->next;
 	}

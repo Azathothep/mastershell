@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/21 21:27:45 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 21:59:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_mini
 
 	int		nbc; /* nombre de commande */
 
-	t_pipex	*pipex; /* structure pipex */ 
+	t_pipex	*pipex; /* structure pipex */
 	//Quelque chose pour les signaux ? Uniquement pour le Ctrl + C les autres n'envoient pas de signaux mais je n'y connais rien
 	char	**envp; /* L'environnement au format char ** pour que je le convertisse depuis la liste et que je le donne a execve */
 
