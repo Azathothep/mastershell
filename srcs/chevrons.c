@@ -21,8 +21,6 @@ static char	*get_heredoc(t_list *lst)
 
 	token = get_token(lst);
 	del = get_token(lst->next);
-	if (token[2])
-		del = &token[2];
 	if (del && del[0] == '\"' && del[ft_strlen(del) - 1] == '\"')
 	{
 		del = pull_quotes(del);
@@ -40,7 +38,16 @@ static char	*get_heredoc(t_list *lst)
 	return (token);
 }
 
-void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst)
+static void	add_chevron(char const *sign, char *file, t_mini *mini)
+{
+	sign += 0;
+	file += 0;
+	mini += 0;
+	return ;
+}
+
+void	process_chevrons(t_list **begin_lexicon, t_list *lst,
+						t_list *prev_lst, t_mini *mini)
 {
 	char	*token;
 	t_list	*lst_new;
@@ -55,8 +62,13 @@ void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst)
 			ft_lstclear(begin_lexicon, &lst_del);
 			return ;
 		}
-		remove_lst(begin_lexicon, lst->next, lst);
-		remove_lst(begin_lexicon, lst, prev_lst);
-		insert_lst(prev_lst, lst_new);
+		insert_lst(begin_lexicon, lst_new, prev_lst);
+		prev_lst = lst_new;
 	}
+	else
+	{
+		add_chevron(get_token(lst), get_token(lst->next), mini);
+	}
+	remove_lst(begin_lexicon, lst->next, lst);
+	remove_lst(begin_lexicon, lst, prev_lst);
 }

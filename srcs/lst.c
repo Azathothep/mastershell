@@ -25,11 +25,18 @@ void	remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 	ft_lstdelone(lst, &lst_del);
 }
 
-void	insert_lst(t_list *lst, t_list *lst_new)
+void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 {
-	t_list	*next_lst;
-
-	next_lst = lst->next;
-	lst->next = lst_new;
-	lst_new->next = next_lst;
+	if (!lst)
+		return ;
+	if (prev_lst)
+	{
+		lst->next = prev_lst->next;
+		prev_lst->next = lst;
+	}
+	else
+	{
+		lst->next = (*begin_lst)->next;
+		*begin_lst = lst;
+	}
 }

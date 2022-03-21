@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 15:49:31 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/21 21:39:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_list	*cut_list(char const *s, int (*f)(char const *));
 char	*tl_only_env(char *s, int exit_status);
 char	*append(char *str, char *add);
 void	remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst);
-void	insert_lst(t_list *lst, t_list *lst_new);
-void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst);
+void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst);
+void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst, t_mini *mini);
 
 #endif
