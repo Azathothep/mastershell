@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 13:07:07 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/18 11:17:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*interpreter(char **lexicon, int exit_status);
 int		isenv(char c);
 char	*replace_env(char const *s, int exit_status);
 char	*pull_quotes(char const *s);
-char	*double_quotes(char const *s, int exit_status);
+char	*double_quotes(char *s, int exit_status);
 void	lst_del(void *content);
 int		chunk_wquotes(char const *s);
 int		chunk_nquotes(char const *s);

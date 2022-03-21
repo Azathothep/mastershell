@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:43:11 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/17 12:12:33 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/18 11:15:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*add_translate(char *translation, char *cut_str, int exit_status)
 	if (cut_str[0] == '\'' && cut_str[len - 1] == '\'')
 		translation = append(translation, pull_quotes(cut_str));
 	else if (cut_str[0] == '\"' && cut_str[len - 1] == '\"')
-		translation = append(translation, double_quotes(cut_str, exit_status));
+		translation = append(translation, double_quotes(pull_quotes(cut_str), exit_status));
 	else if (cut_str[0] == '$' && isenv(cut_str[1]))
 		translation = append(translation, replace_env(cut_str, exit_status));
 	else

@@ -35,6 +35,7 @@ char	*pull_quotes(char const *s)
 	int		len;
 	char	*ret;
 
+
 	len = ft_strlen(s);
 	ret = malloc (sizeof(char) * (len - 1));
 	if (ret)
@@ -44,19 +45,17 @@ char	*pull_quotes(char const *s)
 	return (ret);
 }
 
-char	*double_quotes(char const *s, int exit_status)
+char	*double_quotes(char *s, int exit_status)
 {
 	int		i;
-	char	*no_quotes;
 	char	*ret;
 	char	**cut_tab;
 
 	i = -1;
-	no_quotes = pull_quotes(s);
-	if (!no_quotes)
+	if (!s)
 		return (NULL);
-	cut_tab = cut(no_quotes, "n_quotes");
-	free (no_quotes);
+	cut_tab = cut(s, "n_quotes");
+	free (s);
 	ret = NULL;
 	if (!cut_tab)
 		return (NULL);
