@@ -14,19 +14,28 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
+static int	del_format_ok(char c)
+{
+	if (!ft_isalpha(c) && c != '$')
+		return (0);
+	return (1);
+}
+
 static char	*get_heredoc(t_list *lst)
 {
 	char	*token;
 	char	*del;
+	int		len;
 
 	token = get_token(lst);
 	del = get_token(lst->next);
-	if (del && del[0] == '\"' && del[ft_strlen(del) - 1] == '\"')
+	len = ft_strlen(del);
+	if (del && del[0] == '\"' && del[len - 1] == '\"')
 	{
 		del = pull_quotes(del);
 		token = add_input(del, "quoted");
 	}
-	else if (!del || !ft_isalpha(del[0]))
+	else if (!del || !del_format_ok(del[0]))
 	{
 		if (!del || del[0] == '\0')
 			del = "\\n";

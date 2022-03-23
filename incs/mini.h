@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/21 21:59:02 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/23 16:47:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_inout
 	char	*name; /* Un tableau de char avec toutes les redirections d'affiles qu'il y a */
 	int		pos;
 	int		type;
-	char	**files;
+	t_list	**files;
 }	t_inout;
 
 typedef struct s_file
@@ -52,6 +52,11 @@ typedef struct s_mini
 
 	t_file	*errfile;	/* idem mais sortie d'erreur */
 
+	t_list	**heredocs; //tableau de listes chaînées contenant les heredocs
+						//heredocs[0] renvois la première liste des heredocs de la première commande
+						//heredocs[0]->next renvois le 2e heredoc de la première commande etc...
+						//(pour récupérer le char * de la liste, utiliser get_token(heredocs[i]));
+
 	char	**cmdenv; /* table qui comporte toutes les nouvelles definitions de variables d'environnements a mettre en place (quand l'utilisateur tape mavariable="lol")
 						Ne pas mettre a l'interieur les commandes export unset et env, elles sont a mettre dans commands*/
 
@@ -65,6 +70,6 @@ typedef struct s_mini
 	char	**envp; /* L'environnement au format char ** pour que je le convertisse depuis la liste et que je le donne a execve */
 
 	int	exit_status;
-	int	error;
+	int	parse_error;
 }	t_mini;
 #endif

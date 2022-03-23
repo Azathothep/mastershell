@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 22:03:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:59:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_mini	process_datas(t_list **begin_lexicon, t_mini mini)
 			process_chevrons(begin_lexicon, lst, prev_lst, &mini);
 		if (!*begin_lexicon)
 		{
-			mini.error = 1;
+			mini.parse_error = 1;
 			return (mini);
 		}
 		prev_lst = lst;
@@ -63,14 +63,13 @@ static char	***get_commands(t_list *lst, t_mini *mini)
 	}
 	commands[i] = NULL;
 	mini->nbc = cmd_nb;
-	printf("cmdnb = %d\n", cmd_nb);
 	return (commands);
 }
 
 t_mini	parser(t_list **begin_lexicon, t_mini mini)
 {
 	mini = process_datas(begin_lexicon, mini);
-	if (mini.error)
+	if (mini.parse_error)
 		return (mini);
 	mini.commands = get_commands(*begin_lexicon, &mini);
 	return (mini);

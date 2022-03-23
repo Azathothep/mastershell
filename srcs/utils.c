@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 16:09:11 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:56:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@ int	isenv(char c)
 	if (ft_isalnum(c) || c == '?')
 		return (1);
 	return (0);
-}
-
-char	*append(char *str, char *add)
-{
-	char	*to_free;
-
-	to_free = str;
-	str = ft_strjoin(str, add);
-	free (to_free);
-	if (!str)
-		return (NULL);
-	return (str);
 }
 
 char	*get_token(t_list *lst)

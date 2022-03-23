@@ -21,7 +21,7 @@ char	*replace_env(char const *s, int exit_status)
 		env = ft_itoa(exit_status);
 	else
 	{
-		env = ft_strdup(getenv(&s[1]));
+		env = getenv(&s[1]);
 		if (!env)
 			env = ft_strdup("");
 	}
