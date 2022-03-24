@@ -22,6 +22,8 @@ static void	add_nl(t_list **begin_lst)
 	char	*nline;
 
 	lst = *begin_lst;
+	if (!lst)
+		return ;
 	while (lst->next)
 	{
 		nline = ft_strjoin(get_token(lst), "\n");
@@ -84,7 +86,6 @@ char	*add_input(char *del, char *mode)
 			break ;
 		}
 		process_input(input, &begin_lst, mode);
-		free (input);
 		if (!begin_lst)
 			return (NULL);
 	}

@@ -4,9 +4,7 @@ SRCS=	minishell.c \
 		lexer.c \
 		heredoc.c \
 		parser.c \
-		commands.c \
 		tokenize.c \
-		interpreter.c \
 		translation.c \
 		chevrons.c \
 		lst.c \

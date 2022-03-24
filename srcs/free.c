@@ -14,12 +14,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-t_list **free_heredocs(t_list **heredocs)
+void	free_mini(t_mini *mini)
+{
+	free_cmd(mini->commands);
+	free_heredocs(mini->heredocs);
+	free(mini->infile);
+	free(mini->outfile);
+	return ;
+}
+
+t_list	**free_heredocs(t_list **heredocs)
 {
 	int	i;
 
 	i = -1;
-	while( heredocs[++i])
+	while (heredocs[++i])
 	{
 		ft_lstclear(&heredocs[i], &lst_del);
 	}

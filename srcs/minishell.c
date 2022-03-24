@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 13:13:53 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/24 16:47:41 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,44 @@ static int	isempty(char *line)
 	return (!ft_strncmp(line, "", 1));
 }
 
-static void	display(char ***commands)
+static void	display(t_mini *mini)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_list	*lst;
+	char	***commands;
 
+	commands = mini->commands;
 	i = -1;
 	while (commands[++i])
 	{
 		j = -1;
 		while (commands[i][++j])
-			printf("%s$\n", commands[i][j]);
+			printf("%s ", commands[i][j]);
+		printf("|| heredocs : ");
+		lst = mini->heredocs[i];
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("|| infiles : ");
+		lst = mini->infile[i].files;
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("|| outfiles : ");
+		lst = mini->outfile[i].files;
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 static t_mini	init_mini(char **envp)
@@ -53,6 +78,9 @@ static t_mini	init_mini(char **envp)
 	mini.envp = envp;
 	mini.exit_status = 0;
 	mini.parse_error = 0;
+	mini.infile = NULL;
+	mini.outfile = NULL;
+	mini.heredocs = NULL;
 	return (mini);
 }
 
@@ -73,11 +101,10 @@ static void	launch_shell(char **envp)
 			free(buffer);
 			if (!begin_lexicon)
 				return ;
-			mini = parser(&begin_lexicon, mini);
+			parser(&begin_lexicon, &mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
 			if (!mini.parse_error)
-				display(mini.commands); //line to delete
-			printf("heredoc: %s\n", get_token(mini.heredocs[0]));
+				display(&mini); //line to delete
 			free_cmd(mini.commands);
 			mini.parse_error = 0;
 		}
@@ -86,8 +113,12 @@ static void	launch_shell(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	argc += 0;
 	argv += 0;
+	if (argc > 1)
+	{
+		printf("no arguments required\n");
+		return (0);
+	}
 	launch_shell(envp);
 	return (0);
 }

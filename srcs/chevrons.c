@@ -14,28 +14,9 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
-t_list	**init_heredocs(int cmd_nb)
+static int	format_ok(char const *filename)
 {
-	int	i;
-	t_list	**heredocs;
-
-	i = -1;
-	heredocs = malloc(sizeof(t_list *) * (cmd_nb + 1));
-	if (!heredocs)
-		return (NULL);
-	while (++i < cmd_nb)
-	{
-		heredocs[i] = ft_lstnew(NULL);
-		if (!heredocs[i])
-			return (free_heredocs(heredocs));
-	}
-	heredocs[i] = NULL;
-	return (heredocs);
-}
-
-static int	del_format_ok(char c)
-{
-	if (!ft_isalpha(c) && c != '$')
+	if (!ft_isalpha(filename[0]) && filename[0] != '$')
 		return (0);
 	return (1);
 }
@@ -54,7 +35,7 @@ static char	*get_heredoc(t_list *lst)
 		del = pull_quotes(del);
 		token = add_input(del, "quoted");
 	}
-	else if (!del || !del_format_ok(del[0]))
+	else if (!del || !format_ok(del))
 	{
 		if (!del || del[0] == '\0')
 			del = "\\n";
@@ -66,16 +47,35 @@ static char	*get_heredoc(t_list *lst)
 	return (token);
 }
 
-static void	add_chevron(char const *sign, char *file, t_mini *mini)
+static int	add_chevron(char const *sign, char *token, t_mini *mini, int index)
 {
-	sign += 0;
-	file += 0;
-	mini += 0;
-	return ;
+	t_list	*lst_new;
+
+	if (!format_ok(token))
+	{
+		printf("mastershell: parsing error near %s\n", sign);
+		return (0);
+	}
+	if (!token)
+		return (0);
+	lst_new = ft_lstnew(ft_strdup(token));
+	if (!lst_new || !(lst_new->content))
+	{
+		ft_lstdelone(lst_new, &lst_del);
+		return (0);
+	}
+	if (sign[0] == '<')
+		ft_lstadd_back(&(mini->infile[index].files), lst_new);
+	else if (sign[0] == '>')
+	{
+		if (sign[1] == '>')
+			mini->outfile[index].type = 0;
+		ft_lstadd_back(&(mini->outfile[index].files), lst_new);
+	}
+	return (1);
 }
 
-static int	treat_chevron(t_list **begin_lexicon, t_list *lst,
-							t_mini *mini, int index)
+static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 {
 	char	*token;
 	t_list	*lst_new;
@@ -99,9 +99,8 @@ static int	treat_chevron(t_list **begin_lexicon, t_list *lst,
 		}
 	}
 	else
-	{
-		add_chevron(get_token(lst), get_token(lst->next), mini);
-	}
+		if (!add_chevron(get_token(lst), get_token(lst->next), mini, index))
+			return (0);
 	return (1);
 }
 
@@ -109,7 +108,6 @@ void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 {
 	t_list	*lst;
 	t_list	*prev_lst;
-	char	*token;
 	int		index;
 
 	index = 0;
@@ -117,18 +115,17 @@ void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 	prev_lst = NULL;
 	while (lst)
 	{
-		token = get_token(lst);
-		if (!ft_strncmp(token, "|\0", 2))
+		if (!ft_strncmp(get_token(lst), "|\0", 2))
 			index++;
-		else if (ft_inbase(token[0], "<>"))
+		else if (ft_inbase(get_token(lst)[0], "<>"))
 		{
-			if (!treat_chevron(begin_lexicon, lst, mini, index))
+			if (!treat_chevron(lst, mini, index))
 			{
 				ft_lstclear(begin_lexicon, &lst_del);
 				return ;
 			}
-			remove_lst(begin_lexicon, lst->next, lst);
-			remove_lst(begin_lexicon, lst, prev_lst);
+			lst = remove_lst(begin_lexicon, lst->next, lst);
+			lst = remove_lst(begin_lexicon, lst, prev_lst);
 		}
 		prev_lst = lst;
 		lst = lst->next;

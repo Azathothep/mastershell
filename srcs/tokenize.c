@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 17:25:58 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/24 16:17:38 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	size_str(char const *s)
 	int	i;
 
 	i = 0;
+	if (s[0] == '|')
+		return (1);
 	if (s[0] == '<' || s[0] == '>')
 	{
 		i++;
@@ -38,7 +40,7 @@ static int	size_str(char const *s)
 			i++;
 		return (i);
 	}
-	while (s[i] && !ft_inbase(s[i], " <>"))
+	while (s[i] && !ft_inbase(s[i], " <>|"))
 	{
 		if (s[i] == '\"' || s[i] == '\'')
 			i += get_other(&s[i], s[i]);
