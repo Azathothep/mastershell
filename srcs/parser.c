@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/22 10:59:30 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/24 12:35:41 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ static t_mini	process_datas(t_list **begin_lexicon, t_mini mini)
 		token = get_token(lst);
 		if (token[0] == '\0')
 			remove_lst(begin_lexicon, lst, prev_lst);
-		else if (ft_inbase(token[0], "<>"))
-			process_chevrons(begin_lexicon, lst, prev_lst, &mini);
-		if (!*begin_lexicon)
-		{
-			mini.parse_error = 1;
-			return (mini);
-		}
 		prev_lst = lst;
 		lst = lst->next;
 	}

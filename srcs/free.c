@@ -14,6 +14,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+t_list **free_heredocs(t_list **heredocs)
+{
+	int	i;
+
+	i = -1;
+	while( heredocs[++i])
+	{
+		ft_lstclear(&heredocs[i], &lst_del);
+	}
+	free(heredocs);
+	return (NULL);
+}
+
 char	**free_tabtwo(char **tab)
 {
 	int	index;

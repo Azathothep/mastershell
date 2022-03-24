@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/22 10:56:49 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/24 12:47:03 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../incs/lib.h"
 # include "../incs/mini.h"
 
-t_list	*lexer(char *buffer, int exit_status);
+t_list	*lexer(char *buffer, t_mini *mini);
 t_mini	parser(t_list **begin_lexicon, t_mini mini);
 int		get_cmdnb(t_list *lst);
 char	**get_cmdline(t_list *lst);
@@ -38,6 +38,8 @@ t_list	*cut_list(char const *s, int (*f)(char const *));
 char	*tl_only_env(char *s, int exit_status);
 void	remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst);
 void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst);
-void	process_chevrons(t_list **begin_lexicon, t_list *lst, t_list *prev_lst, t_mini *mini);
+void	process_chevrons(t_list **begin_lexicon, t_mini *mini);
+t_list	**free_heredocs(t_list **heredocs);
+t_list	**init_heredocs(int cmd_nb);
 
 #endif

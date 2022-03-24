@@ -14,6 +14,25 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
+t_list	**init_heredocs(int cmd_nb)
+{
+	int	i;
+	t_list	**heredocs;
+
+	i = -1;
+	heredocs = malloc(sizeof(t_list *) * (cmd_nb + 1));
+	if (!heredocs)
+		return (NULL);
+	while (++i < cmd_nb)
+	{
+		heredocs[i] = ft_lstnew(NULL);
+		if (!heredocs[i])
+			return (free_heredocs(heredocs));
+	}
+	heredocs[i] = NULL;
+	return (heredocs);
+}
+
 static int	del_format_ok(char c)
 {
 	if (!ft_isalpha(c) && c != '$')
@@ -55,8 +74,8 @@ static void	add_chevron(char const *sign, char *file, t_mini *mini)
 	return ;
 }
 
-void	process_chevrons(t_list **begin_lexicon, t_list *lst,
-						t_list *prev_lst, t_mini *mini)
+static int	treat_chevron(t_list **begin_lexicon, t_list *lst,
+							t_mini *mini, int index)
 {
 	char	*token;
 	t_list	*lst_new;
@@ -64,20 +83,54 @@ void	process_chevrons(t_list **begin_lexicon, t_list *lst,
 	if (!ft_strncmp(get_token(lst), "<<", 2))
 	{
 		token = get_heredoc(lst);
-		lst_new = ft_lstnew(token);
-		if (!token || !lst_new)
+		if (!token)
+			return (0);
+		if (mini->heredocs[index]->content == NULL)
+			mini->heredocs[index]->content = token;
+		else
 		{
-			ft_lstdelone(lst_new, &lst_del);
-			ft_lstclear(begin_lexicon, &lst_del);
-			return ;
+			lst_new = ft_lstnew(token);
+			if (!lst_new)
+			{
+				free (token);
+				return (0);
+			}
+			ft_lstadd_back(&(mini->heredocs[index]), lst_new);
 		}
-		insert_lst(begin_lexicon, lst_new, prev_lst);
-		prev_lst = lst_new;
 	}
 	else
 	{
 		add_chevron(get_token(lst), get_token(lst->next), mini);
 	}
-	remove_lst(begin_lexicon, lst->next, lst);
-	remove_lst(begin_lexicon, lst, prev_lst);
+	return (1);
+}
+
+void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
+{
+	t_list	*lst;
+	t_list	*prev_lst;
+	char	*token;
+	int		index;
+
+	index = 0;
+	lst = *begin_lexicon;
+	prev_lst = NULL;
+	while (lst)
+	{
+		token = get_token(lst);
+		if (!ft_strncmp(token, "|\0", 2))
+			index++;
+		else if (ft_inbase(token[0], "<>"))
+		{
+			if (!treat_chevron(begin_lexicon, lst, mini, index))
+			{
+				ft_lstclear(begin_lexicon, &lst_del);
+				return ;
+			}
+			remove_lst(begin_lexicon, lst->next, lst);
+			remove_lst(begin_lexicon, lst, prev_lst);
+		}
+		prev_lst = lst;
+		lst = lst->next;
+	}
 }

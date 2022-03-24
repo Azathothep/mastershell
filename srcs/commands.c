@@ -36,7 +36,7 @@ int	get_cmdnb(t_list *lst)
 		cmd_nb = 1;
 	while (lst)
 	{
-		if (!ft_strncmp(get_token(lst), "|\0", 2) && lst->next)
+		if (!ft_strncmp(get_token(lst), "|\0", 2))
 			cmd_nb++;
 		lst = lst->next;
 	}
@@ -51,6 +51,8 @@ char	**get_cmdline(t_list *lst)
 
 	i = -1;
 	cmd_size = get_linesize(lst);
+	if (cmd_size == 0)
+		printf("lol\n");
 	cmd_line = malloc(sizeof(char *) * (cmd_size + 1));
 	if (!cmd_line)
 		return (NULL);

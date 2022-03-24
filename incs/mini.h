@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/24 11:05:17 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 11:49:38 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ donnees necessaires en sortie de parsing */
 sorties*/
 typedef struct s_inout
 {
-	char	*name;
 	int		type;
-	char	**files;
+	t_list	*files;
 }	t_inout;
 
 /* Structure servant au stockage des fichiers d'erreurs*/
