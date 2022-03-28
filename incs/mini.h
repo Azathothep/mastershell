@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/24 11:49:38 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/25 10:55:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ typedef struct s_mini
 	char	**envp;
 	int		exit_status;
 	int		parse_error;
+	int		error;
 }	t_mini;
 #endif

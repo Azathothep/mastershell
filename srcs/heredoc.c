@@ -50,15 +50,13 @@ static char	*make_str(t_list *begin_lst)
 	return (str);
 }
 
-static void	process_input(char *input, t_list **begin_lst, char *mode)
+static void	process_input(char *input, t_list **begin_lst, int exit_status)
 {
 	t_list	*lst;
 	char	*translation;
 
-	if (!ft_strncmp(mode, "n_quoted", 8))
-		translation = translate(input, &tl_only_env, 0); //exit_status
-	else
-		translation = ft_strdup(input);
+	translation = translate(input, &chunk_nquotes,
+							&tl_only_env, exit_status); //exit_status
 	lst = ft_lstnew(translation);
 	if (!translation || !lst)
 	{
@@ -68,7 +66,7 @@ static void	process_input(char *input, t_list **begin_lst, char *mode)
 	ft_lstadd_back(begin_lst, lst);
 }
 
-char	*add_input(char *del, char *mode)
+char	*add_input(char *del, int exit_status)
 {
 	t_list	*begin_lst;
 	char	*str;
@@ -85,7 +83,7 @@ char	*add_input(char *del, char *mode)
 			free (input);
 			break ;
 		}
-		process_input(input, &begin_lst, mode);
+		process_input(input, &begin_lst, exit_status);
 		if (!begin_lst)
 			return (NULL);
 	}

@@ -20,6 +20,8 @@ void	free_mini(t_mini *mini)
 	free_heredocs(mini->heredocs);
 	free(mini->infile);
 	free(mini->outfile);
+	mini->parse_error = 0;
+	mini->error = 0;
 	return ;
 }
 

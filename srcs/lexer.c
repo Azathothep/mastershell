@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 16:46:18 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:42:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 	{
 		mini->infile[i].type = 0;
 		mini->infile[i].files = NULL;
-	}
-	i = -1;
-	while (++i < mini->nbc)
-	{
 		mini->outfile[i].type = 0;
 		mini->outfile[i].files = NULL;
 	}
@@ -91,7 +87,10 @@ t_list	*lexer(char *buffer, t_mini *mini)
 		return (NULL);
 	}
 	process_chevrons(&begin_lexicon, mini);
-	if (!begin_lexicon)
+	if (mini->error)
+	{
+		ft_lstclear(&begin_lexicon, &lst_del);
 		return (NULL);
+	}
 	return (begin_lexicon);
 }

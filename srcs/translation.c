@@ -59,20 +59,22 @@ char	*tl_all(char *token, int exit_status)
 	if (token[0] == '\'' && token[len - 1] == '\'')
 		return (pull_quotes(token));
 	else if (token[0] == '\"' && token[len - 1] == '\"')
-		return (translate(pull_quotes(token), &tl_only_env, exit_status));
+		return (translate(pull_quotes(token), &chunk_wquotes,
+				&tl_only_env, exit_status));
 	else if (token[0] == '$' && isenv(token[1]))
 		return (replace_env(token, exit_status));
 	return (token);
 }
 
-char	*translate(char const *token, char *(*f)(char *, int), int exit_status)
+char	*translate(char const *token, int (*chunk)(char const *),
+					char *(*f)(char *, int), int exit_status)
 {
 	t_list	*begin_cutlst;
 	t_list	*lst;
 	char	*translation;
 	char	*word;
 
-	begin_cutlst = cut_list(token, &chunk_wquotes);
+	begin_cutlst = cut_list(token, chunk);
 	if (!begin_cutlst)
 		return (NULL);
 	lst = begin_cutlst;

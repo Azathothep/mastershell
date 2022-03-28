@@ -2,3 +2,4 @@
 objs/
 minishell
 libft/libft.a
+.vscode

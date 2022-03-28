@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 16:47:41 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/25 11:57:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static t_mini	init_mini(char **envp)
 	mini.envp = envp;
 	mini.exit_status = 0;
 	mini.parse_error = 0;
+	mini.error = 0;
 	mini.infile = NULL;
 	mini.outfile = NULL;
 	mini.heredocs = NULL;
@@ -99,14 +100,16 @@ static void	launch_shell(char **envp)
 			add_history(buffer);
 			begin_lexicon = lexer(buffer, &mini);
 			free(buffer);
-			if (!begin_lexicon)
+			if (mini.error)
+			{
+				free_mini(&mini);
 				return ;
+			}
 			parser(&begin_lexicon, &mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
 			if (!mini.parse_error)
 				display(&mini); //line to delete
-			free_cmd(mini.commands);
-			mini.parse_error = 0;
+			free_mini(&mini);
 		}
 	}
 }

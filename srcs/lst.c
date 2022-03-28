@@ -13,8 +13,9 @@
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
+#include "../incs/parsing.h"
 
-void	pop_lst(t_list **begin_lst)
+void	pop_pile(t_list **begin_lst)
 {
 	t_list	*next;
 
@@ -25,24 +26,26 @@ void	pop_lst(t_list **begin_lst)
 	*begin_lst = next;
 }
 
-t_list	*remove_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
+void	remove_lst(t_list **begin_lst, t_list *to_del)
 {
-	t_list	*temp;
+	t_list	*prev_lst;
+	t_list	*lst;
 
-	if (!lst)
-		return (NULL);
+	prev_lst = NULL;
+	lst = *begin_lst;
+	if (!to_del)
+		return ;
+	while (lst != to_del)
+	{
+		prev_lst = lst;
+		lst = lst->next;
+	}
 	if (prev_lst)
-	{
 		prev_lst->next = lst->next;
-		temp = prev_lst;
-	}
 	else
-	{
 		*begin_lst = lst->next;
-		temp = *begin_lst;
-	}
-	ft_lstdelone(lst, &lst_del);
-	return (temp);
+	ft_lstdelone(to_del, &lst_del);
+	to_del = NULL;
 }
 
 void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)

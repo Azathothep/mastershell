@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 17:12:53 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:12:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@
 static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
 {
 	t_list	*lst;
-	t_list	*prev_lst;
 	char	*token;
 	int		size;
 
 	size = 0;
-	prev_lst = NULL;
 	lst = *begin_lexicon;
 	while (lst && ft_strncmp(get_token(lst), "|\0", 2))
 	{
 		size++;
-		token = translate(get_token(lst), &tl_all, exit_status);
+		token = translate(get_token(lst), &chunk_wquotes, &tl_all, exit_status);
 		if (!token)
 		{
 			ft_lstclear(begin_lexicon, &lst_del);
@@ -36,8 +34,7 @@ static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
 		if (token != lst->content)
 			replace_content(lst, token);
 		if (token[0] == '\0')
-			remove_lst(begin_lexicon, lst, prev_lst);
-		prev_lst = lst;
+			remove_lst(begin_lexicon, lst);
 		lst = lst->next;
 	}
 	return (size);
@@ -61,9 +58,9 @@ static char	**get_cmdline(t_list **begin_lexicon, int exit_status)
 		cmd_line[i] = ft_strdup(get_token(*begin_lexicon));
 		if (!cmd_line[i])
 			return (NULL);
-		pop_lst(begin_lexicon);
+		pop_pile(begin_lexicon);
 	}
-	pop_lst(begin_lexicon);
+	pop_pile(begin_lexicon);
 	cmd_line[i] = NULL;
 	return (cmd_line);
 }
