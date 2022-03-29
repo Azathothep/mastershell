@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cuts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/21 14:58:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/29 14:08:35 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static char	*allocstr(char const *s, int len)
 	i = -1;
 	str = malloc (sizeof (*str) * (len + 1));
 	if (!str)
+	{
+		errno = 1;
 		return (NULL);
+	}
 	while (++i < len)
 		str[i] = s[i];
 	str[i] = '\0';
@@ -36,6 +39,7 @@ t_list	*cut_list(char const *s, int (*f)(char const *))
 	int		i;
 
 	i = 0;
+	lst = NULL;
 	begin_lst = NULL;
 	while (s[i])
 	{
@@ -43,6 +47,9 @@ t_list	*cut_list(char const *s, int (*f)(char const *))
 		lst = ft_lstnew((void *)token);
 		if (!token || !lst)
 		{
+			errno = 1;
+			free(token);
+			ft_lstdelone(lst, &lst_del);
 			ft_lstclear(&begin_lst, &lst_del);
 			return (NULL);
 		}

@@ -6,13 +6,19 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 17:00:54 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:29:09 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parsing.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "../incs/lib.h"
+
+int	parse_error(const char *s)
+{
+	errno = 100;
+	printf("mastershell: syntax error near '%s'\n", s);
+	return (0);
+}
 
 int	isenv(char c)
 {
@@ -28,11 +34,10 @@ char	*get_token(t_list *lst)
 	return ((char *)lst->content);
 }
 
-char	*lst_joinstr(t_list **begin_lst)
+static int	joinlst_size(t_list **begin_lst)
 {
 	t_list	*lst;
 	int		size;
-	char	*str;
 
 	size = 0;
 	lst = *begin_lst;
@@ -41,10 +46,23 @@ char	*lst_joinstr(t_list **begin_lst)
 		size += ft_strlen(get_token(lst));
 		lst = lst->next;
 	}
+	return (size);
+}
+
+char	*lst_joinstr(t_list **begin_lst)
+{
+	t_list	*lst;
+	int		size;
+	char	*str;
+
+	lst = *begin_lst;
+	size = joinlst_size(begin_lst);
 	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
+	{
+		errno = 1;
 		return (NULL);
-	lst = *begin_lst;
+	}
 	size = 0;
 	while (lst)
 	{

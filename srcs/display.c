@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
+/*   Updated: 2022/03/29 11:18:23 by fbelthoi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../incs/lib.h"
+#include "../incs/parsing.h"
+#include "../incs/mini.h"
+
+void	display_parsing(t_mini *mini)
+{
+	int		i;
+	int		j;
+	t_list	*lst;
+	char	***commands;
+
+	commands = mini->commands;
+	i = -1;
+	while (commands[++i])
+	{
+		j = -1;
+		while (commands[i][++j])
+			printf("%s ", commands[i][j]);
+		printf("|| heredocs : ");
+		lst = mini->heredocs[i];
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("|| infiles : ");
+		lst = mini->infile[i].files;
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("|| outfiles : ");
+		lst = mini->outfile[i].files;
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("\n");
+	}
+	printf("\n");
+}

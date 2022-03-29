@@ -12,6 +12,7 @@ SRCS=	minishell.c \
 		chunks.c \
 		utils.c \
 		free.c \
+		display.c \
 
 OBJ_DIR = objs/
 
@@ -40,7 +41,7 @@ ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 all: makelib ${NAME}
 
 ${NAME}:	Makefile ${OBJS}
-			${CC} ${FLAGS} ${OBJS} ${LEAKS} -lreadline ${LIBFT_PATH}/libft.a -o ${NAME}
+			${CC} ${FLAGS} ${OBJS} -lreadline ${LIBFT_PATH}/libft.a -o ${NAME}
 
 makelib:
 			${MAKE} -C ${LIBFT_PATH}/ all

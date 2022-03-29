@@ -28,7 +28,10 @@ static char	*replace_env(char const *s, int exit_status)
 			env = ft_strdup(env);
 	}
 	if (!env)
+	{
+		errno = 1;
 		return (NULL);
+	}
 	return (env);
 }
 
@@ -45,6 +48,8 @@ char	*pull_quotes(char *s)
 
 char	*tl_only_env(char *s, int exit_status)
 {
+	if (!s)
+		return (NULL);
 	if (s[0] == '$' && s[1])
 		return (replace_env(s, exit_status));
 	else
@@ -55,6 +60,8 @@ char	*tl_all(char *token, int exit_status)
 {
 	int	len;
 
+	if (!token)
+		return (NULL);
 	len = ft_strlen(token);
 	if (token[0] == '\'' && token[len - 1] == '\'')
 		return (pull_quotes(token));

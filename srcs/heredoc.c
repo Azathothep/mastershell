@@ -29,6 +29,7 @@ static void	add_nl(t_list **begin_lst)
 		nline = ft_strjoin(get_token(lst), "\n");
 		if (!nline)
 		{
+			errno = 1;
 			ft_lstclear(begin_lst, &lst_del);
 			return ;
 		}
@@ -46,7 +47,6 @@ static char	*make_str(t_list *begin_lst)
 	if (!begin_lst)
 		return (NULL);
 	str = lst_joinstr(&begin_lst);
-	ft_lstclear(&begin_lst, &lst_del);
 	return (str);
 }
 
@@ -54,12 +54,22 @@ static void	process_input(char *input, t_list **begin_lst, int exit_status)
 {
 	t_list	*lst;
 	char	*translation;
+	//char	*token;
 
+	lst = NULL;
 	translation = translate(input, &chunk_nquotes,
 							&tl_only_env, exit_status); //exit_status
-	lst = ft_lstnew(translation);
-	if (!translation || !lst)
+	if (!translation)
 	{
+		errno = 1;
+		return ;
+	}
+	// if (translation == input)
+	lst = ft_lstnew(translation);
+	if (!lst)
+	{
+		errno = 1;
+		free(translation);
 		ft_lstclear(begin_lst, &lst_del);
 		return ;
 	}
@@ -84,9 +94,11 @@ char	*add_input(char *del, int exit_status)
 			break ;
 		}
 		process_input(input, &begin_lst, exit_status);
+		free (input);
 		if (!begin_lst)
 			return (NULL);
 	}
 	str = make_str(begin_lst);
+	ft_lstclear(&begin_lst, &lst_del);
 	return (str);
 }

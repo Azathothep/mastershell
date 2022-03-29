@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/24 16:17:38 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:40:37 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static char	*alloc_token(char const *s)
 	len = size_str(s);
 	str = malloc (sizeof (char) * (len + 1));
 	if (!str)
+	{
+		errno = 1;
 		return (NULL);
+	}
 	while (++i < len)
 		str[i] = s[i];
 	str[i] = '\0';
@@ -83,6 +86,9 @@ t_list	*tokenize(char const *s)
 		lst = ft_lstnew((void *)token);
 		if (!token || !lst)
 		{
+			errno = 1;
+			free(token);
+			ft_lstdelone(lst, &lst_del);
 			ft_lstclear(&begin_lst, &lst_del);
 			return (NULL);
 		}

@@ -32,7 +32,8 @@ static char	*get_heredoc(t_list *lst, int exit_status)
 	{
 		if (!del || del[0] == '\0')
 			del = "\\n";
-		printf("mastershell: parse error near '%s'\n", del);
+		errno = 100;
+		printf("mastershell: syntax error near '%s'\n", del);
 		return (NULL);
 	}
 	else
@@ -43,17 +44,17 @@ static char	*get_heredoc(t_list *lst, int exit_status)
 static int	add_chevron(char const *sign, char *token, t_mini *mini, int index)
 {
 	t_list	*lst_new;
+	char	*token_dup;
 
+	lst_new = NULL;
 	if (!format_ok(token))
+		return (parse_error(sign));
+	token_dup = ft_strdup(token);
+	lst_new = ft_lstnew(token_dup);
+	if (!token_dup || !lst_new)
 	{
-		printf("mastershell: parsing error near %s\n", sign);
-		return (0);
-	}
-	if (!token)
-		return (0);
-	lst_new = ft_lstnew(ft_strdup(token));
-	if (!lst_new || !(lst_new->content))
-	{
+		errno = 1;
+		free(token_dup);
 		ft_lstdelone(lst_new, &lst_del);
 		return (0);
 	}
@@ -85,8 +86,8 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 			lst_new = ft_lstnew(token);
 			if (!lst_new)
 			{
-				free (token);
-				return (0);
+				errno = 1;
+				return (ft_free(token));
 			}
 			ft_lstadd_back(&(mini->heredocs[index]), lst_new);
 		}
@@ -97,7 +98,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 	return (1);
 }
 
-void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
+int	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 {
 	t_list	*lst;
 	t_list	*temp;
@@ -112,10 +113,7 @@ void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 		if (ft_inbase(get_token(lst)[0], "<>"))
 		{
 			if (!treat_chevron(lst, mini, index))
-			{
-				mini->error = 1;
-				return ;
-			}
+				return (0);
 			temp = lst->next->next;
 			remove_lst(begin_lexicon, lst->next);
 			remove_lst(begin_lexicon, lst);
@@ -124,4 +122,5 @@ void	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 		else
 			lst = lst->next;
 	}
+	return (1);
 }
