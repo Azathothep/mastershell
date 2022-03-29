@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 15:23:58 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/29 15:26:09 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ static void	launch_shell(char **envp)
 			if (begin_lexicon)
 				if (parser(&begin_lexicon, &mini))
 					ft_start_pipe(&mini);
-			ft_lstclear(&begin_lexicon, &lst_del);
-			free_mini(&mini);
+			//ft_lstclear(&begin_lexicon, &lst_del);
+			//free_mini(&mini);
 		}
 	}
 }
