@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 13:45:35 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:38:21 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	lst_del(void *content);
 t_list	**free_heredocs(t_list **heredocs);
 void	free_mini(t_mini *mini);
 char	***free_cmd(char ***commands);
-char	**free_tabtwo(char **tab);
 int		ft_free(void *p);
 
 //to delete

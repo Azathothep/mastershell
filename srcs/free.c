@@ -53,22 +53,10 @@ t_list	**free_heredocs(t_list **heredocs)
 	if (!heredocs || !*heredocs)
 		return (NULL);
 	while (heredocs[++i])
-		ft_lstclear(&heredocs[i], &lst_del);
+	{
+		ft_lstclear(&(heredocs[i]), &lst_del);
+	}
 	free(heredocs);
-	return (NULL);
-}
-
-char	**free_tabtwo(char **tab)
-{
-	int	index;
-
-	index = -1;
-	if (!tab)
-		return (NULL);
-	while (tab[++index])
-		free(tab[index]);
-	free(tab);
-	tab = NULL;
 	return (NULL);
 }
 
