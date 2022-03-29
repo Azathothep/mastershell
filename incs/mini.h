@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 11:15:18 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:20:36 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_file
 /*Structure servant au stockage d'informations pour les pipes*/
 typedef struct s_pipex
 {
-	char	*cmd;
+	char	**cmd;
 	int		*tube;
 	int		infile;
 	int		outfile;

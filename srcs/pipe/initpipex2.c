@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:10:37 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 12:11:53 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/29 14:58:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	ft_inittube(t_mini *mini, t_pipex *pipex)
 		return (ft_seterrno(1));
 	if (mini->nbc == 1)
 	{
-		pipex->tube[0] = 0;
-		pipex->tube[1] = 1;
+		if (pipe(pipex->tube) == -1)
+			return (ft_seterrno(1));
 		return (0);
 	}
 	while (i <= mini->nbc)

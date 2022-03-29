@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 15:13:43 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:23:58 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
+#include "../incs/pipe.h"
 
 static int	errno_ok(void)
 {
@@ -68,10 +69,9 @@ static void	launch_shell(char **envp)
 			free (buffer);
 			if (begin_lexicon)
 				if (parser(&begin_lexicon, &mini))
-					display_parsing(&mini);
+					ft_start_pipe(&mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(&mini);
-			return ;
 		}
 	}
 }
