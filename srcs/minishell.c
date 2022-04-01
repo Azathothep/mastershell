@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 16:39:58 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:33:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ static void	launch_shell(char **envp)
 		{
 			add_history(buffer);
 			begin_lexicon = lexer(buffer, &mini);
-			free (buffer);
+			ft_free (buffer);
 			if (begin_lexicon)
 				if (parser(&begin_lexicon, &mini))
-					ft_start_pipe(&mini);
+					display_parsing(&mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(&mini);
 		}

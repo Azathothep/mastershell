@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 15:38:21 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:39:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*add_input(char *del, int exit_status);
 char	*tl_only_env(char *s, int exit_status);
 char	*tl_all(char *token, int exit_status);
 int		process_chevrons(t_list **begin_lexicon, t_mini *mini);
+int		format_ok(char const *filename);
+char	*get_heredoc(t_list *lst, int exit_status);
 int		parse_error(const char *s);
 
 //lst
@@ -49,5 +51,6 @@ int		ft_free(void *p);
 
 //to delete
 void	display_parsing(t_mini *mini);
+void	print_lst(t_list **begin_lst);
 
 #endif

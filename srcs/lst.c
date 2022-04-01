@@ -15,6 +15,11 @@
 #include "../incs/lib.h"
 #include "../incs/parsing.h"
 
+void	lst_del(void *content)
+{
+	ft_free((char *)content);
+}
+
 void	pop_pile(t_list **begin_lst)
 {
 	t_list	*next;
@@ -66,6 +71,6 @@ void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 
 void	replace_content(t_list *lst, char *token)
 {
-	free(lst->content);
+	ft_free(lst->content);
 	lst->content = token;
 }

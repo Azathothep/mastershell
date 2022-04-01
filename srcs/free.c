@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int		ft_free(void *p)
+int	ft_free(void *p)
 {
 	free (p);
 	p = NULL;
@@ -30,7 +30,7 @@ void	free_inout(t_inout *inout, int nbc)
 		return ;
 	while (++i < nbc)
 		ft_lstclear(&inout[i].files, &lst_del);
-	free(inout);
+	ft_free(inout);
 }
 
 void	free_mini(t_mini *mini)
@@ -43,6 +43,8 @@ void	free_mini(t_mini *mini)
 	mini->infile = NULL;
 	free_inout(mini->outfile, mini->nbc);
 	mini->outfile = NULL;
+	free_inout(mini->errfile, mini->nbc);
+	mini->errfile = NULL;
 }
 
 t_list	**free_heredocs(t_list **heredocs)
@@ -56,7 +58,7 @@ t_list	**free_heredocs(t_list **heredocs)
 	{
 		ft_lstclear(&(heredocs[i]), &lst_del);
 	}
-	free(heredocs);
+	ft_free(heredocs);
 	return (NULL);
 }
 
@@ -72,16 +74,11 @@ char	***free_cmd(char ***commands)
 		{
 			j = -1;
 			while (commands[i][++j])
-				free(commands[i][j]);
-			free(commands[i]);
+				ft_free(commands[i][j]);
+			ft_free(commands[i]);
 		}
-		free(commands);
+		ft_free(commands);
 		commands = NULL;
 	}
 	return (NULL);
-}
-
-void	lst_del(void *content)
-{
-	free((char *)content);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cuts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 14:08:35 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/01 13:54:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list	*cut_list(char const *s, int (*f)(char const *))
 		if (!token || !lst)
 		{
 			errno = 1;
-			free(token);
+			ft_free(token);
 			ft_lstdelone(lst, &lst_del);
 			ft_lstclear(&begin_lst, &lst_del);
 			return (NULL);

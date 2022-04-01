@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 11:18:23 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:33:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/lib.h"
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
+
+void	print_lst(t_list **begin_lst)
+{
+	t_list	*lst;
+
+	lst = *begin_lst;
+	while (lst)
+	{
+		printf("token = %s$\n", (char *)lst->content);
+		lst = lst->next;
+	}
+}
 
 void	display_parsing(t_mini *mini)
 {
@@ -44,6 +56,13 @@ void	display_parsing(t_mini *mini)
 		}
 		printf("|| outfiles : ");
 		lst = mini->outfile[i].files;
+		while (lst)
+		{
+			printf("%s ", get_token(lst));
+			lst = lst->next;
+		}
+		printf("|| errfiles : ");
+		lst = mini->errfile[i].files;
 		while (lst)
 		{
 			printf("%s ", get_token(lst));

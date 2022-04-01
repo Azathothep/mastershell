@@ -14,31 +14,23 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
-static int	format_ok(char const *filename)
+static void	add_chevron2(char const *sign, t_list *lst_new,
+			t_mini *mini, int index)
 {
-	if (!filename || (!ft_isalpha(filename[0]) && filename[0] != '$'))
-		return (0);
-	return (1);
-}
-
-static char	*get_heredoc(t_list *lst, int exit_status)
-{
-	char	*token;
-	char	*del;
-
-	token = get_token(lst);
-	del = get_token(lst->next);
-	if (!del || !format_ok(del))
+	if (sign[0] == '<')
+		ft_lstadd_back(&(mini->infile[index].files), lst_new);
+	else if (sign[0] == '>')
 	{
-		if (!del || del[0] == '\0')
-			del = "\\n";
-		errno = 100;
-		printf("mastershell: syntax error near '%s'\n", del);
-		return (NULL);
+		if (sign[1] == '>')
+			mini->outfile[index].type = 1;
+		ft_lstadd_back(&(mini->outfile[index].files), lst_new);
 	}
-	else
-		token = add_input(del, exit_status);
-	return (token);
+	else if (sign[0] == '2')
+	{
+		if (sign[2] == '>')
+			mini->errfile[index].type = 1;
+		ft_lstadd_back(&(mini->errfile[index].files), lst_new);
+	}
 }
 
 static int	add_chevron(char const *sign, char *token, t_mini *mini, int index)
@@ -54,18 +46,11 @@ static int	add_chevron(char const *sign, char *token, t_mini *mini, int index)
 	if (!token_dup || !lst_new)
 	{
 		errno = 1;
-		free(token_dup);
+		ft_free(token_dup);
 		ft_lstdelone(lst_new, &lst_del);
 		return (0);
 	}
-	if (sign[0] == '<')
-		ft_lstadd_back(&(mini->infile[index].files), lst_new);
-	else if (sign[0] == '>')
-	{
-		if (sign[1] == '>')
-			mini->outfile[index].type = 1;
-		ft_lstadd_back(&(mini->outfile[index].files), lst_new);
-	}
+	add_chevron2(sign, lst_new, mini, index);
 	return (1);
 }
 
@@ -110,7 +95,8 @@ int	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 	{
 		if (!ft_strncmp(get_token(lst), "|\0", 2))
 			index++;
-		if (ft_inbase(get_token(lst)[0], "<>"))
+		if (ft_inbase(get_token(lst)[0], "<>")
+		|| !ft_strncmp(get_token(lst), "2>", 2))
 		{
 			if (!treat_chevron(lst, mini, index))
 				return (0);

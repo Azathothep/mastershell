@@ -9,6 +9,7 @@ SRCS=	minishell.c \
 		tokenize.c \
 		translation.c \
 		chevrons.c \
+		chevrons2.c \
 		lst.c \
 		cuts.c \
 		chunks.c \
