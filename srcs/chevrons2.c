@@ -33,7 +33,7 @@ char	*get_heredoc(t_list *lst, int exit_status)
 		if (!del || del[0] == '\0')
 			del = "\\n";
 		errno = 100;
-		printf("mastershell: syntax error near '%s'\n", del);
+		printf("mastershell: syntax error near '%s' <-(TO VERIFY)\n", del);
 		return (NULL);
 	}
 	else
