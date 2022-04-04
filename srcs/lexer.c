@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 16:10:20 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/04 11:04:32 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	get_cmdnb(t_list *lst)
 			cmd_nb++;
 			if (!ft_strncmp(get_token(lst->next), "|\0", 2))
 			{
-				errno = 100;
-				printf("mastershell: syntax error near '|'\n");
+				parse_error("|");
 				return (-1);
 			}
 		}
@@ -70,8 +69,10 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 	mini->heredocs = init_heredocs(mini->nbc);
 	mini->infile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->outfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
+	mini->errfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->commands = malloc(sizeof(char **) * (mini->nbc + 1));
-	if (!mini->heredocs || !mini->infile || !mini->outfile || !mini->commands)
+	if (!mini->heredocs || !mini->infile || !mini->outfile
+		|| !mini->errfile || !mini->commands)
 	{
 		errno = 1;
 		return (0);
@@ -82,6 +83,8 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 		mini->infile[i].files = NULL;
 		mini->outfile[i].type = 0;
 		mini->outfile[i].files = NULL;
+		mini->errfile[i].type = 0;
+		mini->errfile[i].files = NULL;
 		mini->commands[i] = NULL;
 	}
 	return (1);
@@ -94,9 +97,18 @@ t_list	*lexer(char *buffer, t_mini *mini)
 	begin_lexicon = tokenize(buffer);
 	if (!begin_lexicon)
 		return (NULL);
+	if (!ft_strncmp(get_token(begin_lexicon), "|\0", 2))
+	{
+		parse_error("|");
+		ft_lstclear(&begin_lexicon, &lst_del);
+		return (NULL);
+	}
 	mini->nbc = get_cmdnb(begin_lexicon);
 	if (mini->nbc < 0)
+	{
+		ft_lstclear(&begin_lexicon, &lst_del);
 		return (NULL);
+	}
 	if (!init_chevrons_and_cmd(mini)
 		|| !process_chevrons(&begin_lexicon, mini))
 	{

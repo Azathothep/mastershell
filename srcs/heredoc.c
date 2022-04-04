@@ -33,7 +33,7 @@ static void	add_nl(t_list **begin_lst)
 			ft_lstclear(begin_lst, &lst_del);
 			return ;
 		}
-		free(lst->content);
+		ft_free(lst->content);
 		lst->content = nline;
 		lst = lst->next;
 	}
@@ -54,22 +54,20 @@ static void	process_input(char *input, t_list **begin_lst, int exit_status)
 {
 	t_list	*lst;
 	char	*translation;
-	//char	*token;
 
 	lst = NULL;
-	translation = translate(input, &chunk_nquotes,
-							&tl_only_env, exit_status); //exit_status
+	translation = translate(input, &chunk_nquotes, &tl_only_env,
+			exit_status);
 	if (!translation)
 	{
 		errno = 1;
 		return ;
 	}
-	// if (translation == input)
 	lst = ft_lstnew(translation);
 	if (!lst)
 	{
 		errno = 1;
-		free(translation);
+		ft_free(translation);
 		ft_lstclear(begin_lst, &lst_del);
 		return ;
 	}
@@ -90,11 +88,11 @@ char	*add_input(char *del, int exit_status)
 		input = readline("> ");
 		if (!ft_strncmp(input, del, len_del + 1))
 		{
-			free (input);
+			ft_free (input);
 			break ;
 		}
 		process_input(input, &begin_lst, exit_status);
-		free (input);
+		ft_free (input);
 		if (!begin_lst)
 			return (NULL);
 	}

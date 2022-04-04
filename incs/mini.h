@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 15:20:36 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 14:27:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_mini
 	char	***commands;
 	t_inout	*infile;
 	t_inout	*outfile;
-	t_file	*errfile;
+	t_inout	*errfile;
 	t_list	**heredocs; //tableau de listes chaînées contenant les heredocs
 						//heredocs[0] renvois la première liste des heredocs de la première commande
 						//heredocs[0]->next renvois le 2e heredoc de la première commande etc...

@@ -94,7 +94,7 @@ char	*translate(char const *token, int (*chunk)(char const *),
 			return (NULL);
 		}
 		if (word != get_token(lst))
-			free(lst->content);
+			ft_free(lst->content);
 		lst->content = (void *)word;
 		lst = lst->next;
 	}
