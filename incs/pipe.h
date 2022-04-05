@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 12:24:43 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 14:54:35 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,22 @@ int		ft_last_pipe2(t_mini *mini, int i, t_pipex *pipex);
 int		ft_first_pipe(t_mini *mini, t_pipex *pipex);
 int		ft_first_pipe2(t_mini *mini, t_pipex *pipex);
 
+/* pipehere.c */
+/* Fonctions d'executions pour la prise en compte des pipes */
+int		ft_nexthere(t_mini *mini, int i);
+int		ft_pipehere(t_mini *mini, int i, t_pipex *p);
+int		ft_child2h(t_mini *mini, int mode, int i, t_pipex *pipex);
+int		ft_childh(t_mini *mini, int mode, int i, t_pipex *pipex);
+
+/* pipehere2.c */
+int		ft_first_pipe2h(t_mini *mini, t_pipex *pipex);
+int		ft_first_pipeh(t_mini *mini, t_pipex *pipex);
+
 /* initpipex */
 int		ft_init_pipex(t_mini *mini, int i);
 char	*ft_path(char *cmd, t_list *envpl);
 char	**ft_initpath(int	*i, t_list *envpl);
+int		ft_puthere(t_mini *mini, t_pipex *p, int i);
 
 /* initpipex2.c */
 int		ft_inittube(t_mini *mini, t_pipex *pipex);
@@ -71,5 +83,14 @@ int		ft_openin(t_inout *lfiles, int j); /* Ouverture des fichiers d'entree */
 /* debug.c */
 
 void	ft_printlst(t_list *list);
+
+# define R	O_RDWR
+# define C	O_CREAT
+# define T	O_TRUNC
+# define I	S_IRUSR
+# define W	S_IWUSR
+# define G	S_IRGRP
+# define H	S_IROTH
+# define P	O_APPEND
 
 #endif

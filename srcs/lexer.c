@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/01 14:27:26 by marvin           ###   ########.fr       */
+/*   Updated: 2022/04/04 11:04:32 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	get_cmdnb(t_list *lst)
 			cmd_nb++;
 			if (!ft_strncmp(get_token(lst->next), "|\0", 2))
 			{
-				errno = 100;
-				printf("mastershell: syntax error near '|'\n");
+				parse_error("|");
 				return (-1);
 			}
 		}
@@ -106,7 +105,10 @@ t_list	*lexer(char *buffer, t_mini *mini)
 	}
 	mini->nbc = get_cmdnb(begin_lexicon);
 	if (mini->nbc < 0)
+	{
+		ft_lstclear(&begin_lexicon, &lst_del);
 		return (NULL);
+	}
 	if (!init_chevrons_and_cmd(mini)
 		|| !process_chevrons(&begin_lexicon, mini))
 	{

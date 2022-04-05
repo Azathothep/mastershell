@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chevrons2.c                                        :+:      :+:    :+:   */
+/*   chevrons_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,7 +16,7 @@
 
 int	format_ok(char const *filename)
 {
-	if (!filename || (!ft_isalpha(filename[0]) && filename[0] != '$'))
+	if (!filename || ft_inbase(filename[0], "!#&();<>|"))
 		return (0);
 	return (1);
 }
@@ -32,8 +32,7 @@ char	*get_heredoc(t_list *lst, int exit_status)
 	{
 		if (!del || del[0] == '\0')
 			del = "\\n";
-		errno = 100;
-		printf("mastershell: syntax error near '%s' <-(TO VERIFY)\n", del);
+		parse_error("<<");
 		return (NULL);
 	}
 	else
