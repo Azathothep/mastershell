@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/05 11:12:02 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 11:54:30 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_mini
 	t_inout	*errfile;
 	t_list	**heredocs;
 	int		*infhere;
-	char	**cmdenv;
 	t_list	*envpl;
 	int		nbc;
 	t_pipex	*pipex;
