@@ -24,7 +24,7 @@ static void	add_nl(t_list **begin_lst)
 	lst = *begin_lst;
 	if (!lst)
 		return ;
-	while (lst->next)
+	while (lst)
 	{
 		nline = ft_strjoin(get_token(lst), "\n");
 		if (!nline)
