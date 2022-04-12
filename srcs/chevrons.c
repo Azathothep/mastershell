@@ -14,7 +14,7 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
-static int errno_free(char *token)
+static int	errno_free(char *token)
 {
 	errno = 1;
 	ft_free(token);
