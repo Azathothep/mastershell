@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/05 11:54:30 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 12:38:50 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_mini
 	t_inout	*outfile;
 	t_inout	*errfile;
 	t_list	**heredocs;
+	int		here;
 	int		*infhere;
 	t_list	*envpl;
 	int		nbc;
@@ -57,5 +58,6 @@ typedef struct s_mini
 	char	**envp;
 	int		exit_status;
 	int		*pid;
+	t_list	*error;
 }	t_mini;
 #endif
