@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/01 14:39:01 by marvin           ###   ########.fr       */
+/*   Updated: 2022/04/11 17:06:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_list	*lexer(char *buffer, t_mini *mini);
 int		parser(t_list **begin_lexicon, t_mini *mini);
 int		isenv(char c);
 char	*pull_quotes(char *s);
-char 	*translate(char const *token, int (*chunk)(char const *), char *(*f)(char *, int), int exit_status);
+char	*translate(char const *token, int (*chunk)(char const *),
+			char *(*f)(char *, int), int exit_status);
 t_list	*cut_list(char const *s, int (*f)(char const *));
 int		chunk_wquotes(char const *s);
 int		chunk_nquotes(char const *s);

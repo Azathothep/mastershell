@@ -6,12 +6,30 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/01 13:54:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/04/11 17:05:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../incs/parsing.h"
+
+static t_list	*empty_string( void )
+{
+	char	*token;
+	t_list	*lst;
+
+	token = malloc(sizeof(char));
+	if (!token)
+		return (NULL);
+	token[0] = '\0';
+	lst = ft_lstnew(token);
+	if (!lst)
+	{
+		free(token);
+		return (NULL);
+	}
+	return (lst);
+}
 
 static char	*allocstr(char const *s, int len)
 {
@@ -31,6 +49,15 @@ static char	*allocstr(char const *s, int len)
 	return (str);
 }
 
+static t_list	*freeall(t_list *begin_lst, t_list *lst, char *token)
+{
+	errno = 1;
+	ft_free(token);
+	ft_lstdelone(lst, &lst_del);
+	ft_lstclear(&begin_lst, &lst_del);
+	return (NULL);
+}
+
 t_list	*cut_list(char const *s, int (*f)(char const *))
 {
 	t_list	*begin_lst;
@@ -46,15 +73,11 @@ t_list	*cut_list(char const *s, int (*f)(char const *))
 		token = allocstr(s + i, (f)(s + i));
 		lst = ft_lstnew((void *)token);
 		if (!token || !lst)
-		{
-			errno = 1;
-			ft_free(token);
-			ft_lstdelone(lst, &lst_del);
-			ft_lstclear(&begin_lst, &lst_del);
-			return (NULL);
-		}
+			return (freeall(begin_lst, lst, token));
 		ft_lstadd_back(&begin_lst, lst);
 		i += (f)(s + i);
 	}
+	if (s[0] == '\0')
+		begin_lst = empty_string();
 	return (begin_lst);
 }
