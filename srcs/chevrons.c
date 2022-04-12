@@ -14,11 +14,21 @@
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 
+static int errno_free(char *token)
+{
+	errno = 1;
+	ft_free(token);
+	return (0);
+}
+
 static void	add_chevron2(char const *sign, t_list *lst_new,
 			t_mini *mini, int index)
 {
 	if (sign[0] == '<')
+	{
+		mini->here = 0;
 		ft_lstadd_back(&(mini->infile[index].files), lst_new);
+	}
 	else if (sign[0] == '>')
 	{
 		if (sign[1] == '>')
@@ -61,6 +71,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 
 	if (!ft_strncmp(get_token(lst), "<<", 2))
 	{
+		mini->here = 1;
 		token = get_heredoc(lst, mini->exit_status);
 		if (!token)
 			return (0);
@@ -70,10 +81,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 		{
 			lst_new = ft_lstnew(token);
 			if (!lst_new)
-			{
-				errno = 1;
-				return (ft_free(token));
-			}
+				return (errno_free(token));
 			ft_lstadd_back(&(mini->heredocs[index]), lst_new);
 		}
 	}
