@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/04 14:54:35 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 14:47:31 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,38 @@ void	ft_seterrout(void);
 int		ft_close(t_mini *mini, int i);
 
 /* builtin.c */
-int		ft_pwd(t_mini *mini, char **cmd, int j, t_pipex *pipex);
-int		ft_cd(t_mini *mini, char **cmd);
-int		ft_echo(char **cmd, t_pipex *pipex, int j);
-int		ft_builtin(t_mini *mini, char **cmd, t_pipex *pipex, int i);
+int		ft_builtin(t_mini *mini, char **cmd, t_pipex *pipex);
 int		ft_isbuiltin(char **cmd);
+int		ft_builtinpipe(t_mini *mini, char **cmd, t_pipex *pipex, int i);
+int		ft_builtinpipehere(t_mini *mini, char **cmd, t_pipex *pipex);
 
-/* builtin2.c */
+/* pwd.c */
+int		ft_pwd(t_mini *mini, t_pipex *pipex);
+
+/* unset.c */
+int		ft_unset(t_mini *mini, char **cmd, t_pipex *pipex);
+
+/* export.c */
+char	*ft_fullname(t_mini *mini, char *cmd);
+char	ft_parseexp(char *cmd);
+int		ft_isin(t_mini *mini, char *cmd);
+int		ft_readd(t_mini *mini, char *cmd);
+int		ft_checkequal(char *cmd);
+int		ft_export(t_mini *mini, char **cmd, t_pipex *pipex);
+
+/* exit.c */
+int		ft_exit(t_mini *mini, char **cmd);
+
+/* env.c */
+int		ft_env(t_mini *mini);
+
+/* echo.c */
+int		ft_echo(char **cmd, t_pipex *pipex);
+
+/* cd.c */
+int		ft_cd(t_mini *mini, char **cmd);
+char	*ft_ishome(t_mini *mini, char *cmd);
+int		ft_fill(t_mini *mini, char *cmd, char **path);
 
 /* ft_utils.c */
 char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */

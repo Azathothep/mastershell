@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:48:29 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 15:02:37 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 14:50:35 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_first_pipe2(t_mini *mini, t_pipex *pipex)
 {
 	if (pipex->infile == -1 && pipex->outfile != -1)
 	{
+		printf("lol\n");
 		if (dup2(pipex->outfile, 1) == -1)
 			return (ft_seterrno(11));
 		if (execve(pipex->path, pipex->cmd, mini->envp) == -1)
@@ -23,9 +24,12 @@ int	ft_first_pipe2(t_mini *mini, t_pipex *pipex)
 	}
 	if (pipex->infile != -1 && pipex->outfile != -1)
 	{
+		printf("lol\n");
 		if (dup2(pipex->infile, 0) == -1)
 			return (ft_seterrno(11));
 		if (dup2(pipex->outfile, 1) == -1)
+			return (ft_seterrno(11));
+		if (close(pipex->tube[2 * mini->nbc +1]) == -1)
 			return (ft_seterrno(11));
 		if (execve(pipex->path, pipex->cmd, mini->envp) == -1)
 			return (ft_seterrno(11));
@@ -56,10 +60,12 @@ int	ft_first_pipe(t_mini *mini, t_pipex *pipex)
 		}
 		if (dup2(pipex->infile, 0) == -1)
 			return (ft_seterrno(11));
-		if (close(pipex->tube[0]) == -1)
+		if (close(pipex->tube[0]) == -1
+			|| close(pipex->tube[2 * mini->nbc + 1]) == -1)
 			return (ft_seterrno(11));
 		if (execve(pipex->path, pipex->cmd, mini->envp) == -1)
 			return (ft_seterrno(11));
+		exit(0);
 	}
 	ft_first_pipe2(mini, pipex);
 	ft_seterrno(12);
@@ -105,6 +111,8 @@ int	ft_last_pipe(t_mini *mini, int i, t_pipex *pipex)
 	if (pipex->infile != -1 && pipex->outfile == -1)
 	{
 		if (dup2(pipex->infile, 0) == -1)
+			return (ft_seterrno(11));
+		if (close(pipex->tube[2 * i - 1]) == -1)
 			return (ft_seterrno(11));
 		if (execve(pipex->path, pipex->cmd, mini->envp) == -1)
 			return (ft_seterrno(11));

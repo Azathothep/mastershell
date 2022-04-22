@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 16:34:49 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 16:46:23 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list	*ft_convlist(char **envp)
 	envpl = NULL;
 	while (envp[i] != NULL)
 	{
-		temp = ft_lstnew(envp[i]);
+		temp = ft_lstnew(ft_strdup(envp[i]));
 		if (temp == NULL)
 		{
 			errno = 1;
@@ -54,6 +54,9 @@ static char	*ft_freetab2(char **tab)
 
 int	ft_init_start(t_mini *mini)
 {
+	int	j;
+
+	j = 0;
 	mini->pipex = malloc(sizeof(t_pipex));
 	if (mini->pipex == NULL)
 	{
@@ -63,9 +66,19 @@ int	ft_init_start(t_mini *mini)
 	mini->pipex->path = NULL;
 	if (ft_inittube(mini, mini->pipex) == 1)
 		return (-1);
+	if (mini->envpl != NULL)
+		mini->envp = ft_convert(mini->envpl);
 	mini->envpl = ft_convlist(mini->envp);
 	if (mini->envpl == NULL)
 		return (-1);
+	mini->pid = malloc(sizeof(int) * mini->nbc);
+	if (mini->pid == NULL)
+		return (ft_seterrno(1));
+	while (j < mini->nbc)
+	{
+		mini->pid[j] = 0;
+		j++;
+	}
 	return (0);
 }
 

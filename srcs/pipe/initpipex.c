@@ -6,11 +6,45 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 11:47:47 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 15:52:08 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+
+int	ft_puthere(t_mini *mini, t_pipex *p, int i)
+{
+	t_list	*t;
+	int		pid;
+
+	pid = fork();
+	if (pid == -1)
+		return (ft_seterrno(11));
+	if (pid == 0)
+	{
+		t = ft_lstlast(mini->heredocs[i]);
+		if (i != 0)
+		{
+			if (close(p->tube[2 * i]) == -1)
+				return (ft_seterrno(11));
+			write(p->tube[2 * i - 1], t->content, ft_strlen(t->content));
+		}
+		if (i == 0)
+		{
+			if (close(p->tube[2 * mini->nbc]) == -1)
+				return (ft_seterrno(11));
+			write(p->tube[2 * mini->nbc + 1], t->content,
+				ft_strlen(t->content));
+		}
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
+	if (i != 0)
+		p->infile = p->tube[2 * i - 2];
+	if (i == 0)
+		p->infile = p->tube[2 * mini->nbc];
+	return (0);
+}
 
 static char	*ft_freetab(char **tab)
 {
@@ -90,18 +124,13 @@ int	ft_init_pipex(t_mini *mini, int i)
 	j = 0;
 	mini->pipex->cmd = mini->commands[i];
 	free(mini->pipex->path);
-	mini->pipex->path = ft_path(mini->pipex->cmd[0], mini->envpl);
+	if (ft_isbuiltin(mini->pipex->cmd) == 0)
+		mini->pipex->path = ft_path(mini->pipex->cmd[0], mini->envpl);
+	else
+		mini->pipex->path = ft_strdup("ok");
 	if (mini->pipex->path == NULL)
 		return (-1);
-	if (mini->infile != NULL)
-	{
-		j = ft_init_files(mini, i);
-	}
-	if (mini->infile == NULL)
-	{
-		mini->pipex->infile = -1;
-		mini->pipex->outfile = -1;
-	}
+	j = ft_init_files(mini, i);
 	if (j != 0)
 		return (j);
 	//free(mini->envp); a corriger et remettre

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 15:48:09 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 15:20:26 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	ft_openout(t_inout *lfiles, int j)
 		return (0);
 	while (temp->next != NULL)
 	{
-		fd = open(temp->content, O_RDWR | O_CREAT | O_TRUNC,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (lfiles[j].type == 0)
+			fd = open(temp->content, R | C | T, I | W | G | H);
+		else
+			fd = open(temp->content, R | C | T | P, I | W | G | H);
 		if (fd < 0)
 		{
 			ft_seterrout();

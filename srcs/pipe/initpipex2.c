@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:10:37 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 16:34:36 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 12:05:05 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int	ft_init_files2(t_mini *mini, int i)
 		if (j != 0)
 			return (j);
 		name = ft_lstlast(mini->outfile[i].files)->content;
-		mini->pipex->outfile = open(name, O_RDWR | O_CREAT | O_TRUNC,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (mini->outfile[i].type == 0)
+		{
+			mini->pipex->outfile = open(name, O_RDWR | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		}
+		else
+			mini->pipex->outfile = open(name, R | C | P, I | W | G | H);
 		if (mini->pipex->outfile < 0)
 		{
 			ft_seterrout();
@@ -66,16 +71,10 @@ int	ft_inittube(t_mini *mini, t_pipex *pipex)
 	int	i;
 
 	i = 0;
-	pipex->tube = malloc(sizeof(int) * (mini->nbc * 2));
+	pipex->tube = malloc(sizeof(int) * ((mini->nbc + 1) * 2));
 	if (pipex->tube == NULL)
 		return (ft_seterrno(1));
-	if (mini->nbc == 1)
-	{
-		if (pipe(pipex->tube) == -1)
-			return (ft_seterrno(1));
-		return (0);
-	}
-	while (i < mini->nbc)
+	while (i <= mini->nbc)
 	{
 		if (pipe(pipex->tube + (2 * i)) == -1)
 			return (ft_seterrno(1));

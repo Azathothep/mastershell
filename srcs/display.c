@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/12 12:48:06 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:25:04 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_lst(t_list **begin_lst)
 	}
 }
 
-void	display_parsing(t_mini *mini)
+/*void	display_parsing(t_mini *mini)
 {
 	int		i;
 	int		j;
@@ -72,4 +72,4 @@ void	display_parsing(t_mini *mini)
 		printf("\n");
 	}
 	printf("\n");
-}
+}*/
