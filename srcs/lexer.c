@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/04 11:04:32 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:14:49 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 	mini->outfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->errfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->commands = malloc(sizeof(char **) * (mini->nbc + 1));
+	mini->infhere = malloc(sizeof(int) * (mini->nbc));
 	if (!mini->heredocs || !mini->infile || !mini->outfile
-		|| !mini->errfile || !mini->commands)
+		|| !mini->errfile || !mini->commands || !mini->infhere)
 	{
 		errno = 1;
 		return (0);
@@ -86,6 +87,7 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 		mini->errfile[i].type = 0;
 		mini->errfile[i].files = NULL;
 		mini->commands[i] = NULL;
+		mini->infhere[i] = 0;
 	}
 	return (1);
 }

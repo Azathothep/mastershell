@@ -26,7 +26,7 @@ static void	add_chevron2(char const *sign, t_list *lst_new,
 {
 	if (sign[0] == '<')
 	{
-		mini->here = 0;
+		mini->infhere[index] = 0;
 		ft_lstadd_back(&(mini->infile[index].files), lst_new);
 	}
 	else if (sign[0] == '>')
@@ -71,7 +71,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 
 	if (!ft_strncmp(get_token(lst), "<<", 2))
 	{
-		mini->here = 1;
+		mini->infhere[index] = 1;
 		token = get_heredoc(lst, mini->exit_status);
 		if (!token)
 			return (0);
