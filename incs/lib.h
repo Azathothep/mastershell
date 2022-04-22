@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:59:02 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 15:46:23 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:47:01 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <limits.h>
 #endif
