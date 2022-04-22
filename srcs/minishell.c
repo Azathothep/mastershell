@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/04 11:25:02 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:51:01 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static t_mini	init_mini(char **envp)
 	mini.infile = NULL;
 	mini.outfile = NULL;
 	mini.errfile = NULL;
-	mini.cmdenv = NULL;
 	mini.envpl = NULL;
 	mini.nbc = 0;
 	mini.pipex = NULL;
@@ -69,7 +68,7 @@ static void	launch_shell(char **envp)
 			ft_free (buffer);
 			if (begin_lexicon)
 				if (parser(&begin_lexicon, &mini))
-					display_parsing(&mini);
+					ft_start_pipe(&mini);
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(&mini);
 		}

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:59:02 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/17 15:16:14 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 11:52:38 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <limits.h>
 #endif

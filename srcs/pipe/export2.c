@@ -1,0 +1,132 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
+/*   Updated: 2022/04/21 11:29:25 by rmonacho         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../incs/pipe.h"
+
+int	ft_checkequal(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i] != '\0' && cmd[i] != '=')
+		i++;
+	return (i);
+}
+
+int	ft_readd(t_mini *mini, char *cmd)
+{
+	char	*name;
+	t_list	*temp;
+
+	name = ft_strdup(cmd);
+	if (name == NULL)
+		return (ft_seterrno(1));
+	temp = mini->envpl;
+	if (cmd[ft_checkequal(cmd)] == '\0' || cmd[ft_checkequal(cmd) + 1] == '\0')
+		return (0);
+	while (temp != NULL)
+	{
+		if (ft_strncmp(temp->content, cmd, ft_checkequal(cmd)) == 0)
+		{
+			if (((char *)(temp->content))[ft_checkequal(cmd)] == '\0'
+				|| ((char *)(temp->content))[ft_checkequal(cmd)] == '=')
+			{
+				free(temp->content);
+				temp->content = name;
+				return (0);
+			}
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
+int	ft_isin(t_mini *mini, char *cmd)
+{
+	t_list	*temp;
+	int		i;
+
+	i = ft_checkequal(cmd);
+	temp = mini->envpl;
+	if (ft_strchr(cmd, '=') != NULL)
+	{
+		while (temp != NULL)
+		{
+			if (ft_strncmp(temp->content, cmd, i) == 0)
+			{
+				if (((char *)temp->content)[i + 1] == '\0'
+					|| ((char *)temp->content)[i + 1] == '=')
+					return (1);
+			}
+			temp = temp->next;
+		}
+	}
+	else
+	{
+		while (temp != NULL)
+		{
+			if (ft_strncmp(temp->content, cmd, i) == 0)
+			{
+				if (((char *)temp->content)[i] == '\0'
+					|| ((char *)temp->content)[i] == '=')
+					return (1);
+			}
+			temp = temp->next;
+		}
+	}
+	return (-1);
+}
+
+char	ft_parseexp(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd[0] == '\0')
+		return ('\0');
+	while (cmd[i] != '\0' && cmd[i] != '=')
+	{
+		if (ft_isalpha(cmd[0]) == 0)
+			return ('=');
+		i++;
+	}
+	return ('n');
+}
+
+char	*ft_fullname(t_mini *mini, char *cmd)
+{
+	char	*name;
+	char	*name2;
+	t_list	*temp;
+
+	name = ft_strjoin("\"", cmd);
+	errno = 1;
+	if (name == NULL)
+		return (NULL);
+	name2 = ft_strjoin(name, "\": not a valid identifier");
+	if (name2 == NULL)
+	{
+		free(name);
+		return (NULL);
+	}
+	temp = ft_lstnew(name2);
+	if (temp == NULL)
+	{
+		errno = 1;
+		free(name);
+		free(name2);
+		return (NULL);
+	}
+	errno = 0;
+	ft_lstadd_back(&(mini->error), temp);
+	return ("ok");
+}
