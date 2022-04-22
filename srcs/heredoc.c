@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"

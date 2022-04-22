@@ -6,18 +6,16 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/04 11:25:02 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/22 15:40:54 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
 #include "../incs/pipe.h"
+#include <termios.h>
 
 static int	errno_ok(void)
 {
@@ -39,7 +37,6 @@ static t_mini	init_mini(char **envp)
 	mini.infile = NULL;
 	mini.outfile = NULL;
 	mini.errfile = NULL;
-	mini.cmdenv = NULL;
 	mini.envpl = NULL;
 	mini.nbc = 0;
 	mini.pipex = NULL;
@@ -56,7 +53,7 @@ static void	launch_shell(char **envp)
 	t_mini	mini;
 	t_list	*begin_lexicon;
 	char	*buffer;
-
+	
 	mini = init_mini(envp);
 	while (errno_ok())
 	{
@@ -73,11 +70,16 @@ static void	launch_shell(char **envp)
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(&mini);
 		}
+		if (!buffer)
+			exit(0);
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	struct termios termios_new;
+	struct termios termios_save;
+	
 	argv += 0;
 	if (argc > 1)
 	{
@@ -85,6 +87,17 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	errno = 0;
+ 
+	tcgetattr(0, &termios_save);
+	termios_new = termios_save;
+	termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &termios_new);
+	
+	signal(SIGINT, &ft_sigint);
+	signal(SIGQUIT, &ft_sigquit);
+
 	launch_shell(envp);
+	
+	tcsetattr(0, 0, &termios_save);
 	return (0);
 }
