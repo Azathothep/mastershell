@@ -19,7 +19,7 @@ SRCS=	minishell.c \
 		signal.c \
 
 SRCS2 = builtin.c \
-        builtin2.c \
+        env.c \
         error.c \
         futils.c \
         initpipex.c \
@@ -28,6 +28,17 @@ SRCS2 = builtin.c \
         pipe.c \
         pipe2.c \
         debug.c \
+		exit.c \
+		builtinpipe.c \
+		cd.c \
+		cd2.c \
+		echo.c \
+		export.c \
+		export2.c \
+		pipehere.c \
+		pipehere2.c \
+		pwd.c \
+		unset.c \
 
 OBJ_DIR = objs/
 

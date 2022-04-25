@@ -13,88 +13,126 @@
 #include "../incs/parsing.h"
 #include "../incs/mini.h"
 #include "../incs/lib.h"
+#include "../incs/pipe.h"
 
-static void	add_nl(t_list **begin_lst)
+static char	*seterrno_null(int n)
 {
-	t_list	*lst;
-	char	*nline;
-
-	lst = *begin_lst;
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		nline = ft_strjoin(get_token(lst), "\n");
-		if (!nline)
-		{
-			errno = 1;
-			ft_lstclear(begin_lst, &lst_del);
-			return ;
-		}
-		ft_free(lst->content);
-		lst->content = nline;
-		lst = lst->next;
-	}
+	errno = n;
+	return (NULL);
 }
 
-static char	*make_str(t_list *begin_lst)
+static char	*ft_addalloc(char *s, int size)
 {
-	char	*str;
+	char	*new_line;
+	int		len;
 
-	add_nl(&begin_lst);
-	if (!begin_lst)
+	len = ft_strlen(s);
+	new_line = malloc(sizeof(char) * (len + size + 1));
+	if (!new_line)
+	{
+		errno = 3;
 		return (NULL);
-	str = lst_joinstr(&begin_lst);
-	return (str);
+	}
+	ft_bzero(new_line, len + size + 1);
+	ft_strlcpy(new_line, s, len + 1);
+	free(s);
+	return (new_line);
 }
 
-static void	process_input(char *input, t_list **begin_lst, int exit_status)
+static char	*make_line(int fd)
 {
-	t_list	*lst;
-	char	*translation;
+	char	*content;
+	int		i;
 
-	lst = NULL;
-	translation = translate(input, &chunk_nquotes, &tl_only_env,
-			exit_status);
-	if (!translation)
+	i = 0;
+	content = malloc(sizeof(char) * 41);
+	if (!content)
 	{
 		errno = 1;
-		return ;
+		return (NULL);
 	}
-	lst = ft_lstnew(translation);
-	if (!lst)
+	ft_bzero(content, 41);
+	while (content && read(fd, content + (i * 40), 40))
 	{
-		errno = 1;
-		ft_free(translation);
-		ft_lstclear(begin_lst, &lst_del);
-		return ;
+		content = ft_addalloc(content, 40);
+		if (!content)
+			return (NULL);
+		i++;
 	}
-	ft_lstadd_back(begin_lst, lst);
+	close(fd);
+	return (content);
 }
 
-char	*add_input(char *del, int exit_status)
+static void	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
 {
-	t_list	*begin_lst;
-	char	*str;
 	char	*input;
+	char	*translation;
 	int		len_del;
 
-	begin_lst = NULL;
+	close(pipe_fd[0]);
+	ft_init_signals_heredoc();
 	len_del = ft_strlen(del);
 	while (1)
 	{
 		input = readline("> ");
+		if (!input)
+			break ;
 		if (!ft_strncmp(input, del, len_del + 1))
 		{
 			ft_free (input);
 			break ;
 		}
-		process_input(input, &begin_lst, exit_status);
+		translation = translate(input, &chunk_nquotes, &tl_only_env,
+				mini->exit_status);
+		write(pipe_fd[1], translation, ft_strlen(translation));
+		write(pipe_fd[1], "\n", 1);
 		ft_free (input);
-		if (!begin_lst)
-			return (NULL);
 	}
-	str = make_str(begin_lst);
-	ft_lstclear(&begin_lst, &lst_del);
-	return (str);
+	exit(0);
+}
+
+static char	*heredoc_fork(char *del, t_mini *mini)
+{
+	pid_t	pid;
+	int		status;
+	int		pipe_fd[2];
+
+	if (pipe(pipe_fd) == -1)
+		return (seterrno_null(1));
+	pid = fork();
+	if (pid == -1)
+		return (seterrno_null(1));
+	else if (pid == 0)
+		fill_heredoc(pipe_fd, del, mini);
+	else
+	{
+		close(pipe_fd[1]);
+		ft_signal_silence();
+		waitpid(pid, &status, 0);
+		ft_init_signals_interactive();
+		if (WIFSIGNALED(status))
+			write(1, "\n", 1);
+		else
+			return (make_line(pipe_fd[0]));
+	}
+	return (NULL);
+}
+
+char	*get_heredoc(t_list *lst, t_mini *mini)
+{
+	char	*token;
+	char	*del;
+
+	token = get_token(lst);
+	del = get_token(lst->next);
+	if (!del || !format_ok(del))
+	{
+		if (!del || del[0] == '\0')
+			del = "\\n";
+		parse_error("<<");
+		return (NULL);
+	}
+	else
+		token = heredoc_fork(del, mini);
+	return (token);
 }

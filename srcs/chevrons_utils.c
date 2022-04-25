@@ -20,22 +20,3 @@ int	format_ok(char const *filename)
 		return (0);
 	return (1);
 }
-
-char	*get_heredoc(t_list *lst, int exit_status)
-{
-	char	*token;
-	char	*del;
-
-	token = get_token(lst);
-	del = get_token(lst->next);
-	if (!del || !format_ok(del))
-	{
-		if (!del || del[0] == '\0')
-			del = "\\n";
-		parse_error("<<");
-		return (NULL);
-	}
-	else
-		token = add_input(del, exit_status);
-	return (token);
-}

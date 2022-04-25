@@ -72,7 +72,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 	if (!ft_strncmp(get_token(lst), "<<", 2))
 	{
 		mini->infhere[index] = 1;
-		token = get_heredoc(lst, mini->exit_status);
+		token = get_heredoc(lst, mini);
 		if (!token)
 			return (0);
 		if (mini->heredocs[index]->content == NULL)

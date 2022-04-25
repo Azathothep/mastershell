@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/25 11:25:26 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:58:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ static int	init_inout(t_mini *mini)
 	mini->outfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->errfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	if (!mini->infile || !mini->outfile || !mini->errfile)
+	{
+		errno = 2;
 		return (0);
+	}
 	while (++i < mini->nbc)
 	{
 		mini->infile[i].type = 0;

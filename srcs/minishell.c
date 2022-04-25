@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/25 11:14:52 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/25 15:06:08 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	errno_ok(void)
 {
-	if (errno == 1)
+	if (errno == 1 || errno == 66)
 		return (0);
 	return (1);
 }
@@ -58,6 +58,7 @@ static void	launch_shell(char **envp)
 	while (errno_ok())
 	{
 		errno = 0;
+		ft_init_signals_interactive();
 		buffer = readline("-> mastershell #> ");
 		if (!isempty(buffer))
 		{
@@ -91,8 +92,6 @@ int	main(int argc, char **argv, char **envp)
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	signal(SIGINT, &ft_sigint);
-	signal(SIGQUIT, &ft_sigquit);
 	launch_shell(envp);
 	tcsetattr(0, 0, &termios_save);
 	return (0);
