@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:06:04 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/22 15:28:14 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:13:07 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../incs/parsing.h"
 #include <termios.h>
 
-void ft_sigint(int signal)
+void	ft_sigint(int signal)
 {	
 	signal += 0;
 	write(1, "\n", 1);
@@ -23,7 +23,14 @@ void ft_sigint(int signal)
 	rl_redisplay();
 }
 
-void ft_sigquit(int signal)
+void	ft_sigquit(int signal)
 {	
 	signal += 0;
+}
+
+int	ft_signal_default( void )
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	return (1);
 }

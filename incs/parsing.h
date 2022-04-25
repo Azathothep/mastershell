@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/22 13:07:41 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:11:54 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		parse_error(const char *s);
 //signals
 void	ft_sigint(int signal);
 void	ft_sigquit(int signal);
+int	ft_signal_default( void );
 
 //lst
 void	remove_lst(t_list **begin_lst, t_list *to_del);
