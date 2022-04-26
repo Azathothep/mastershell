@@ -6,13 +6,13 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:41:47 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/21 16:00:40 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/25 16:52:33 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
 
-int	ft_seterrnocd(char *last, int mode)
+int	ft_seterrnocd(char **last, int mode)
 {
 	if (mode == 1)
 	{
@@ -25,10 +25,10 @@ int	ft_seterrnocd(char *last, int mode)
 		else if (errno == ENOTDIR)
 			errno = 17;
 		else
-			errno = 18;
+			errno = 24;
 		return (-1);
 	}
-	free(last);
+	free(*last);
 	return (-1);
 }
 
@@ -49,7 +49,7 @@ char	*ft_getpwd(void)
 		if (errno == EACCES)
 			errno = 14;
 		else
-			errno = 18;
+			errno = 24;
 		return (NULL);
 	}
 	return (buf);
@@ -111,25 +111,31 @@ int	ft_cd(t_mini *mini, char **cmd)
 	{
 		path = ft_ishome(mini, cmd[1]);
 		if (path == NULL)
-			return (ft_seterrno(13));
+			return (ft_errorcd(mini, 5, cmd[1]));
 	}
 	lastpath = ft_getpwd();
 	if (lastpath == NULL)
+	{
+		ft_errorcd(mini, 3, cmd[1]);
 		return (-1);
+	}
 	if (path == NULL)
 	{
 		if (ft_fill(mini, cmd[1], &path) == -1)
 			return (-1);
 	}
 	if (chdir(path) == -1)
-		return (ft_seterrnocd(lastpath, 1));
+	{
+		ft_seterrnocd(&lastpath, 1);
+		return (ft_errorcd(mini, 4, cmd[1]));
+	}
 	if (ft_oldpwd(mini, lastpath) == -1)
-		return (ft_seterrnocd(lastpath, 2));
+		return (ft_seterrnocd(&lastpath, 2));
 	free(lastpath);
 	lastpath = ft_getpwd();
 	if (lastpath == NULL)
 		return (-1);
 	if (ft_changepwd(mini, lastpath) == -1)
-		return (ft_seterrnocd(lastpath, 2));
+		return (ft_seterrnocd(&lastpath, 2));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:39:24 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/21 11:17:13 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:45:01 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 
 int	ft_adderror(t_mini *mini, char *cmd, char c)
 {
-	t_list	*temp;
-
 	if (c == '=')
 	{
-		if (ft_fullname(mini, cmd) == NULL)
-			return (-1);
-		return (0);
+		write(mini->pipex->errfile, "export : \"", 10);
+		write(mini->pipex->errfile, cmd, ft_strlen(cmd));
+		write(mini->pipex->errfile, "\" : not a valid identifier\n", 27);
 	}
 	if (c == '\0')
 	{
-		temp = ft_lstnew(ft_strdup("\"\": not a valid identifier"));
-		if (temp == NULL)
-			return (ft_seterrno(1));
-		ft_lstadd_back(&(mini->error), temp);
-		return (0);
+		write(mini->pipex->errfile, "export : \"\": not a valid identifier", 35);
 	}
 	return (0);
 }

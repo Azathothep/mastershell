@@ -6,11 +6,40 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:10:37 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/04 12:05:05 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 14:37:00 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+
+int	ft_errfiles(t_mini *mini, int i)
+{
+	char	*name;
+	int		j;
+
+	if (mini->errfile[i].files == NULL)
+		mini->pipex->errfile = 2;
+	else
+	{
+		j = ft_openerr(mini->errfile, i);
+		if (j != 0)
+			return (ft_seterr(mini, j));
+		name = ft_lstlast(mini->errfile[i].files)->content;
+		if (mini->errfile[i].type == 0)
+		{
+			mini->pipex->errfile = open(name, O_RDWR | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		}
+		else
+			mini->pipex->errfile = open(name, R | C | P, I | W | G | H);
+		if (mini->pipex->errfile < 0)
+		{
+			ft_seterrfiles();
+			return (ft_seterr(mini, -1));
+		}
+	}
+	return (0);
+}
 
 int	ft_init_files2(t_mini *mini, int i)
 {
@@ -46,6 +75,9 @@ int	ft_init_files(t_mini *mini, int i)
 	int		j;
 	char	test[1];
 
+	j = ft_errfiles(mini, i);
+	if (j != 0)
+		return (j);
 	if (mini->infile[i].files == NULL)
 		mini->pipex->infile = -1;
 	else

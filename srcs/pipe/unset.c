@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 14:37:58 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 11:32:08 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:46:05 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static int	ft_parse(char *cmd, t_pipex *pipex)
 	{
 		if (ft_isalnum(cmd[i]) == 0)
 		{
-			write(pipex->errfile, "unset : \"", 10);
+			write(pipex->errfile, "unset : \"", 9);
 			write(pipex->errfile, cmd, ft_strlen(cmd));
-			write(pipex->errfile, "\" : not a valid identifier\n", 28);
+			write(pipex->errfile, "\" : not a valid identifier\n", 27);
 			return (ft_seterrno(22));
 		}
 		i++;

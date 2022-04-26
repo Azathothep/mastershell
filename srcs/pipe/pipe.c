@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:59:42 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 14:38:41 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:37:04 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,28 +140,30 @@ int	ft_start_pipe(t_mini *mini)
 	errno = 0;
 	k = 0;
 	if (ft_init_start(mini) == -1)
-		return (ft_error(0, mini, 0));
+		return (ft_error(i, mini, 0));
 	while (mini->commands[i] != NULL)
 	{
 		j = ft_init_pipex(mini, i);
 		while (j != 0 && i <= mini->nbc - 1)
 		{
-			if (errno < 3)
-				return (ft_error(i, mini, 0));
-			if (errno >= 3)
+			if (errno < 3 || errno == 11)
+				return (ft_error(i, mini, j));
+			if (errno >= 3 && errno != 11)
 				ft_error(i, mini, j);
 			i++;
 			j = ft_init_pipex(mini, i);
 		}
-		if (mini->nbc == 1
-			&& ft_isbuiltin(mini->commands[i]) == 1 && i < mini->nbc)
+		if (mini->nbc == 1 && i < mini->nbc
+			&& ft_isbuiltin(mini->commands[i]) == 1)
 		{
-			if (ft_builtin(mini, mini->commands[i], mini->pipex) == -1)
+			if (ft_builtin(mini, mini->commands[i], mini->pipex) == -1
+				&& errno < 3)
 				return (ft_error(i, mini, 0));
 		}
 		else if (i < mini->nbc)
 		{
-			if (ft_pipex(mini, i, mini->pipex) == -1)
+			if (ft_pipex(mini, i, mini->pipex) == -1
+				&& (errno == 1 || errno == 11))
 				return (ft_error(i, mini, 0));
 		}
 		i++;

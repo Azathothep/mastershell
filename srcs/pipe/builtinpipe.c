@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:49:35 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 14:47:28 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 14:43:32 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	ft_builtinpipehere(t_mini *mini, char **cmd, t_pipex *pipex)
 	return (0);
 }
 
-int	ft_setpipe(t_pipex *pipex, int i)
+int	ft_setpipe(t_mini *mini, t_pipex *pipex, int i)
 {
-	if (pipex->outfile == -1)
+	if (pipex->outfile == -1 && i != mini->nbc - 1)
 	{
 		pipex->outfile = pipex->tube[2 * i + 1];
 		if (dup2(pipex->tube[2 * i + 1], 1) == -1)
@@ -62,7 +62,7 @@ int	ft_setpipe(t_pipex *pipex, int i)
 
 int	ft_builtinpipe(t_mini *mini, char **cmd, t_pipex *pipex, int i)
 {
-	if (ft_setpipe(pipex, i) == -1)
+	if (ft_setpipe(mini, pipex, i) == -1)
 		return (-1);
 	if (ft_strncmp("echo", cmd[0], 5) == 0)
 		ft_echo(cmd, pipex);

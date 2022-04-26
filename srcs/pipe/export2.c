@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/21 11:29:25 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:45:30 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ char	*ft_fullname(t_mini *mini, char *cmd)
 	temp = ft_lstnew(name2);
 	if (temp == NULL)
 	{
-		errno = 1;
 		free(name);
 		free(name2);
 		return (NULL);

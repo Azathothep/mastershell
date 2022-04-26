@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:30 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 11:52:30 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:44:24 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,18 @@ long long	ft_atoiexit(char *cmd)
 
 void	ft_errorexit2(t_mini *mini)
 {
-	write(mini->pipex->errfile, "exit\n", 6);
+	write(mini->pipex->errfile, "exit\n", 5);
 	write(mini->pipex->errfile, "exit : too many arguments\n", 26);
+	errno = 21;
 }
 
 void	ft_errorexit(t_mini *mini, char *cmd)
 {
-	write(mini->pipex->errfile, "exit\n", 6);
-	write(mini->pipex->errfile, "exit : ", 8);
+	write(mini->pipex->errfile, "exit\n", 5);
+	write(mini->pipex->errfile, "exit : ", 7);
 	write(mini->pipex->errfile, cmd, ft_strlen(cmd));
 	write(mini->pipex->errfile, " : numeric argument required\n", 29);
+	//ft_free_all(mini);
 	exit(mini->exit_status);
 }
 

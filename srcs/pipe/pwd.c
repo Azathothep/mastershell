@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:04:28 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/20 14:55:35 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:46:14 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_errnopwd(t_mini *mini)
 {
-	write(mini->pipex->errfile, "pwd : An error occured\n", 30);
+	write(mini->pipex->errfile, "pwd : An error occured\n", 23);
 	errno = 23;
 	return (-1);
 }

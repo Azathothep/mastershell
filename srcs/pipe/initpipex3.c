@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/20 16:46:23 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 16:30:36 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_list	*ft_convlist(char **envp)
 
 	i = 0;
 	envpl = NULL;
+	if (envp == NULL)
+		return (NULL);
 	while (envp[i] != NULL)
 	{
 		temp = ft_lstnew(ft_strdup(envp[i]));

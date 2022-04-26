@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/20 15:52:08 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 15:37:21 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,20 +122,24 @@ int	ft_init_pipex(t_mini *mini, int i)
 	int	j;
 
 	j = 0;
+	errno = 1;
+	if (i >= mini->nbc)
+		return (0);
 	mini->pipex->cmd = mini->commands[i];
 	free(mini->pipex->path);
+	j = ft_init_files(mini, i);
+	if (j != 0)
+		return (j);
 	if (ft_isbuiltin(mini->pipex->cmd) == 0)
 		mini->pipex->path = ft_path(mini->pipex->cmd[0], mini->envpl);
 	else
 		mini->pipex->path = ft_strdup("ok");
 	if (mini->pipex->path == NULL)
 		return (-1);
-	j = ft_init_files(mini, i);
-	if (j != 0)
-		return (j);
 	//free(mini->envp); a corriger et remettre
 	mini->envp = ft_convert(mini->envpl);
 	if (mini->envp == NULL)
 		return (-1);
+	errno = 0;
 	return (0);
 }
