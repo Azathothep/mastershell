@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cuts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/11 17:05:56 by marvin           ###   ########.fr       */
+/*   Updated: 2022/04/25 15:00:09 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static t_list	*empty_string( void )
 
 	token = malloc(sizeof(char));
 	if (!token)
+	{
+		errno = 3;
 		return (NULL);
+	}
 	token[0] = '\0';
 	lst = ft_lstnew(token);
 	if (!lst)

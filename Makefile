@@ -16,9 +16,10 @@ SRCS=	minishell.c \
 		utils.c \
 		free.c \
 		display.c \
+		signal.c \
 
 SRCS2 = builtin.c \
-        builtin2.c \
+        env.c \
         error.c \
         futils.c \
         initpipex.c \
@@ -27,6 +28,17 @@ SRCS2 = builtin.c \
         pipe.c \
         pipe2.c \
         debug.c \
+		exit.c \
+		builtinpipe.c \
+		cd.c \
+		cd2.c \
+		echo.c \
+		export.c \
+		export2.c \
+		pipehere.c \
+		pipehere2.c \
+		pwd.c \
+		unset.c \
 
 OBJ_DIR = objs/
 
@@ -56,13 +68,12 @@ INCLUDES =	${INC_DIR}/parsing.h \
 ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 				mkdir -p objs
 				mkdir -p objs/pipe
-				${CC} ${FLAGS} -c $< -o $@ -I.
+				${CC} ${FLAGS} -I$(shell brew --prefix readline)/include -c $< -o $@
 
 all: makelib ${NAME}
 
 ${NAME}:	Makefile ${OBJS} ${OBJS2}
-			${CC} ${FLAGS} ${OBJS} ${OBJS2} -lreadline ${LIBFT_PATH}/libft.a -o ${NAME}
-
+			${CC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
 makelib:
 			${MAKE} -C ${LIBFT_PATH}/ all
 

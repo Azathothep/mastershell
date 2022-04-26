@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/11 16:53:17 by marvin           ###   ########.fr       */
+/*   Updated: 2022/04/25 11:13:23 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
 			return (-1);
 		if (token != lst->content)
 			replace_content(lst, token);
-		//if (token[0] == '\0')
-		//	remove_lst(begin_lexicon, lst);
 		lst = lst->next;
 	}
 	return (size);

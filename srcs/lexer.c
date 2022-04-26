@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/22 12:14:49 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:58:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,17 @@ static t_list	**init_heredocs(int cmd_nb)
 	return (heredocs);
 }
 
-static int	init_chevrons_and_cmd(t_mini *mini)
+static int	init_inout(t_mini *mini)
 {
 	int	i;
 
 	i = -1;
-	mini->heredocs = init_heredocs(mini->nbc);
 	mini->infile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->outfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
 	mini->errfile = malloc(sizeof(t_inout) * (mini->nbc + 1));
-	mini->commands = malloc(sizeof(char **) * (mini->nbc + 1));
-	mini->infhere = malloc(sizeof(int) * (mini->nbc));
-	if (!mini->heredocs || !mini->infile || !mini->outfile
-		|| !mini->errfile || !mini->commands || !mini->infhere)
+	if (!mini->infile || !mini->outfile || !mini->errfile)
 	{
-		errno = 1;
+		errno = 2;
 		return (0);
 	}
 	while (++i < mini->nbc)
@@ -86,6 +82,27 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 		mini->outfile[i].files = NULL;
 		mini->errfile[i].type = 0;
 		mini->errfile[i].files = NULL;
+	}
+	return (1);
+}
+
+static int	init_chevrons_and_cmd(t_mini *mini)
+{
+	int	i;
+
+	i = -1;
+	init_inout(mini);
+	mini->heredocs = init_heredocs(mini->nbc);
+	mini->commands = malloc(sizeof(char **) * (mini->nbc + 1));
+	mini->infhere = malloc(sizeof(int) * (mini->nbc));
+	if (!mini->heredocs || !mini->infile || !mini->outfile
+		|| !mini->errfile || !mini->commands || !mini->infhere)
+	{
+		errno = 1;
+		return (0);
+	}
+	while (++i < mini->nbc)
+	{
 		mini->commands[i] = NULL;
 		mini->infhere[i] = 0;
 	}
