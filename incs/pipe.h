@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 14:47:31 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 14:36:16 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		ft_seterrno(int i);
 int		ft_seterrin(int j);
 void	ft_seterrout(void);
 int		ft_close(t_mini *mini, int i);
+int		ft_error2(int i, t_mini *mini, int j);
+char	*ft_getfiles(int i, t_mini *mini, int j);
 
 /* builtin.c */
 int		ft_builtin(t_mini *mini, char **cmd, t_pipex *pipex);
@@ -98,12 +100,16 @@ int		ft_echo(char **cmd, t_pipex *pipex);
 int		ft_cd(t_mini *mini, char **cmd);
 char	*ft_ishome(t_mini *mini, char *cmd);
 int		ft_fill(t_mini *mini, char *cmd, char **path);
+int		ft_errorcd(t_mini *mini, int mode, char *cmd);
 
 /* ft_utils.c */
 char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */
 int		ft_openout(t_inout *lfiles, int j);
 	/* Ouverture des fichiers de sortie */
 int		ft_openin(t_inout *lfiles, int j); /* Ouverture des fichiers d'entree */
+int		ft_openerr(t_inout *lfiles, int j);
+void	ft_seterrfiles(void);
+int		ft_seterr(t_mini *mini, int i);
 
 /* debug.c */
 
