@@ -1,31 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   futils2.c                                          :+:      :+:    :+:   */
+/*   freeall2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 15:00:03 by rmonacho         ###   ########lyon.fr   */
+/*   Created: 2022/04/27 16:41:32 by rmonacho          #+#    #+#             */
+/*   Updated: 2022/04/28 13:47:30 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
 
-void	status_child(t_mini *mini, int pid)
+void	ft_freeenvin(char ***envp)
 {
-	if (WIFEXITED(pid))
-		mini->exit_status = WEXITSTATUS(pid);
-	if (WIFSIGNALED(pid))
+	int	i;
+
+	i = 0;
+	if (*envp != NULL)
 	{
-		mini->exit_status = WTERMSIG(pid);
-		if (mini->exit_status != 131)
-			mini->exit_status += 128;
+		while ((*envp)[i] != NULL)
+		{
+			free((*envp)[i]);
+			i++;
+		}
 	}
+	free(*envp);
 }
 
-int	ft_seterr(t_mini *mini, int i)
+void	ft_freecommands(char ****cmds)
 {
-	mini->pipex->errfile = 2;
-	return (i);
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (*cmds == NULL)
+		return ;
+	while ((*cmds)[i] != NULL)
+	{
+		while ((*cmds)[i][j] != NULL)
+		{
+			free((*cmds)[i][j]);
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	free(*cmds);
 }

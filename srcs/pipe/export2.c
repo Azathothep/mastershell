@@ -6,11 +6,31 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:45:30 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 16:15:28 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+
+int	ft_isin2(t_mini *mini, t_list **temp, int *i, char *cmd)
+{
+	*i = ft_checkequal(cmd);
+	*temp = mini->envpl;
+	if (ft_strchr(cmd, '=') != NULL)
+	{
+		while (*temp != NULL)
+		{
+			if (ft_strncmp((*temp)->content, cmd, *i) == 0)
+			{
+				if (((char *)(*temp)->content)[*i + 1] == '\0'
+					|| ((char *)(*temp)->content)[*i + 1] == '=')
+					return (1);
+			}
+			*temp = (*temp)->next;
+		}
+	}
+	return (0);
+}
 
 int	ft_checkequal(char *cmd)
 {
@@ -55,21 +75,8 @@ int	ft_isin(t_mini *mini, char *cmd)
 	t_list	*temp;
 	int		i;
 
-	i = ft_checkequal(cmd);
-	temp = mini->envpl;
-	if (ft_strchr(cmd, '=') != NULL)
-	{
-		while (temp != NULL)
-		{
-			if (ft_strncmp(temp->content, cmd, i) == 0)
-			{
-				if (((char *)temp->content)[i + 1] == '\0'
-					|| ((char *)temp->content)[i + 1] == '=')
-					return (1);
-			}
-			temp = temp->next;
-		}
-	}
+	if (ft_isin2(mini, &temp, &i, cmd) == 1)
+		return (1);
 	else
 	{
 		while (temp != NULL)
@@ -100,32 +107,4 @@ char	ft_parseexp(char *cmd)
 		i++;
 	}
 	return ('n');
-}
-
-char	*ft_fullname(t_mini *mini, char *cmd)
-{
-	char	*name;
-	char	*name2;
-	t_list	*temp;
-
-	name = ft_strjoin("\"", cmd);
-	errno = 1;
-	if (name == NULL)
-		return (NULL);
-	name2 = ft_strjoin(name, "\": not a valid identifier");
-	if (name2 == NULL)
-	{
-		free(name);
-		return (NULL);
-	}
-	temp = ft_lstnew(name2);
-	if (temp == NULL)
-	{
-		free(name);
-		free(name2);
-		return (NULL);
-	}
-	errno = 0;
-	ft_lstadd_back(&(mini->error), temp);
-	return ("ok");
 }

@@ -6,11 +6,36 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 16:30:36 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 12:39:54 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+
+char	**ft_convert2(char **envp)
+{
+	int		i;
+	char	**temp;
+
+	i = 0;
+	while (envp[i] != NULL)
+		i++;
+	temp = malloc(sizeof(char *) * (i + 1));
+	temp[i] = NULL;
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		temp[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
+		i++;
+	}
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		temp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	return (temp);
+}
 
 t_list	*ft_convlist(char **envp)
 {
@@ -70,6 +95,8 @@ int	ft_init_start(t_mini *mini)
 		return (-1);
 	if (mini->envpl != NULL)
 		mini->envp = ft_convert(mini->envpl);
+	if (mini->envpl == NULL)
+		mini->envp = ft_convert2(mini->envp);
 	mini->envpl = ft_convlist(mini->envp);
 	if (mini->envpl == NULL)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 14:36:16 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 15:59:06 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_joinpath(char **tab, char *cmd, int i);
 int		ft_init_start(t_mini *mini);
 
 /* error.c */
-int		ft_error(int i, t_mini *mini, int j);
+int		ft_error(int i, t_mini *mini, int j, int free);
 int		ft_seterrno(int i);
 int		ft_seterrin(int j);
 void	ft_seterrout(void);
@@ -101,15 +101,26 @@ int		ft_cd(t_mini *mini, char **cmd);
 char	*ft_ishome(t_mini *mini, char *cmd);
 int		ft_fill(t_mini *mini, char *cmd, char **path);
 int		ft_errorcd(t_mini *mini, int mode, char *cmd);
+int		ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath);
+char	*ft_getpwd(void);
+int		ft_oldpwd(t_mini *mini, char *lastpath);
 
 /* ft_utils.c */
 char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */
 int		ft_openout(t_inout *lfiles, int j);
+void	status_child(t_mini *mini, int pid);
+
 	/* Ouverture des fichiers de sortie */
 int		ft_openin(t_inout *lfiles, int j); /* Ouverture des fichiers d'entree */
 int		ft_openerr(t_inout *lfiles, int j);
 void	ft_seterrfiles(void);
 int		ft_seterr(t_mini *mini, int i);
+
+/* freeall */
+
+int		ft_freeall(t_mini *mini);
+void	ft_freecommands(char ****cmds);
+void	ft_freeenvin(char ***envp);
 
 /* debug.c */
 

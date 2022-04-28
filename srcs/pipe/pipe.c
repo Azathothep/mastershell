@@ -6,11 +6,13 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:59:42 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:37:04 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 15:00:52 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+#include <termios.h>
+#include "../../incs/parsing.h"
 
 int	ft_child2(t_mini *mini, int mode, int i, t_pipex *pipex)
 {
@@ -71,6 +73,7 @@ int	ft_pipex(t_mini *mini, int i, t_pipex *p)
 {
 	int	j;
 
+	ft_signal_default();
 	mini->pid[i] = fork();
 	j = 0;
 	if (mini->pid[i] == -1)
@@ -120,6 +123,7 @@ int	ft_pipex(t_mini *mini, int i, t_pipex *p)
 				return (-1);
 		}
 	}
+	ft_signal_silence();
 	if (i == 0)
 	{
 		if (close(p->tube[mini->nbc * 2 + 1]) == -1)
@@ -127,6 +131,7 @@ int	ft_pipex(t_mini *mini, int i, t_pipex *p)
 	}
 	if (ft_close(mini, i) == -1)
 		return (-1);
+	ft_init_signals_interactive();
 	return (0);
 }
 
@@ -139,17 +144,18 @@ int	ft_start_pipe(t_mini *mini)
 	i = 0;
 	errno = 0;
 	k = 0;
+	ft_init_signals_interactive();
 	if (ft_init_start(mini) == -1)
-		return (ft_error(i, mini, 0));
+		return (ft_error(i, mini, 0, 0));
 	while (mini->commands[i] != NULL)
 	{
 		j = ft_init_pipex(mini, i);
 		while (j != 0 && i <= mini->nbc - 1)
 		{
 			if (errno < 3 || errno == 11)
-				return (ft_error(i, mini, j));
+				return (ft_error(i, mini, j, 0));
 			if (errno >= 3 && errno != 11)
-				ft_error(i, mini, j);
+				ft_error(i, mini, j, 1);
 			i++;
 			j = ft_init_pipex(mini, i);
 		}
@@ -158,13 +164,13 @@ int	ft_start_pipe(t_mini *mini)
 		{
 			if (ft_builtin(mini, mini->commands[i], mini->pipex) == -1
 				&& errno < 3)
-				return (ft_error(i, mini, 0));
+				return (ft_error(i, mini, 0, 0));
 		}
 		else if (i < mini->nbc)
 		{
 			if (ft_pipex(mini, i, mini->pipex) == -1
 				&& (errno == 1 || errno == 11))
-				return (ft_error(i, mini, 0));
+				return (ft_error(i, mini, 0, 0));
 		}
 		i++;
 	}
@@ -173,7 +179,9 @@ int	ft_start_pipe(t_mini *mini)
 		while (mini->pid[k] == -1)
 			k++;
 		waitpid(mini->pid[k], NULL, 0);
+		status_child(mini, mini->pid[k]);
 		k++;
 	}
+	ft_freeall(mini);
 	return (0);
 }

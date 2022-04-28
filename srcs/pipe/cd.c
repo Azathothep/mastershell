@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:41:47 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/25 16:52:33 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 15:58:05 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,26 +104,8 @@ int	ft_cd(t_mini *mini, char **cmd)
 	char	*path;
 	char	*lastpath;
 
-	path = NULL;
-	if (cmd[1] == NULL || ft_strncmp(cmd[1], "~/", 3) == 0
-		|| ft_strncmp(cmd[1], "~", 2) == 0
-		|| ft_strncmp(cmd[1], "--", 3) == 0)
-	{
-		path = ft_ishome(mini, cmd[1]);
-		if (path == NULL)
-			return (ft_errorcd(mini, 5, cmd[1]));
-	}
-	lastpath = ft_getpwd();
-	if (lastpath == NULL)
-	{
-		ft_errorcd(mini, 3, cmd[1]);
+	if (ft_cd2(mini, &path, cmd, &lastpath) == -1)
 		return (-1);
-	}
-	if (path == NULL)
-	{
-		if (ft_fill(mini, cmd[1], &path) == -1)
-			return (-1);
-	}
 	if (chdir(path) == -1)
 	{
 		ft_seterrnocd(&lastpath, 1);

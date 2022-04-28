@@ -19,26 +19,30 @@ SRCS=	minishell.c \
 		signal.c \
 
 SRCS2 = builtin.c \
-        env.c \
+        builtinpipe.c \
         error.c \
+        error2.c \
         futils.c \
+        futils2.c \
         initpipex.c \
         initpipex2.c \
         initpipex3.c \
         pipe.c \
         pipe2.c \
         debug.c \
-		exit.c \
-		builtinpipe.c \
-		cd.c \
-		cd2.c \
-		echo.c \
-		export.c \
-		export2.c \
-		pipehere.c \
-		pipehere2.c \
-		pwd.c \
-		unset.c \
+        pipehere.c \
+        pipehere2.c \
+        unset.c \
+        pwd.c \
+        export.c \
+        export2.c \
+        exit.c \
+        env.c \
+        echo.c \
+        cd.c \
+        cd2.c \
+		freeall.c \
+		freeall2.c \
 
 OBJ_DIR = objs/
 
@@ -73,7 +77,7 @@ ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 all: makelib ${NAME}
 
 ${NAME}:	Makefile ${OBJS} ${OBJS2}
-			${CC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
+			${CC} ${FLAGS} ${OBJS} ${OBJS2} ${LEAKS} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
 makelib:
 			${MAKE} -C ${LIBFT_PATH}/ all
 

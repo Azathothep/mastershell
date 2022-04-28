@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:41:41 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 13:45:48 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_seterrno(int i)
 	return (-1);
 }
 
-int	ft_error(int i, t_mini *mini, int j)
+int	ft_error(int i, t_mini *mini, int j, int free)
 {
 	char	*temp;
 
@@ -98,5 +98,7 @@ int	ft_error(int i, t_mini *mini, int j)
 	}
 	if (errno >= 5)
 		ft_error2(i, mini, j);
+	if (free == 0)
+		ft_freeall(mini);
 	return (-1);
 }

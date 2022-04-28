@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:30 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:44:24 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 16:01:31 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	ft_errorexit(t_mini *mini, char *cmd)
 	write(mini->pipex->errfile, "exit : ", 7);
 	write(mini->pipex->errfile, cmd, ft_strlen(cmd));
 	write(mini->pipex->errfile, " : numeric argument required\n", 29);
-	//ft_free_all(mini);
+	ft_freeall(mini);
 	exit(mini->exit_status);
 }
 
 void	ft_quit(t_mini *mini)
 {
-	//ft_free_all(mini);
 	write(mini->pipex->errfile, "exit\n", 5);
+	ft_freeall(mini);
 	exit(mini->exit_status);
 }
 
