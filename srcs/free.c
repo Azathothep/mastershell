@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../incs/parsing.h"
+#include "../incs/pipe.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -46,6 +47,8 @@ void	free_mini(t_mini *mini)
 	free_inout(mini->errfile, mini->nbc);
 	mini->errfile = NULL;
 	free(mini->infhere);
+	free(mini->pid);
+	ft_freepipex(mini);
 }
 
 t_list	**free_heredocs(t_list **heredocs)

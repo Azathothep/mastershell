@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 12:39:54 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 16:36:22 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ int	ft_init_start(t_mini *mini)
 	if (mini->pid == NULL)
 		return (ft_seterrno(1));
 	while (j < mini->nbc)
-	{
-		mini->pid[j] = 0;
-		j++;
-	}
+		mini->pid[j++] = 0;
 	return (0);
 }
 

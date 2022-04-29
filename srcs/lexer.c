@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/25 14:58:45 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:17:43 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static int	init_chevrons_and_cmd(t_mini *mini)
 		mini->commands[i] = NULL;
 		mini->infhere[i] = 0;
 	}
+	mini->commands[i] = NULL;
 	return (1);
 }
 

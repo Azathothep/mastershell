@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 16:16:58 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 16:34:22 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,7 @@ int	ft_puthere(t_mini *mini, t_pipex *p, int i)
 	if (pid == -1)
 		return (ft_seterrno(11));
 	if (pid == 0)
-	{
-		t = ft_lstlast(mini->heredocs[i]);
-		if (i != 0)
-		{
-			if (close(p->tube[2 * i]) == -1)
-				return (ft_seterrno(11));
-			write(p->tube[2 * i - 1], t->content, ft_strlen(t->content));
-		}
-		if (i == 0)
-		{
-			if (close(p->tube[2 * mini->nbc]) == -1)
-				return (ft_seterrno(11));
-			write(p->tube[2 * mini->nbc + 1], t->content,
-				ft_strlen(t->content));
-		}
-		exit(0);
-	}
+		ft_puthere2(mini, &t, i, p);
 	waitpid(pid, NULL, 0);
 	if (i != 0)
 		p->infile = p->tube[2 * i - 2];

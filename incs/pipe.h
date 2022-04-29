@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 12:08:33 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 12:13:38 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		ft_oldpwd(t_mini *mini, char *lastpath);
 
 /* ft_utils.c */
 char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */
+char	**ft_convert2(char **envp);
 int		ft_openout(t_inout *lfiles, int j);
 void	status_child(t_mini *mini, int pid);
 
@@ -128,8 +129,10 @@ int		ft_seterr(t_mini *mini, int i);
 /* freeall */
 
 int		ft_freeall(t_mini *mini);
-void	ft_freecommands(char ****cmds);
+void	ft_freecommands(char ***cmds);
 void	ft_freeenvin(char ***envp);
+void	ft_freeenvp(char ***envp, t_list **envpl);
+void	ft_freepipex(t_mini *mini);
 
 /* debug.c */
 
