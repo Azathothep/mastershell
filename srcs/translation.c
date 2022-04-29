@@ -13,17 +13,41 @@
 #include "../incs/parsing.h"
 #include "../incs/lib.h"
 
-static char	*replace_env(char const *s, int exit_status)
+static char *ft_getenv(char const *s, t_list *env)
+{
+	char	*line;
+	int		len;
+	int		i;
+
+	len = ft_strlen(s);
+	while (env)
+	{
+		i = -1;
+		line = get_token(env);
+		if (strncmp(s, line, len) == 0)
+		{
+			if (line[len] == '=')
+				return (&line[len + 1]);
+			else if (!line[len])
+				return (NULL);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
+static char	*replace_env(char const *s, t_mini *mini)
 {
 	char	*env;
 
 	if (s[1] == '?')
-		env = ft_itoa(exit_status);
+		env = ft_itoa(mini->exit_status);
 	else
 	{
-		env = getenv(&s[1]);
+		env = ft_getenv(&s[1], mini->envpl);
 		if (!env)
-			env = ft_strdup("");
+			env = translate(env, &chunk_nquotes, &tl_only_env,
+				mini);
 		else
 			env = ft_strdup(env);
 	}
@@ -46,17 +70,17 @@ char	*pull_quotes(char *s)
 	return (s);
 }
 
-char	*tl_only_env(char *s, int exit_status)
+char	*tl_only_env(char *s, t_mini *mini)
 {
 	if (!s)
 		return (NULL);
 	if (s[0] == '$' && s[1])
-		return (replace_env(s, exit_status));
+		return (replace_env(s, mini));
 	else
 		return (s);
 }
 
-char	*tl_all(char *token, int exit_status)
+char	*tl_all(char *token, t_mini *mini)
 {
 	int	len;
 
@@ -66,15 +90,15 @@ char	*tl_all(char *token, int exit_status)
 	if (token[0] == '\'' && token[len - 1] == '\'')
 		return (pull_quotes(token));
 	else if (token[0] == '\"' && token[len - 1] == '\"')
-		return (translate(pull_quotes(token), &chunk_wquotes,
-				&tl_only_env, exit_status));
+		return (translate(pull_quotes(token), &chunk_nquotes,
+				&tl_only_env, mini));
 	else if (token[0] == '$' && isenv(token[1]))
-		return (replace_env(token, exit_status));
+		return (replace_env(token, mini));
 	return (token);
 }
 
 char	*translate(char const *token, int (*chunk)(char const *),
-					char *(*f)(char *, int), int exit_status)
+					char *(*f)(char *, t_mini *), t_mini *mini)
 {
 	t_list	*begin_cutlst;
 	t_list	*lst;
@@ -87,7 +111,7 @@ char	*translate(char const *token, int (*chunk)(char const *),
 	lst = begin_cutlst;
 	while (lst)
 	{
-		word = (f)(get_token(lst), exit_status);
+		word = (f)(get_token(lst), mini);
 		if (!word)
 		{
 			ft_lstclear(&begin_cutlst, &lst_del);

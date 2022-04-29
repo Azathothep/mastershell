@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 14:55:31 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 16:11:41 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		ft_searchout(t_inout *outfile, int i);
 /* initpipex3.c */
 char	*ft_joinpath(char **tab, char *cmd, int i);
 int		ft_init_start(t_mini *mini);
+t_list	*ft_convlist(char **envp);
 
 /* f_utilspipex futilspipex2 futilspipehere */
 void	ft_puthere2(t_mini *mini, t_list **t, int i, t_pipex *p);

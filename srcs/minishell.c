@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 14:22:53 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:01:59 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static t_mini	init_mini(char **envp)
 	mini.infile = NULL;
 	mini.outfile = NULL;
 	mini.errfile = NULL;
-	mini.envpl = NULL;
 	mini.nbc = 0;
 	mini.pipex = NULL;
 	mini.exit_status = 0;
@@ -48,7 +47,11 @@ static t_mini	init_mini(char **envp)
 	mini.heredocs = NULL;
 	mini.pid = NULL;
 	mini.pipex = NULL;
+	mini.envpl = NULL;
 	mini.envp = ft_convert2(envp);
+	if (!mini.envp)
+		return (mini);
+	mini.envpl = ft_convlist(envp);
 	return (mini);
 }
 
@@ -57,11 +60,11 @@ static void	launch_shell(t_mini *mini)
 	t_list	*begin_lexicon;
 	char	*buffer;
 
-	write(2, "-> mastershell #> ", 18);
 	while (errno_ok())
 	{
 		errno = 0;
 		ft_init_signals_interactive();
+		write(2, "-> mastershell #> ", 18);
 		buffer = readline("");
 		if (!isempty(buffer))
 		{
@@ -70,7 +73,10 @@ static void	launch_shell(t_mini *mini)
 			ft_free (buffer);
 			if (begin_lexicon)
 				if (parser(&begin_lexicon, mini))
+				{
+					//display_parsing(mini);
 					ft_start_pipe(mini);
+				}
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(mini);
 		}
@@ -78,7 +84,6 @@ static void	launch_shell(t_mini *mini)
 			write(1, "\n", 1);
 		if (!buffer)
 			return;
-		write(2, "-> mastershell #> ", 18);
 	}
 }
 
@@ -96,8 +101,11 @@ int	main(int argc, char **argv, char **envp)
 	}
 	errno = 0;
 	mini = init_mini(envp);
-	if (!(mini.envp))
-		return (0);
+	if (!(mini.envp) || !(mini.envpl))
+	{
+		free_mini(&mini);
+		exit(1); //ceck error code
+	}
 	tcgetattr(0, &termios_save);
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
