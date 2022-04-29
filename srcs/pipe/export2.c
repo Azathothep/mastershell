@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 14:20:44 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 15:51:40 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isin2(t_mini *mini, t_list **temp, int *i, char *cmd)
 	{
 		while (*temp != NULL)
 		{
-			if (ft_strncmp((*temp)->content, cmd, *i) == 0)
+			if (ft_strncmp((*temp)->content, cmd, *i + 2) == 0)
 			{
 				if (((char *)(*temp)->content)[*i + 1] == '\0'
 					|| ((char *)(*temp)->content)[*i + 1] == '=')
@@ -77,7 +77,7 @@ int	ft_isin(t_mini *mini, char *cmd)
 
 	if (ft_isin2(mini, &temp, &i, cmd) == 1)
 		return (1);
-	else
+	if (ft_strchr(cmd, '=') == NULL)
 	{
 		while (temp != NULL)
 		{
