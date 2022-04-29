@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 14:11:11 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:55:31 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */
 char	**ft_convert2(char **envp);
 int		ft_openout(t_inout *lfiles, int j);
 void	status_child(t_mini *mini, int pid);
+int		ft_testdirectory(char *cmd);
 
 	/* Ouverture des fichiers de sortie */
 int		ft_openin(t_inout *lfiles, int j); /* Ouverture des fichiers d'entree */
