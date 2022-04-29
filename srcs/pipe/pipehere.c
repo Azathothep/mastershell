@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:18:47 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 14:47:36 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:01:30 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,7 @@ int	ft_pipehere(t_mini *mini, int i, t_pipex *p)
 	}
 	if (i != mini->nbc - 1 && i != 0)
 	{
-		if (p->infile == -1 && p->outfile == -1)
-			j = ft_childh(mini, 0, i, p);
-		if (p->infile != -1 && p->outfile == -1)
-			j = ft_childh(mini, 1, i, p);
-		if (p->infile == -1 && p->outfile != -1)
-			j = ft_childh(mini, 2, i, p);
-		if (p->infile != -1 && p->outfile != -1)
-			j = ft_childh(mini, 3, i, p);
-		if (j == -1)
+		if (ft_utilspipehere(mini, p, i, &j) == -1)
 			return (-1);
 	}
 	return (0);

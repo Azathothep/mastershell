@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:59:42 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 13:04:24 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:16:53 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	ft_start_pipe(t_mini *mini)
 
 	i = 0;
 	errno = 0;
-	ft_init_signals_interactive();
 	if (ft_init_start(mini) == -1)
 		return (ft_error(i, mini, 0, 0));
 	while (mini->commands[i] != NULL)

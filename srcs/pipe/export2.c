@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 16:15:28 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:20:44 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ char	ft_parseexp(char *cmd)
 	i = 0;
 	if (cmd[0] == '\0')
 		return ('\0');
+	if (cmd[0] == '=')
+		return ('=');
 	while (cmd[i] != '\0' && cmd[i] != '=')
 	{
-		if (ft_isalpha(cmd[0]) == 0)
+		if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_')
 			return ('=');
 		i++;
 	}
