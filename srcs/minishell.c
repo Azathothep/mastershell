@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 16:01:59 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:38:55 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void	launch_shell(t_mini *mini)
 	{
 		errno = 0;
 		ft_init_signals_interactive();
-		write(2, "-> mastershell #> ", 18);
-		buffer = readline("");
+		buffer = readline("-> mastershell #> ");
 		if (!isempty(buffer))
 		{
 			add_history(buffer);
@@ -80,8 +79,6 @@ static void	launch_shell(t_mini *mini)
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(mini);
 		}
-		else
-			write(1, "\n", 1);
 		if (!buffer)
 			return;
 	}
