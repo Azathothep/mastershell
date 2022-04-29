@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:30:16 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 12:55:23 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 13:05:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ft_startinit(t_mini *mini, int *i)
 		if (ft_builtin(mini, mini->commands[*i], mini->pipex) == -1
 			&& errno < 3)
 			return (ft_error(*i, mini, 0, 0));
+		*i = *i + 1;
 	}
 	return (0);
 }
