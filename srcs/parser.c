@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:48:06 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/29 15:21:20 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**set_errno(int i)
 	return (NULL);
 }
 
-static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
+static int	process_lexiconline(t_list **begin_lexicon, t_mini *mini)
 {
 	t_list	*lst;
 	char	*token;
@@ -31,7 +31,7 @@ static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
 	while (lst && ft_strncmp(get_token(lst), "|\0", 2))
 	{
 		size++;
-		token = translate(get_token(lst), &chunk_wquotes, &tl_all, exit_status);
+		token = translate(get_token(lst), &chunk_wquotes, &tl_all, mini);
 		if (!token)
 			return (-1);
 		if (token != lst->content)
@@ -41,14 +41,14 @@ static int	process_lexiconline(t_list **begin_lexicon, int exit_status)
 	return (size);
 }
 
-static char	**get_cmdline(t_list **begin_lexicon, int exit_status)
+static char	**get_cmdline(t_list **begin_lexicon, t_mini *mini)
 {
 	char	**cmd_line;
 	int		cmd_size;
 	int		i;
 
 	i = -1;
-	cmd_size = process_lexiconline(begin_lexicon, exit_status);
+	cmd_size = process_lexiconline(begin_lexicon, mini);
 	if (cmd_size < 0)
 		return (NULL);
 	cmd_line = malloc(sizeof(char *) * (cmd_size + 1));
@@ -76,7 +76,7 @@ int	parser(t_list **begin_lexicon, t_mini *mini)
 	i = -1;
 	while (++i < mini->nbc)
 	{
-		mini->commands[i] = get_cmdline(begin_lexicon, mini->exit_status);
+		mini->commands[i] = get_cmdline(begin_lexicon, mini);
 		if (!mini->commands[i])
 		{
 			ft_lstclear(begin_lexicon, &lst_del);

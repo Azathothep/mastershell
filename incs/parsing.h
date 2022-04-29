@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/25 15:11:30 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/04/29 15:24:20 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int		parser(t_list **begin_lexicon, t_mini *mini);
 int		isenv(char c);
 char	*pull_quotes(char *s);
 char	*translate(char const *token, int (*chunk)(char const *),
-			char *(*f)(char *, int), int exit_status);
+			char *(*f)(char *, t_mini *), t_mini *mini);
 t_list	*cut_list(char const *s, int (*f)(char const *));
 int		chunk_wquotes(char const *s);
 int		chunk_nquotes(char const *s);
-char	*tl_only_env(char *s, int exit_status);
-char	*tl_all(char *token, int exit_status);
+char	*tl_only_env(char *s, t_mini *mini);
+char	*tl_all(char *token, t_mini *mini);
 int		process_chevrons(t_list **begin_lexicon, t_mini *mini);
 int		format_ok(char const *filename);
 char	*get_heredoc(t_list *lst, t_mini *mini);

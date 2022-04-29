@@ -83,7 +83,7 @@ static void	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
 			break ;
 		}
 		translation = translate(input, &chunk_nquotes, &tl_only_env,
-				mini->exit_status);
+				mini);
 		write(pipe_fd[1], translation, ft_strlen(translation));
 		write(pipe_fd[1], "\n", 1);
 		ft_free (input);
