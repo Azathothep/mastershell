@@ -6,11 +6,34 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 15:00:03 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:57:32 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+
+int	ft_testdirectory(char *cmd)
+{
+	int		i;
+	int		j;
+	char	test[2];
+
+	if (ft_strncmp("minishell", cmd, 11) == 0)
+		return (-1);
+	i = open(cmd, O_RDONLY);
+	if (i == -1)
+	{
+		errno = 0;
+		return (-1);
+	}
+	j = read(i, test, 2);
+	if (j == -1)
+	{
+		errno = 0;
+		return (-1);
+	}
+	return (0);
+}
 
 void	status_child(t_mini *mini, int pid)
 {

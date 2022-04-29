@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 16:34:22 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:49:55 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_path(char *cmd, t_list *envpl)
 	char	**tab;
 	char	*path;
 
-	if (access(cmd, X_OK) == 0)
+	if (access(cmd, X_OK) == 0 && ft_testdirectory(cmd) != -1)
 		return (ft_strdup(cmd));
 	tab = ft_initpath(&i, envpl);
 	if (tab == NULL)
