@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:30:16 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 10:39:04 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 12:55:23 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_pipechild(t_mini *mini, int i, int *j, t_pipex *p)
 		*j = ft_child(mini, 3, i, p);
 	if (*j == -1)
 		return (-1);
+	return (0);
 }
 
 int	ft_pipe2(t_mini *mini, int i, t_pipex *p, int *j)
@@ -49,6 +50,7 @@ int	ft_pipe2(t_mini *mini, int i, t_pipex *p, int *j)
 		if (ft_last_pipe(mini, i, p) == -1)
 			return (-1);
 	}
+	return (0);
 }
 
 int	ft_startinit(t_mini *mini, int *i)

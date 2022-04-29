@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:40:13 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 10:59:17 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 12:56:39 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	ft_utilsfirstpipe(t_mini *mini, t_pipex *pipex)
 		return (ft_seterrno(11));
 	if (execve(pipex->path, pipex->cmd, mini->envp) == -1)
 		return (ft_seterrno(11));
+	return (0);
 }
 
 int	ft_endpipe(t_mini *mini, int i, t_pipex *p)
@@ -41,6 +42,7 @@ int	ft_endpipe(t_mini *mini, int i, t_pipex *p)
 	if (ft_close(mini, i) == -1)
 		return (-1);
 	ft_init_signals_interactive();
+	return (0);
 }
 
 int	ft_initpipestart(t_mini *mini, int i, int *j)
@@ -50,4 +52,5 @@ int	ft_initpipestart(t_mini *mini, int i, int *j)
 	*j = 0;
 	if (mini->pid[i] == -1)
 		return (ft_seterrno(11));
+	return (0);
 }
