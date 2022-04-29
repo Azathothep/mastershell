@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 12:13:38 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 14:11:11 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_searchout(t_inout *outfile, int i);
 char	*ft_joinpath(char **tab, char *cmd, int i);
 int		ft_init_start(t_mini *mini);
 
-/* f_utilspipex futilspipex2 */
+/* f_utilspipex futilspipex2 futilspipehere */
 void	ft_puthere2(t_mini *mini, t_list **t, int i, t_pipex *p);
 void	ft_waitstart(t_mini *mini);
 int		ft_startinit(t_mini *mini, int *i);
@@ -66,6 +66,8 @@ int		ft_pipe2(t_mini *mini, int i, t_pipex *p, int *j);
 int		ft_endpipe(t_mini *mini, int i, t_pipex *p);
 int		ft_initpipestart(t_mini *mini, int i, int *j);
 int		ft_utilsfirstpipe(t_mini *mini, t_pipex *pipex);
+int		ft_utilspipehere(t_mini *mini, t_pipex *p, int i, int *j);
+int		ft_utils2pipehere(t_mini *mini, t_pipex *pipex);
 
 /* error.c */
 int		ft_error(int i, t_mini *mini, int j, int free);
