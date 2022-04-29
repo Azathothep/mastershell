@@ -44,6 +44,7 @@ SRCS2 = builtin.c \
 		freeall.c \
 		freeall2.c \
 		futilspipex.c \
+		futilspipex2.c \
 
 OBJ_DIR = objs/
 
