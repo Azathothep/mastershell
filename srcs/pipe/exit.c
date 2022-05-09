@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:30 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 13:32:27 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 13:45:41 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ void	ft_quit(t_mini *mini)
 {
 	if (mini->pipex)
 		write(mini->pipex->errfile, "exit\n", 5);
-    else
-        write(2, "exit\n", 5);
-    free_mini(mini);
-    ft_freeenvp(&(mini->envp), &(mini->envpl));
-    exit(mini->exit_status);
+	else
+		write(2, "exit\n", 5);
+	free_mini(mini);
+	ft_termios_ctl(mini);
+	ft_freeenvp(&(mini->envp), &(mini->envpl));
+	exit(mini->exit_status);
 }
 
 int	ft_exit(t_mini *mini, char **cmd)

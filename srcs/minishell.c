@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/09 13:19:00 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:43:44 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ int	main(int argc, char **argv, char **envp)
 		free_mini(&mini);
 		exit(1); //ceck error code
 	}
-	ft_termios_noctl();
+	ft_set_termios_save(&mini);
+	ft_termios_noctl(&mini);
 	launch_shell(&mini);
-	ft_termios_ctl();
+	ft_termios_ctl(&mini);
 	ft_freeenvp(&(mini.envp), &(mini.envpl));
 	return (0);
 }
