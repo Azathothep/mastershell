@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 13:09:41 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:43:51 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ typedef struct s_mini
 	char	**envp;
 	int		exit_status;
 	int		*pid;
+	struct termios termios_save;
 }	t_mini;
 
-void	ft_termios_ctl();
-void	ft_termios_noctl();
+void	ft_termios_ctl(t_mini *mini);
+void	ft_termios_noctl(t_mini *mini);
+void	ft_set_termios_save(t_mini *mini);
 #endif
