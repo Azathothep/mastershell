@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:30 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 16:01:31 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 13:23:02 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+#include "../../incs/parsing.h"
 
 long long	ft_atoiexit(char *cmd)
 {
@@ -57,8 +58,13 @@ void	ft_errorexit(t_mini *mini, char *cmd)
 
 void	ft_quit(t_mini *mini)
 {
-	write(mini->pipex->errfile, "exit\n", 5);
-	ft_freeall(mini);
+	if (mini->pipex)
+		write(mini->pipex->errfile, "exit\n", 5);
+	else
+		write(2, "exit\n", 5);
+	free_mini(mini);
+	ft_termios_ctl();
+	ft_freeenvp(&(mini->envp), &(mini->envpl));
 	exit(mini->exit_status);
 }
 
@@ -66,7 +72,7 @@ int	ft_exit(t_mini *mini, char **cmd)
 {
 	long long	exitnum;
 
-	if (cmd[1] == NULL)
+	if (cmd == NULL || cmd[1] == NULL)
 		ft_quit(mini);
 	exitnum = ft_atoiexit(cmd[1]);
 	if (exitnum == -1 || cmd[1][0] == '\0')

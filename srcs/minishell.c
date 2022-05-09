@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 16:38:55 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:19:00 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,13 @@ static void	launch_shell(t_mini *mini)
 			free_mini(mini);
 		}
 		if (!buffer)
-			return;
+			ft_exit(mini, NULL);
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
-	struct termios	termios_new;
-	struct termios	termios_save;
 
 	argv += 0;
 	if (argc > 1)
@@ -103,12 +101,9 @@ int	main(int argc, char **argv, char **envp)
 		free_mini(&mini);
 		exit(1); //ceck error code
 	}
-	tcgetattr(0, &termios_save);
-	termios_new = termios_save;
-	termios_new.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, 0, &termios_new);
+	ft_termios_noctl();
 	launch_shell(&mini);
-	tcsetattr(0, 0, &termios_save);
+	ft_termios_ctl();
 	ft_freeenvp(&(mini.envp), &(mini.envpl));
 	return (0);
 }
