@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 14:37:58 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:46:05 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/04/29 16:53:16 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_parse(char *cmd, t_pipex *pipex)
 	i = 0;
 	while (cmd[i] != '\0')
 	{
-		if (ft_isalnum(cmd[i]) == 0)
+		if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_')
 		{
 			write(pipex->errfile, "unset : \"", 9);
 			write(pipex->errfile, cmd, ft_strlen(cmd));

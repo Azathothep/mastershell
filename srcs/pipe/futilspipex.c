@@ -6,11 +6,13 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:30:16 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 13:05:43 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:57:33 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+#include <termios.h>
+#include "../../incs/parsing.h"
 
 int	ft_pipechild(t_mini *mini, int i, int *j, t_pipex *p)
 {
@@ -35,17 +37,17 @@ int	ft_pipe2(t_mini *mini, int i, t_pipex *p, int *j)
 				mini->pipex, i) == -1)
 			return (-1);
 	}
-	if (i == 0)
+	if (i == 0 && ft_isbuiltin(mini->commands[i]) == 0)
 	{
 		if (ft_first_pipe(mini, p) == -1)
 			return (-1);
 	}
-	if (i != mini->nbc - 1 && i != 0)
+	if (i != mini->nbc - 1 && i != 0 && ft_isbuiltin(mini->commands[i]) == 0)
 	{
 		if (ft_pipechild(mini, i, j, p) == -1)
 			return (-1);
 	}
-	if (i == mini->nbc - 1 && i != 0)
+	if (i == mini->nbc - 1 && i != 0 && ft_isbuiltin(mini->commands[i]) == 0)
 	{
 		if (ft_last_pipe(mini, i, p) == -1)
 			return (-1);
@@ -61,19 +63,23 @@ int	ft_startinit(t_mini *mini, int *i)
 	while (j != 0 && *i <= mini->nbc - 1)
 	{
 		if (errno < 3 || errno == 11)
-			return (ft_error(*i, mini, j, 0));
+			return (ft_error(*i, mini, j));
 		if (errno >= 3 && errno != 11)
-			ft_error(*i, mini, j, 1);
+			ft_error(*i, mini, j);
 		*i = *i + 1;
-		j = ft_init_pipex(mini, *i);
+		if (*i <= mini->nbc - 1)
+			j = ft_init_pipex(mini, *i);
 	}
 	if (mini->nbc == 1 && *i < mini->nbc
 		&& ft_isbuiltin(mini->commands[*i]) == 1)
 	{
 		if (ft_builtin(mini, mini->commands[*i], mini->pipex) == -1
 			&& errno < 3)
-			return (ft_error(*i, mini, 0, 0));
-		*i = *i + 1;
+			return (ft_error(*i, mini, 0));
+		close(mini->pipex->tube[0]);
+		close(mini->pipex->tube[1]);
+		close(mini->pipex->tube[2]);
+		close(mini->pipex->tube[3]);
 	}
 	return (0);
 }
@@ -81,8 +87,10 @@ int	ft_startinit(t_mini *mini, int *i)
 void	ft_waitstart(t_mini *mini)
 {
 	int	k;
+	int	i;
 
 	k = 0;
+	i = errno;
 	while (k < mini->nbc)
 	{
 		while (mini->pid[k] == -1)
@@ -91,7 +99,7 @@ void	ft_waitstart(t_mini *mini)
 		status_child(mini, mini->pid[k]);
 		k++;
 	}
-	ft_freeall(mini);
+	errno = i;
 }
 
 void	ft_puthere2(t_mini *mini, t_list **t, int i, t_pipex *p)

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 10:49:35 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 14:43:32 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 14:02:02 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_builtinpipehere(t_mini *mini, char **cmd, t_pipex *pipex)
 	if (ft_strncmp("env", cmd[0], 4) == 0)
 		ft_env(mini);
 	if (ft_strncmp("exit", cmd[0], 5) == 0)
-		ft_exit(mini, cmd);
+		ft_exit(mini, cmd, -1);
 	exit(0);
 	return (0);
 }
@@ -77,7 +77,7 @@ int	ft_builtinpipe(t_mini *mini, char **cmd, t_pipex *pipex, int i)
 	if (ft_strncmp("env", cmd[0], 4) == 0)
 		ft_env(mini);
 	if (ft_strncmp("exit", cmd[0], 5) == 0)
-		ft_exit(mini, cmd);
+		ft_exit(mini, cmd, -1);
 	exit(0);
 	return (0);
 }

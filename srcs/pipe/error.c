@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 13:45:48 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 11:58:13 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_close(t_mini *mini, int i)
 		if (close(mini->pipex->tube[2 * i]) == -1
 			|| close(mini->pipex->tube[2 * i + 1]) == -1)
 			return (ft_seterrno(11));
+		close(mini->pipex->tube[2 * i + 2]);
 	}
 	return (0);
 }
@@ -74,7 +75,7 @@ int	ft_seterrno(int i)
 	return (-1);
 }
 
-int	ft_error(int i, t_mini *mini, int j, int free)
+int	ft_error(int i, t_mini *mini, int j)
 {
 	char	*temp;
 
@@ -98,7 +99,5 @@ int	ft_error(int i, t_mini *mini, int j, int free)
 	}
 	if (errno >= 5)
 		ft_error2(i, mini, j);
-	if (free == 0)
-		ft_freeall(mini);
 	return (-1);
 }

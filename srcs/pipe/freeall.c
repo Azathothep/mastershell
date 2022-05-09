@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freeall.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:15:35 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 12:02:23 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/06 13:34:57 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,7 @@ void	ft_freepipex(t_mini *mini)
 	if (mini->pipex != NULL)
 	{
 		free(mini->pipex->tube);
-		// while (mini->pipex->cmd[i] != NULL)
-		// {
-		// 	free(mini->pipex->cmd[i]);
-		// 	i++;
-		// }
-		//free(mini->pipex->cmd);
 		free(mini->pipex->path);
 	}
 	free(mini->pipex);
-}
-
-int	ft_freeall(t_mini *mini)
-{
-	mini += 0;
-	// free(mini->pid);
-	// ft_freepipex(mini);
-	// ft_freeenvp(&(mini->envp), &(mini->envpl));
-	return (0);
 }

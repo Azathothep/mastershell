@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:20:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/22 11:10:16 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:54:17 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,10 @@ int	ft_checkarg(char **cmd)
 int	ft_echo(char **cmd, t_pipex *pipex)
 {
 	int	i;
-	int	j;
-	int	k;
 
-	i = 1;
-	j = 0;
 	if (pipex->outfile == -1)
 		pipex->outfile = 1;
-	k = ft_checkarg(cmd);
-	i = k;
+	i = ft_checkarg(cmd);
 	if (i == -1)
 	{
 		write(pipex->outfile, "\n", 1);
@@ -84,6 +79,11 @@ int	ft_echo(char **cmd, t_pipex *pipex)
 	}
 	if (cmd[i] == NULL)
 		return (0);
+	if (cmd[1][0] == '-' && cmd[1][1] == '\0')
+	{
+		write(pipex->outfile, "-\n", 2);
+		return (0);
+	}
 	while (cmd[i + 1] != NULL)
 		ft_write(cmd[i], &i, pipex);
 	if (cmd[i] != NULL)
