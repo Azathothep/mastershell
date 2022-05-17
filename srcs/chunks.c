@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   chunks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:42:28 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/28 11:08:48 by marvin           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:07:32 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../incs/parsing.h"
 
-static int	matching_quote(char const *s, char c)
+int	matching_quote(char const *s, char c)
 {
 	int	j;
 	int	other;

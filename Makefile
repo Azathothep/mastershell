@@ -18,6 +18,7 @@ SRCS=	minishell.c \
 		display.c \
 		signal.c \
 		termios.c \
+		env_parse.c \
 
 SRCS2 = builtin.c \
         builtinpipe.c \
