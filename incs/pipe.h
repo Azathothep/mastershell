@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 14:01:25 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 16:17:16 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_first_pipeh(t_mini *mini, t_pipex *pipex);
 
 /* initpipex */
 int		ft_init_pipex(t_mini *mini, int i);
-char	*ft_path(char *cmd, t_list *envpl);
+char	*ft_path(char *cmd, t_list *envpl, t_mini *mini);
 char	**ft_initpath(int	*i, t_list *envpl);
 int		ft_puthere(t_mini *mini, t_pipex *p, int i);
 
@@ -69,6 +69,9 @@ int		ft_initpipestart(t_mini *mini, int i, int *j);
 int		ft_utilsfirstpipe(t_mini *mini, t_pipex *pipex);
 int		ft_utilspipehere(t_mini *mini, t_pipex *p, int i, int *j);
 int		ft_utils2pipehere(t_mini *mini, t_pipex *pipex);
+int		ft_closefiles(t_mini *mini, int j, int i);
+void	ft_initthings(t_pipex *pipex);
+void	ft_seterrnopath(t_mini *mini, char *cmd);
 
 /* error.c */
 int		ft_error(int i, t_mini *mini, int j);
@@ -110,7 +113,7 @@ int		ft_echo(char **cmd, t_pipex *pipex);
 
 /* cd.c */
 int		ft_cd(t_mini *mini, char **cmd);
-char	*ft_ishome(t_mini *mini, char *cmd);
+char	*ft_ishome(t_mini *mini);
 int		ft_fill(t_mini *mini, char *cmd, char **path);
 int		ft_errorcd(t_mini *mini, int mode, char *cmd);
 int		ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath);
