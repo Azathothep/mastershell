@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 11:58:13 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 15:45:12 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_seterrout(void)
 	i = errno;
 	if (i == EACCES)
 		errno = 8;
-	if (i == EISDIR)
+	else if (i == EISDIR)
 		errno = 9;
 	else
 		errno = 10;
@@ -60,9 +60,9 @@ int	ft_seterrin(int j)
 	i = errno;
 	if (i == EACCES)
 		errno = 5;
-	if (i == ENOENT)
+	else if (i == ENOENT)
 		errno = 4;
-	if (i == EISDIR)
+	else if (i == EISDIR)
 		errno = 6;
 	else
 		errno = 7;
@@ -99,5 +99,6 @@ int	ft_error(int i, t_mini *mini, int j)
 	}
 	if (errno >= 5)
 		ft_error2(i, mini, j);
+	errno = 0;
 	return (-1);
 }

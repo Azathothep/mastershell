@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/09 14:01:35 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:30:10 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ static void	launch_shell(t_mini *mini)
 			begin_lexicon = lexer(buffer, mini);
 			ft_free (buffer);
 			if (begin_lexicon)
+			{
 				if (parser(&begin_lexicon, mini))
 				{
-					//display_parsing(mini);
+					display_parsing(mini);
 					ft_start_pipe(mini);
 				}
+			}
 			ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(mini);
 		}

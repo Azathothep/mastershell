@@ -18,6 +18,7 @@ SRCS=	minishell.c \
 		display.c \
 		signal.c \
 		termios.c \
+		env_parse.c \
 
 SRCS2 = builtin.c \
         builtinpipe.c \
@@ -42,11 +43,12 @@ SRCS2 = builtin.c \
         echo.c \
         cd.c \
         cd2.c \
-		freeall.c \
-		freeall2.c \
-		futilspipex.c \
-		futilspipex2.c \
-		futilspipehere.c \
+        freeall.c \
+        freeall2.c \
+        futilspipex.c \
+        futilspipex2.c \
+        futilspipex3.c \
+        futilspipehere.c \
 
 OBJ_DIR = objs/
 

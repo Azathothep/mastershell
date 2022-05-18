@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:20:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 12:54:17 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/17 14:24:31 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isoption(char *cmd)
 	i = 0;
 	if (cmd == NULL)
 		return (1);
-	if (cmd[i] != '-')
+	if (cmd[i] != '-' || (cmd[0] == '-' && cmd[1] == '\0'))
 		return (1);
 	i++;
 	while (cmd[i] && cmd[i] == 'n')
@@ -74,16 +74,15 @@ int	ft_echo(char **cmd, t_pipex *pipex)
 	i = ft_checkarg(cmd);
 	if (i == -1)
 	{
+		if (cmd[1] != NULL && cmd[1][0] == '-' && cmd[1][1] == '\0')
+			write(pipex->outfile, "-", 1);
 		write(pipex->outfile, "\n", 1);
 		return (0);
 	}
 	if (cmd[i] == NULL)
 		return (0);
 	if (cmd[1][0] == '-' && cmd[1][1] == '\0')
-	{
-		write(pipex->outfile, "-\n", 2);
-		return (0);
-	}
+		write(pipex->outfile, "- ", 2);
 	while (cmd[i + 1] != NULL)
 		ft_write(cmd[i], &i, pipex);
 	if (cmd[i] != NULL)

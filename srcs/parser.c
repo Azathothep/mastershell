@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 15:21:20 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:44:49 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	parser(t_list **begin_lexicon, t_mini *mini)
 	int	i;
 
 	i = -1;
+	if (!replace_all_env(begin_lexicon, mini))
+		return (0);
 	while (++i < mini->nbc)
 	{
 		mini->commands[i] = get_cmdline(begin_lexicon, mini);

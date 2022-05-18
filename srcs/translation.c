@@ -13,7 +13,7 @@
 #include "../incs/parsing.h"
 #include "../incs/lib.h"
 
-static char *ft_getenv(char const *s, t_list *env)
+static char	*ft_getenv(char const *s, t_list *env)
 {
 	char	*line;
 	int		len;
@@ -45,7 +45,7 @@ static char	*replace_env(char const *s, t_mini *mini)
 		env = ft_getenv(&s[1], mini->envpl);
 		if (!env)
 			env = translate(env, &chunk_nquotes, &tl_only_env,
-				mini);
+					mini);
 		else
 			env = ft_strdup(env);
 	}

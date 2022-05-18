@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:28:44 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/26 15:42:29 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 14:51:07 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ char	*ft_getfiles(int i, t_mini *mini, int j)
 	}
 }
 
+int	ft_error4(int i, t_mini *mini, int j)
+{
+	if (errno == 28)
+	{
+		write(mini->pipex->errfile, "mastershell : ", 14);
+		write(mini->pipex->errfile, mini->commands[i][0],
+			ft_strlen(mini->commands[i][0]));
+		write(mini->pipex->errfile, ": no such file or directory\n", 29);
+	}
+	j = -j;
+	j = -j;
+	if (errno == 29)
+	{
+		write(mini->pipex->errfile, "mastershell : ", 14);
+		write(mini->pipex->errfile, mini->commands[i][0],
+			ft_strlen(mini->commands[i][0]));
+		write(mini->pipex->errfile, ": is a directory\n", 18);
+	}
+	return (0);
+}
+
 int	ft_error3(int i, t_mini *mini, int j)
 {
 	char	*temp;
@@ -65,6 +86,7 @@ int	ft_error3(int i, t_mini *mini, int j)
 		write(mini->pipex->errfile,
 			"mastershell : dup, fork, execve or close error\n", 47);
 	}
+	ft_error4(i, mini, j);
 	return (0);
 }
 

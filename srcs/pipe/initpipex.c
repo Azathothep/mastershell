@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 11:40:35 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 14:23:10 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**ft_initpath(int	*i, t_list *envpl)
 	return (tab);
 }
 
-char	*ft_path(char *cmd, t_list *envpl)
+char	*ft_path(char *cmd, t_list *envpl, t_mini *mini)
 {
 	int		i;
 	char	**tab;
@@ -97,7 +97,7 @@ char	*ft_path(char *cmd, t_list *envpl)
 		free(path);
 		i++;
 	}
-	errno = 3;
+	ft_seterrnopath(mini, cmd);
 	return (ft_freetab(tab));
 }
 
@@ -111,19 +111,21 @@ int	ft_init_pipex(t_mini *mini, int i)
 		return (0);
 	mini->pipex->cmd = mini->commands[i];
 	free(mini->pipex->path);
+	mini->pipex->path = NULL;
+	ft_initthings(mini->pipex);
 	j = ft_init_files(mini, i);
 	if (j != 0)
-		return (j);
+		return (ft_closefiles(mini, j, i));
 	if (ft_isbuiltin(mini->pipex->cmd) == 0)
-		mini->pipex->path = ft_path(mini->pipex->cmd[0], mini->envpl);
+		mini->pipex->path = ft_path(mini->pipex->cmd[0], mini->envpl, mini);
 	if (ft_isbuiltin(mini->pipex->cmd) == 1)
 		mini->pipex->path = ft_strdup("ok");
 	if (mini->pipex->path == NULL)
-		return (-1);
+		return (ft_closefiles(mini, -1, i));
 	ft_freeenvin(&(mini->envp));
 	mini->envp = ft_convert(mini->envpl);
 	if (mini->envp == NULL)
-		return (-1);
+		return (ft_closefiles(mini, -1, i));
 	errno = 0;
 	return (0);
 }
