@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/01 14:33:04 by marvin           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:48:11 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ static t_list	*freeall(t_list *begin_lst, t_list *lst, char *token)
 	ft_lstdelone(lst, &lst_del);
 	ft_lstclear(&begin_lst, &lst_del);
 	return (NULL);
-}
-
-static int	get_other(char const *s, char c)
-{
-	int	j;
-	int	other;
-
-	j = ft_strlen(s);
-	other = 0;
-	while (--j > 0)
-		if (s[j] == c)
-			other = j;
-	return (other);
 }
 
 static int	size_str(char const *s)
@@ -58,7 +45,7 @@ static int	size_str(char const *s)
 	while (s[i] && !ft_inbase(s[i], " <>|"))
 	{
 		if (s[i] == '\"' || s[i] == '\'')
-			i += get_other(&s[i], s[i]);
+			i += matching_quote(&s[i], s[i]);
 		i++;
 	}
 	return (i);
