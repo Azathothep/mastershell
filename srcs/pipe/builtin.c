@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 10:13:28 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/09 14:01:42 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 10:54:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int	ft_builtin(t_mini *mini, char **cmd, t_pipex *pipex)
 		j = ft_env(mini);
 	if (ft_strncmp("exit", cmd[0], 5) == 0)
 		j = ft_exit(mini, cmd, -1);
+	j++;
 	return (0);
 }

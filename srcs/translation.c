@@ -17,12 +17,10 @@ static char *ft_getenv(char const *s, t_list *env)
 {
 	char	*line;
 	int		len;
-	int		i;
 
 	len = ft_strlen(s);
 	while (env)
 	{
-		i = -1;
 		line = get_token(env);
 		if (strncmp(s, line, len) == 0)
 		{

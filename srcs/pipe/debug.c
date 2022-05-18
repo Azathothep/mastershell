@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:40:28 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/03/29 12:24:08 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 10:54:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_printlst(t_list *list)
 	printf("------------------\n");
 	while (list != NULL)
 	{
-		printf("- %s\n", list->content);
+		//printf("- %s\n", list->content);
 		list = list->next;
 	}
 }
