@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/28 16:36:22 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 11:48:01 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ int	ft_init_start(t_mini *mini)
 	j = 0;
 	mini->pipex = malloc(sizeof(t_pipex));
 	if (mini->pipex == NULL)
-	{
-		errno = 1;
-		return (-1);
-	}
+		return (ft_seterrno(1));
 	mini->pipex->path = NULL;
 	if (ft_inittube(mini, mini->pipex) == 1)
 		return (-1);
