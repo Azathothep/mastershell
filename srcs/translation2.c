@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:59:32 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 16:08:52 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:15:38 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ t_list	*translate_word(t_list *to_translate, t_mini *mini)
 void	pop_null_lst(t_list **lexer_tab)
 {
 	t_list	*lst;
+	char	*token;
 	int	i;
 
 	i = -1;
@@ -173,7 +174,8 @@ void	pop_null_lst(t_list **lexer_tab)
 		lst = lexer_tab[i];
 		while (lst)
 		{
-			if (get_token(lst) == NULL)
+			token = get_token(lst);
+			if (token == NULL || token[0] == '\0')
 				remove_lst(&lexer_tab[i], lst);
 			lst = lst->next;
 		}
