@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:38:17 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 15:12:12 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:40:08 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,7 @@ t_list	*cut_by_spaces(char *s)
 			return (0); // free begin_lst
 		ft_lstadd_back(&begin_lst, lst);
 	}
+	if (i == 0)
+		return(ft_lstnew(NULL));
 	return (begin_lst);
 }

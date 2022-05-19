@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:59:32 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 15:33:16 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:08:52 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static char	*replace_env(char const *s, t_mini *mini)
 	{
 		env = ft_getenv(&s[1], mini->envpl);
 		if (!env)
-			env = translate(env, &chunk_nquotes, &tl_only_env,
-					mini);
+		{
+			env = ft_strdup("");
+		}
 		else
 			env = ft_strdup(env);
 	}
@@ -153,13 +154,30 @@ t_list	*translate_word(t_list *to_translate, t_mini *mini)
 		}
 		else
 		{
-			print_lst(&new_chain);
 			prev_lst = replace_lst_chain(&begin_cutlst, new_chain, prev_lst);
 			lst = prev_lst->next;
 		}
 	}
 	join_by_spaces(&begin_cutlst);
 	return (begin_cutlst);
+}
+
+void	pop_null_lst(t_list **lexer_tab)
+{
+	t_list	*lst;
+	int	i;
+
+	i = -1;
+	while (lexer_tab[++i])
+	{
+		lst = lexer_tab[i];
+		while (lst)
+		{
+			if (get_token(lst) == NULL)
+				remove_lst(&lexer_tab[i], lst);
+			lst = lst->next;
+		}
+	}
 }
 
 int translation_lexertab(t_list **lexer_tab, t_mini *mini)
@@ -183,5 +201,6 @@ int translation_lexertab(t_list **lexer_tab, t_mini *mini)
 			lst = prev_lst->next;
 		}
 	}
+	pop_null_lst(lexer_tab);
 	return (1);
 }

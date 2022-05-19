@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 14:24:41 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:09:52 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ static char	**get_cmdline(t_list *lexer_line)
 
 	i = -1;
 	cmd_size = ft_lstsize(lexer_line);
+	if (cmd_size == 0)
+		return (NULL);
 	cmd_line = malloc(sizeof(char *) * (cmd_size + 1));
 	if (!cmd_line)
-	{
-		errno = 1;
-		return (NULL);
-	}
+		return (set_errno(1));
 	lst = lexer_line;
 	while (++i < cmd_size)
 	{
@@ -119,7 +118,7 @@ int parser(t_list **begin_lexicon, t_mini *mini)
 	while (++i < mini->nbc)
 	{
 		mini->commands[i] = get_cmdline(begin_lexertab[i]);
-		if (!mini->commands[i])
+		if (!mini->commands[i] && errno == 1)
 			return (free_lexertab(begin_lexertab));
 	}
 	free_lexertab(begin_lexertab);
