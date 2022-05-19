@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 14:10:06 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:20:23 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	display_parsing(t_mini *mini)
 
 	commands = mini->commands;
 	i = -1;
-	while (commands[++i])
+	while (++i < mini->nbc)
 	{
 		j = -1;
+		if (commands[i])
+		{
 		while (commands[i][++j])
 			printf("%s ", commands[i][j]);
 		printf("|| heredocs : ");
@@ -69,5 +71,7 @@ void	display_parsing(t_mini *mini)
 			lst = lst->next;
 		}
 		printf("\n");
+		}
+		
 	}
 }
