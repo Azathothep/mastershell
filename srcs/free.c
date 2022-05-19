@@ -47,8 +47,11 @@ void	free_mini(t_mini *mini)
 	free_inout(mini->errfile, mini->nbc);
 	mini->errfile = NULL;
 	free(mini->infhere);
+	mini->infhere = NULL;
 	free(mini->pid);
+	mini->pid = NULL;
 	ft_freepipex(mini);
+	mini->pipex = NULL;
 }
 
 t_list	**free_heredocs(t_list **heredocs)

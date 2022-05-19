@@ -71,6 +71,8 @@ void	insert_lst(t_list **begin_lst, t_list *lst, t_list *prev_lst)
 
 void	replace_content(t_list *lst, char *token)
 {
+	if (get_token(lst) == token)
+		return ;
 	ft_free(lst->content);
 	lst->content = token;
 }

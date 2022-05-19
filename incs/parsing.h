@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:12 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/17 16:45:03 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:03:48 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ char	*get_heredoc(t_list *lst, t_mini *mini);
 int		parse_error(const char *s);
 int		matching_quote(char const *s, char c);
 int		replace_all_env(t_list **begin_lexicon, t_mini *mini);
+t_list	*cut_by_spaces(char *s);
+int		join_by_spaces(t_list **begin_lst);
+int		translation_lexertab(t_list **lexer_tab, t_mini *mini);
 
 //signals
 void	ft_sigint_interactive(int signal);

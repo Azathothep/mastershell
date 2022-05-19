@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/17 14:30:10 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:19:48 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_mini	init_mini(char **envp)
 	mini.pid = NULL;
 	mini.pipex = NULL;
 	mini.envpl = NULL;
+	mini.infhere = NULL;
 	mini.envp = ft_convert2(envp);
 	if (!mini.envp)
 		return (mini);
@@ -79,7 +80,8 @@ static void	launch_shell(t_mini *mini)
 					ft_start_pipe(mini);
 				}
 			}
-			ft_lstclear(&begin_lexicon, &lst_del);
+			else
+				ft_lstclear(&begin_lexicon, &lst_del);
 			free_mini(mini);
 		}
 		if (!buffer)

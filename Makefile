@@ -19,6 +19,8 @@ SRCS=	minishell.c \
 		signal.c \
 		termios.c \
 		env_parse.c \
+		translation2.c \
+		cut_by_spaces.c \
 
 SRCS2 = builtin.c \
         builtinpipe.c \
@@ -83,7 +85,7 @@ ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 all: makelib ${NAME}
 
 ${NAME}:	Makefile ${OBJS} ${OBJS2}
-			${CC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
+			${CC} ${FLAGS} ${LEAKS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
 makelib:
 			${MAKE} -C ${LIBFT_PATH}/ all
 

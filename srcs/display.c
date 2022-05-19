@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/04/29 15:03:42 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:10:06 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	display_parsing(t_mini *mini)
 			printf("%s ", get_token(lst));
 			lst = lst->next;
 		}
-		// printf("|| here : %d", mini->here);
-		// printf("\n");
+		printf("\n");
 	}
-	printf("\n");
 }
