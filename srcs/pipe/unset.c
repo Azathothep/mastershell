@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 14:37:58 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 16:53:16 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:32:14 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ int	ft_unset(t_mini *mini, char **cmd, t_pipex *pipex)
 		if (ft_parse(cmd[i], pipex) != -1)
 		{
 			if (ft_removeenv(mini, cmd[i]) == -1)
-				return (-1);
+				return (ft_setexit(1, -1));
 		}
 		i++;
 	}
+	ft_setexit(0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:04:28 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/19 12:47:23 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:31:22 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_errnopwd(t_mini *mini, char *buf)
 	write(mini->pipex->errfile, "pwd : An error occured\n", 23);
 	errno = 23;
 	free(buf);
+	ft_setexit(1, 0);
 	return (-1);
 }
 
@@ -43,5 +44,6 @@ int	ft_pwd(t_mini *mini, t_pipex *pipex)
 	write(pipex->outfile, name,
 		ft_strlen(name));
 	write(pipex->outfile, "\n", 1);
+	ft_setexit(0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:30 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/19 13:14:53 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 15:37:45 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_errorexit(t_mini *mini, char *cmd)
 	ft_termios_ctl(mini);
 	ft_signal_default();
 	ft_freeenvp(&(mini->envp), &(mini->envpl));
-	exit(mini->exit_status);
+	exit(exitstatus);
 }
 
 void	ft_quit(t_mini *mini)
@@ -72,7 +72,7 @@ void	ft_quit(t_mini *mini)
 	ft_termios_ctl(mini);
 	ft_signal_default();
 	ft_freeenvp(&(mini->envp), &(mini->envpl));
-	exit(mini->exit_status);
+	exit(exitstatus);
 }
 
 int	ft_exit(t_mini *mini, char **cmd, int n)
@@ -81,7 +81,7 @@ int	ft_exit(t_mini *mini, char **cmd, int n)
 
 	if (n != -1)
 	{
-		mini->exit_status = n;
+		exitstatus = n;
 		ft_quit(mini);
 	}
 	if (cmd == NULL || cmd[1] == NULL)
@@ -94,7 +94,7 @@ int	ft_exit(t_mini *mini, char **cmd, int n)
 		ft_errorexit2(mini);
 		return (-1);
 	}
-	mini->exit_status = exitnum % 256;
+	exitstatus = exitnum % 256;
 	ft_quit(mini);
 	return (0);
 }

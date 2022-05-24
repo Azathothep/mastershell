@@ -33,7 +33,6 @@ SRCS2 = builtin.c \
         initpipex3.c \
         pipe.c \
         pipe2.c \
-        debug.c \
         pipehere.c \
         pipehere2.c \
         unset.c \
@@ -51,6 +50,7 @@ SRCS2 = builtin.c \
         futilspipex2.c \
         futilspipex3.c \
         futilspipehere.c \
+		exitstatus.c \
 
 OBJ_DIR = objs/
 
@@ -85,7 +85,7 @@ ${OBJ_DIR}%.o : ${SRCS_DIR}%.c	${INCLUDES}
 all: makelib ${NAME}
 
 ${NAME}:	Makefile ${OBJS} ${OBJS2}
-			${CC} ${FLAGS} ${LEAKS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
+			${CC} ${FLAGS} ${OBJS} ${OBJS2} ${LIBFT_PATH}/libft.a -L$(shell brew --prefix readline)/lib -lreadline -o ${NAME}
 makelib:
 			${MAKE} -C ${LIBFT_PATH}/ all
 

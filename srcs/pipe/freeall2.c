@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freeall2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:41:32 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 11:24:57 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:32:23 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,19 @@ void	ft_freecommands(char ***cmds)
 		j = 0;
 	}
 	free(cmds);
+}
+
+void	ft_closefour(t_mini *mini)
+{
+	close(mini->pipex->tube[0]);
+	close(mini->pipex->tube[1]);
+	close(mini->pipex->tube[2]);
+	close(mini->pipex->tube[3]);
+}
+
+void	ft_initspace(int *i, t_mini *mini)
+{
+	*i = 0;
+	errno = 0;
+	ft_termios_ctl(mini);
 }

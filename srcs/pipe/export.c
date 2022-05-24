@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:39:24 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 16:49:29 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:26:39 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_export(t_mini *mini, char **cmd, t_pipex *pipex)
 	{
 		if (ft_noarg(mini, pipex->outfile) == -1)
 			return (-1);
-		return (0);
+		return (ft_setexit(0, 0));
 	}
 	while (cmd[i] != NULL)
 	{
@@ -116,11 +116,11 @@ int	ft_export(t_mini *mini, char **cmd, t_pipex *pipex)
 		if (j == -1)
 			k = -1;
 		if (j == -1 && errno == 1)
-			return (-1);
+			return (ft_setexit(1, -1));
 		i++;
 	}
 	if (k == -1)
-		return (-1);
+		return (ft_setexit(1, -1));
 	else
-		return (0);
+		return (ft_setexit(0, 0));
 }

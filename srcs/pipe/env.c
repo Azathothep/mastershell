@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:50:41 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/21 11:49:10 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:23:24 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	ft_env(t_mini *mini)
 		}
 		temp = temp->next;
 	}
+	ft_setexit(0, 0);
 	return (0);
 }

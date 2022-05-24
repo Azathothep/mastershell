@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/19 16:16:55 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:22:17 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,12 @@ void	ft_freecommands(char ***cmds);
 void	ft_freeenvin(char ***envp);
 void	ft_freeenvp(char ***envp, t_list **envpl);
 void	ft_freepipex(t_mini *mini);
+void	ft_closefour(t_mini *mini);
+void	ft_initspace(int *i, t_mini *mini);
+
+/* exitstatus */
+
+int		ft_setexit(int i, int j);
 
 /* debug.c */
 

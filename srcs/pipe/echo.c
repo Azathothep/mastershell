@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:20:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/17 14:24:31 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:23:19 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ int	ft_echo(char **cmd, t_pipex *pipex)
 		write(pipex->outfile, cmd[i], ft_strlen(cmd[i]));
 	if (ft_isoption(cmd[1]) == 1)
 		write(pipex->outfile, "\n", 1);
+	ft_setexit(0, 0);
 	return (0);
 }

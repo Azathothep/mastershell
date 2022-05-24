@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:41:47 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/18 10:21:47 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:22:48 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_seterrnocd(char **path, char **last, int mode)
 	}
 	free(*path);
 	free(*last);
+	ft_setexit(0, 0);
 	return (-1);
 }
 
@@ -108,7 +109,7 @@ int	ft_cd(t_mini *mini, char **cmd)
 	if (ft_cd2(mini, &path, cmd, &lastpath) == -1 && (errno == 1 || errno == 0))
 	{
 		free(path);
-		return (-1);
+		return (ft_setexit(1, -1));
 	}
 	if (chdir(path) == -1)
 	{
@@ -120,8 +121,9 @@ int	ft_cd(t_mini *mini, char **cmd)
 	free(lastpath);
 	lastpath = ft_getpwd();
 	if (lastpath == NULL)
-		return (-1);
+		return (ft_setexit(1, -1));
 	if (ft_changepwd(mini, lastpath) == -1)
 		return (ft_seterrnocd(&path, &lastpath, 2));
+	ft_setexit(0, 0);
 	return (0);
 }

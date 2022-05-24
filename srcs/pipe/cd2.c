@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:25:08 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/17 17:16:08 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 16:23:10 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ int	ft_errorcd(t_mini *mini, int mode, char *cmd)
 		errno = 13;
 		write(mini->pipex->errfile, "cd : HOME not set\n", 18);
 	}
+	ft_setexit(1, 0);
 	return (-1);
 }
