@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/17 16:17:16 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 16:16:55 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int		ft_utils2pipehere(t_mini *mini, t_pipex *pipex);
 int		ft_closefiles(t_mini *mini, int j, int i);
 void	ft_initthings(t_pipex *pipex);
 void	ft_seterrnopath(t_mini *mini, char *cmd);
+int		ft_eraseold(t_mini *mini);
+void	ft_freelistenv(t_mini *mini);
+void	ft_freetabenv(t_mini *mini);
+int		ft_freechar(char *name, int i);
 
 /* error.c */
 int		ft_error(int i, t_mini *mini, int j);

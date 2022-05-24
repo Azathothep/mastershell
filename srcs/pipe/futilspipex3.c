@@ -6,13 +6,36 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:23:56 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/10 14:50:18 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 16:17:29 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
 #include <termios.h>
 #include "../../incs/parsing.h"
+
+int	ft_eraseold(t_mini *mini)
+{
+	t_list	*temp;
+	char	*cont;
+
+	temp = mini->envpl;
+	while (temp != NULL)
+	{
+		if (ft_strncmp(temp->content, "OLDPWD=", 7) == 0
+			|| ft_strncmp(temp->content, "OLDPWD", 7) == 0)
+		{
+			cont = ft_strdup("OLDPWD");
+			if (cont == NULL)
+				return (ft_seterrno(1));
+			free(temp->content);
+			temp->content = cont;
+			return (0);
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
 
 void	ft_seterrnopath(t_mini *mini, char *cmd)
 {
@@ -36,4 +59,42 @@ void	ft_seterrnopath(t_mini *mini, char *cmd)
 	else
 		errno = 3;
 	mini->envp = mini->envp;
+}
+
+void	ft_freetabenv(t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	if (mini->envp == NULL)
+		return ;
+	while (mini->envp[i] != NULL)
+	{
+		free(mini->envp[i]);
+		i++;
+	}
+	free(mini->envp);
+}
+
+void	ft_freelistenv(t_mini *mini)
+{
+	t_list	*temp;
+	t_list	*temp2;
+
+	temp = mini->envpl;
+	if (mini->envpl == NULL)
+		return ;
+	while (temp != NULL)
+	{
+		temp2 = temp;
+		free(temp->content);
+		temp = temp->next;
+		free(temp2);
+	}
+}
+
+int	ft_freechar(char *name, int i)
+{
+	free(name);
+	return (i);
 }

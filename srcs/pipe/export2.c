@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 16:50:12 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 12:50:49 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_readd(t_mini *mini, char *cmd)
 		return (ft_seterrno(1));
 	temp = mini->envpl;
 	if (cmd[ft_checkequal(cmd)] == '\0' || cmd[ft_checkequal(cmd) + 1] == '\0')
-		return (0);
+		return (ft_freechar(name, 0));
 	while (temp != NULL)
 	{
 		if (ft_strncmp(temp->content, cmd, ft_checkequal(cmd)) == 0)
@@ -67,6 +67,7 @@ int	ft_readd(t_mini *mini, char *cmd)
 		}
 		temp = temp->next;
 	}
+	free(name);
 	return (0);
 }
 

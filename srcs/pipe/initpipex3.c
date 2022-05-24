@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/10 11:48:01 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 16:16:46 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ int	ft_init_start(t_mini *mini)
 	mini->pipex->path = NULL;
 	if (ft_inittube(mini, mini->pipex) == 1)
 		return (-1);
+	ft_freetabenv(mini);
 	if (mini->envpl != NULL)
 		mini->envp = ft_convert(mini->envpl);
 	if (mini->envpl == NULL)
 		mini->envp = ft_convert2(mini->envp);
+	ft_freelistenv(mini);
 	mini->envpl = ft_convlist(mini->envp);
 	if (mini->envpl == NULL)
 		return (-1);

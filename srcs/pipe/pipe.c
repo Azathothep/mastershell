@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:59:42 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/18 12:00:09 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/24 12:07:13 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,12 @@ int	ft_start_pipe(t_mini *mini)
 		return (ft_error(i, mini, 0));
 	while (mini->commands[i] != NULL)
 	{
+		while (mini->commands[i] == NULL && i < mini->nbc)
+			i++;
 		if (ft_startinit(mini, &i) == -1)
 			return (-1);
+		while (mini->commands[i] == NULL && i < mini->nbc)
+			i++;
 		if (i < mini->nbc && (mini->nbc != 1
 				|| (mini->nbc == 1 && ft_isbuiltin(mini->commands[i]) == 0)))
 		{
