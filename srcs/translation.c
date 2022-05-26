@@ -84,14 +84,17 @@ static char	*replace_env_in_word(char *word, t_mini *mini)
 	{
 		token = get_token(lst);
 		if (token[0] == '$' && isenv(token[1]))
-		{
 			token = replace_env(token, mini);
-		}
 		replace_content(lst, token);
 		lst = lst->next;
 	}
 	translation = lst_joinstr(&begin_cutlst);
 	ft_lstclear(&begin_cutlst, &lst_del);
+	if (!translation)
+	{
+		errno = 1;
+		return (NULL);
+	}
 	return (translation);
 }
 
@@ -109,7 +112,6 @@ static t_list *process_env(t_list *lst, t_mini *mini)
 		ft_memmove(token, &token[1], len);
 		token[len - 2] = '\0';
 	}
-
 	return (lst);
 }
 
@@ -176,8 +178,13 @@ char	*translate_heredoc(char *line, t_mini *mini)
 		replace_content(lst, replace_env_in_word(get_token(lst), mini));
 		lst = lst->next;
 	}
-	join_by_spaces(&begin_cutlst);
+	if (join_by_spaces(&begin_cutlst) == 0)
+	{
+		errno = 1;
+		return (NULL);
+	}
 	final_line = lst_joinstr(&begin_cutlst);
+	ft_lstclear(&begin_cutlst, &lst_del);
 	return (final_line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 13:23:33 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:01:14 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*lst_joinstr(t_list **begin_lst)
 	int		size;
 	char	*str;
 
+	if (!begin_lst)
+		return (NULL);
 	lst = *begin_lst;
 	size = joinlst_size(begin_lst);
 	str = malloc(sizeof(char) * (size + 1));
