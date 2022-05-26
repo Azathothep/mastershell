@@ -50,7 +50,7 @@ static char	*replace_env(char const *s, t_mini *mini)
 	char	*env;
 
 	if (s[1] == '?')
-		env = ft_itoa(mini->exit_status);
+		env = ft_itoa(exitstatus);
 	else
 	{
 		env = ft_getenv(&s[1], mini->envpl);
@@ -83,8 +83,10 @@ static char	*replace_env_in_word(char *word, t_mini *mini)
 	while (lst)
 	{
 		token = get_token(lst);
-		if (token[0] == '$' && token[1])
+		if (token[0] == '$' && isenv(token[1]))
+		{
 			token = replace_env(token, mini);
+		}
 		replace_content(lst, token);
 		lst = lst->next;
 	}
@@ -110,9 +112,12 @@ static t_list	*translate_token(t_list *lst, t_mini *mini)
 	{
 		replace_content(lst, replace_env_in_word(pull_quotes(token), mini));
 	}
-	else if (token[0] == '$' && isenv(token[1]))
+	else if (token[0] == '$')
 	{
-		return (cut_by_spaces(replace_env(token, mini)));
+		if (isenv(token[1]))
+			return (cut_by_spaces(replace_env(token, mini)));
+		else
+			replace_content(lst, ft_strdup(&token[1]));
 	}
 	return (lst);
 }

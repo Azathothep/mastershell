@@ -24,14 +24,19 @@ static int	errno_free(char *token)
 static void	add_chevron2(char const *sign, t_list *lst_new,
 			t_mini *mini, int index)
 {
+	int	i;
+
+	i = 0;
 	if (sign[0] == '<')
 	{
 		mini->infhere[index] = 0;
 		ft_lstadd_back(&(mini->infile[index].files), lst_new);
 	}
-	else if (sign[0] == '>')
+	else if (sign[0] == '>' || sign[0] == '1')
 	{
-		if (sign[1] == '>')
+		if (sign[0] == '1')
+			i = 1;
+		if (sign[i + 1] == '>')
 			mini->outfile[index].type = 1;
 		ft_lstadd_back(&(mini->outfile[index].files), lst_new);
 	}
@@ -103,7 +108,8 @@ int	process_chevrons(t_list **begin_lexicon, t_mini *mini)
 		if (!ft_strncmp(get_token(lst), "|\0", 2))
 			index++;
 		if (ft_inbase(get_token(lst)[0], "<>")
-		|| !ft_strncmp(get_token(lst), "2>", 2))
+		|| !ft_strncmp(get_token(lst), "2>", 2)
+		|| !ft_strncmp(get_token(lst), "1>", 2))
 		{
 			if (!treat_chevron(lst, mini, index))
 				return (0);

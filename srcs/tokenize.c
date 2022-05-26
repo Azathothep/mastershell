@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/17 16:48:11 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 12:10:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	size_str(char const *s)
 	i = 0;
 	if (s[0] == '|')
 		return (1);
-	if (!ft_strncmp(s, "2>", 2))
+	if (!ft_strncmp(s, "2>", 2) || !ft_strncmp(s, "1>", 2))
 	{
 		if (s[2] == '>')
 			return (3);

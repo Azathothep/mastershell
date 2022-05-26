@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 14:19:48 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:50:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	errno = 0;
+	exitstatus = 0;
 	mini = init_mini(envp);
 	if (!(mini.envp) || !(mini.envpl))
 	{

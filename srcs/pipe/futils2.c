@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   futils2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/04/29 14:57:32 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 12:19:04 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int	ft_testdirectory(char *cmd)
 
 void	status_child(t_mini *mini, int pid)
 {
+	mini += 0;
 	if (WIFEXITED(pid))
-		mini->exit_status = WEXITSTATUS(pid);
+		exitstatus = WEXITSTATUS(pid);
 	if (WIFSIGNALED(pid))
 	{
-		mini->exit_status = WTERMSIG(pid);
-		if (mini->exit_status != 131)
-			mini->exit_status += 128;
+		exitstatus = WTERMSIG(pid);
+		//if (exitstatus != 131)
+		//	exitstatus += 128;
 	}
 }
 
