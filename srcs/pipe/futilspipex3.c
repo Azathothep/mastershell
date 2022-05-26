@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:23:56 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/19 16:17:29 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 13:04:37 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_seterrnopath(t_mini *mini, char *cmd)
 	int		i;
 	char	temp[1];
 
-	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
+	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/')
+		|| ft_strchr(cmd, '/') != NULL)
 	{
 		i = open(cmd, O_RDONLY);
 		if (i < 0)

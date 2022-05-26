@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 16:30:16 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/24 15:26:18 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 12:58:35 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,13 @@ void	ft_waitstart(t_mini *mini)
 	{
 		while (mini->pid[k] == -1)
 			k++;
-		waitpid(mini->pid[k], NULL, 0);
-		status_child(mini, mini->pid[k]);
+		waitpid(mini->pid[k], &exitstatus, 0);
+		if (WIFSIGNALED(mini->pid[k]))
+		{
+			if (exitstatus != 131)
+				exitstatus += 128;
+		}
+		exitstatus = exitstatus % 256;
 		k++;
 	}
 	errno = i;
