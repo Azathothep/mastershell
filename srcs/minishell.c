@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 16:05:12 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:07:24 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	mini = init_mini(envp);
 	if (!(mini.envp) || !(mini.envpl))
 	{
+		ft_freeenvp(&(mini.envp), &(mini.envpl)); // check here
 		free_mini(&mini);
 		exit(1); //check error code
 	}
