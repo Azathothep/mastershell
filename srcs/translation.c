@@ -104,7 +104,7 @@ static t_list *process_env(t_list *lst, t_mini *mini)
 	len = ft_strlen(token);
 	if (isenv(token[1]))
 		return (cut_by_spaces(replace_env(token, mini)));
-	else
+	else if (token[1])
 	{
 		ft_memmove(token, &token[1], len);
 		token[len - 2] = '\0';

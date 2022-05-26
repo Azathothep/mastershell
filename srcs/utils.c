@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/03/29 14:29:09 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:23:33 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 int	parse_error(const char *s)
 {
 	errno = 100;
-	printf("mastershell: syntax error near '%s'\n", s);
+	printf("mastershell: syntax error near `%s'\n", s);
+	exitstatus = 258;
 	return (0);
 }
 
