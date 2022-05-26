@@ -43,20 +43,19 @@ static void	add_chevron2(char const *sign, t_list *lst_new,
 	}
 }
 
-static int	add_chevron(char const *sign, char *token, t_mini *mini, int index)
+static int	add_chevron(char const *sign, t_list *lst_token, t_mini *mini, int index)
 {
 	t_list	*lst_new;
-	char	*token_dup;
+	char	*token;
 
+	token = get_token(lst_token);
 	lst_new = NULL;
 	if (!format_ok(token))
 		return (parse_error(sign));
-	token_dup = ft_strdup(token);
-	lst_new = ft_lstnew(token_dup);
-	if (!token_dup || !lst_new)
+	lst_new = translate_word(lst_token, mini);
+	if (!lst_new)
 	{
 		errno = 1;
-		ft_free(token_dup);
 		ft_lstdelone(lst_new, &lst_del);
 		return (0);
 	}
@@ -86,7 +85,7 @@ static int	treat_chevron(t_list *lst, t_mini *mini, int index)
 		}
 	}
 	else
-		if (!add_chevron(get_token(lst), get_token(lst->next), mini, index))
+		if (!add_chevron(get_token(lst), lst->next, mini, index))
 			return (0);
 	return (1);
 }

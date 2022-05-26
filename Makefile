@@ -18,8 +18,6 @@ SRCS=	minishell.c \
 		display.c \
 		signal.c \
 		termios.c \
-		env_parse.c \
-		translation2.c \
 		cut_by_spaces.c \
 
 SRCS2 = builtin.c \
