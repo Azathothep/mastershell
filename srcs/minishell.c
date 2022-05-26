@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 14:48:15 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:05:12 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,10 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	errno = 0;
-	exitstatus = 0;
+	g_exitstatus = 0;
 	mini = init_mini(envp);
 	if (!(mini.envp) || !(mini.envpl))
 	{
-		ft_freeenvp(&(mini.envp), &(mini.envpl)); // check here
 		free_mini(&mini);
 		exit(1); //check error code
 	}

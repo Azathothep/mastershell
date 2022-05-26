@@ -49,6 +49,7 @@ SRCS2 = builtin.c \
         futilspipex3.c \
         futilspipehere.c \
 		exitstatus.c \
+		initpipex4.c \
 
 OBJ_DIR = objs/
 

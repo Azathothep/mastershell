@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 15:01:14 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:03:22 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_error(const char *s)
 {
 	errno = 100;
 	printf("mastershell: syntax error near `%s'\n", s);
-	exitstatus = 258;
+	g_exitstatus = 258;
 	return (0);
 }
 

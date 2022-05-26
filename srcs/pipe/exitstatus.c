@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exitstatus.c                                       :+:      :+:    :+:   */
+/*   g_exitstatus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,6 +14,6 @@
 
 int	ft_setexit(int i, int j)
 {
-	exitstatus = i;
+	g_exitstatus = i;
 	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/24 16:22:17 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:01:13 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	ft_freepipex(t_mini *mini);
 void	ft_closefour(t_mini *mini);
 void	ft_initspace(int *i, t_mini *mini);
 
-/* exitstatus */
+/* g_exitstatus */
 
 int		ft_setexit(int i, int j);
 

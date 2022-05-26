@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 13:34:02 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:03:26 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_seterrout(void)
 		errno = 9;
 	else
 		errno = 10;
-	exitstatus = 1;
+	g_exitstatus = 1;
 }
 
 int	ft_seterrin(int j)
@@ -67,7 +67,7 @@ int	ft_seterrin(int j)
 		errno = 6;
 	else
 		errno = 7;
-	exitstatus = 1;
+	g_exitstatus = 1;
 	return (j);
 }
 
@@ -91,7 +91,7 @@ int	ft_error(int i, t_mini *mini, int j)
 		write(mini->pipex->errfile, mini->commands[i][0],
 			ft_strlen(mini->commands[i][0]));
 		write(mini->pipex->errfile, ": command not found\n", 20);
-		exitstatus = 127;
+		g_exitstatus = 127;
 	}
 	if (errno == 4)
 	{

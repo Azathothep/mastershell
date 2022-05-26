@@ -50,7 +50,7 @@ static char	*replace_env(char const *s, t_mini *mini)
 	char	*env;
 
 	if (s[1] == '?')
-		env = ft_itoa(exitstatus);
+		env = ft_itoa(g_exitstatus);
 	else
 	{
 		env = ft_getenv(&s[1], mini->envpl);

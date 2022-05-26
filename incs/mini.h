@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 14:18:46 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:01:17 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	ft_termios_ctl(t_mini *mini);
 void	ft_termios_noctl(t_mini *mini);
 void	ft_set_termios_save(t_mini *mini);
 
-int	exitstatus;
+int	g_exitstatus;
 
 #endif
