@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:03:26 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:25:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_close(t_mini *mini, int i)
 	return (0);
 }
 
-void	ft_seterrout(void)
+int	ft_seterrout(int j)
 {
 	int	i;
 
@@ -52,6 +52,7 @@ void	ft_seterrout(void)
 	else
 		errno = 10;
 	g_exitstatus = 1;
+	return (j);
 }
 
 int	ft_seterrin(int j)

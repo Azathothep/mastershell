@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:10:37 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 13:31:01 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:27:02 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_errfiles(t_mini *mini, int i)
 			mini->pipex->errfile = open(name, R | C | P, I | W | G | H);
 		if (mini->pipex->errfile < 0)
 		{
-			ft_seterrfiles();
+			ft_seterrfiles(0);
 			return (ft_seterr(mini, -1));
 		}
 	}
@@ -63,7 +63,7 @@ int	ft_init_files2(t_mini *mini, int i)
 			mini->pipex->outfile = open(name, R | C | P, I | W | G | H);
 		if (mini->pipex->outfile < 0)
 		{
-			ft_seterrout();
+			ft_seterrout(0);
 			return (-1);
 		}
 	}

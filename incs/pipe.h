@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:11:05 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:26:10 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		ft_freechar(char *name, int i);
 int		ft_error(int i, t_mini *mini, int j);
 int		ft_seterrno(int i);
 int		ft_seterrin(int j);
-void	ft_seterrout(void);
+int		ft_seterrout(int j);
 int		ft_close(t_mini *mini, int i);
 int		ft_error2(int i, t_mini *mini, int j);
 char	*ft_getfiles(int i, t_mini *mini, int j);
@@ -134,7 +134,7 @@ int		ft_testdirectory(char *cmd);
 	/* Ouverture des fichiers de sortie */
 int		ft_openin(t_inout *lfiles, int j); /* Ouverture des fichiers d'entree */
 int		ft_openerr(t_inout *lfiles, int j);
-void	ft_seterrfiles(void);
+int		ft_seterrfiles(int j);
 int		ft_seterr(t_mini *mini, int i);
 
 /* freeall */

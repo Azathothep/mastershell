@@ -6,13 +6,13 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/10 13:26:08 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:26:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
 
-void	ft_seterrfiles(void)
+int	ft_seterrfiles(int j)
 {
 	int	i;
 
@@ -23,6 +23,7 @@ void	ft_seterrfiles(void)
 		errno = 26;
 	else
 		errno = 27;
+	return (j);
 }
 
 int	ft_openerr(t_inout *lfiles, int j)
@@ -30,26 +31,26 @@ int	ft_openerr(t_inout *lfiles, int j)
 	int		i;
 	int		fd;
 	t_list	*temp;
+	t_list	*temp2;
 
 	i = 0;
 	temp = lfiles[j].files;
+	temp2 = lfiles[j].types;
 	if (temp == NULL)
 		return (0);
 	while (temp->next != NULL)
 	{
-		if (lfiles[j].type == 0)
+		if (temp2->content == 0)
 			fd = open(temp->content, R | C | T, I | W | G | H);
 		else
 			fd = open(temp->content, R | C | T | P, I | W | G | H);
 		if (fd < 0)
-		{
-			ft_seterrfiles();
-			return (i);
-		}
+			return (ft_seterrfiles(i));
 		if (close(fd) == -1)
 			return (ft_seterrno(11));
 		i++;
 		temp = temp->next;
+		temp2 = temp2->next;
 	}
 	return (0);
 }
@@ -88,26 +89,26 @@ int	ft_openout(t_inout *lfiles, int j)
 	int		i;
 	int		fd;
 	t_list	*temp;
+	t_list	*temp2;
 
 	i = 0;
 	temp = lfiles[j].files;
+	temp2 = lfiles[j].types;
 	if (temp == NULL)
 		return (0);
 	while (temp->next != NULL)
 	{
-		if (lfiles[j].type == 0)
+		if (temp2->content == 0)
 			fd = open(temp->content, R | C | T, I | W | G | H);
 		else
 			fd = open(temp->content, R | C | T | P, I | W | G | H);
 		if (fd < 0)
-		{
-			ft_seterrout();
-			return (i);
-		}
+			return (ft_seterrout(i));
 		if (close(fd) == -1)
 			return (ft_seterrno(11));
 		i++;
 		temp = temp->next;
+		temp2 = temp2->next;
 	}
 	return (0);
 }
