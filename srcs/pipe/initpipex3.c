@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   initpipex3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 13:02:45 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/19 16:16:46 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 14:53:45 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/pipe.h"
+#include "../../incs/parsing.h"
+
+static char**	seterrno_null(int i)
+{
+	errno = i;
+	return (NULL);
+}
 
 char	**ft_convert2(char **envp)
 {
@@ -21,17 +28,18 @@ char	**ft_convert2(char **envp)
 	while (envp[i] != NULL)
 		i++;
 	temp = malloc(sizeof(char *) * (i + 1));
+	if (temp == NULL)
+		return (seterrno_null(1));
 	temp[i] = NULL;
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		temp[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		i++;
-	}
-	i = 0;
-	while (envp[i] != NULL)
-	{
 		temp[i] = ft_strdup(envp[i]);
+		if (temp[i] == NULL)
+		{
+			// free here
+			return (seterrno_null(1));
+		}
 		i++;
 	}
 	return (temp);
@@ -42,6 +50,7 @@ t_list	*ft_convlist(char **envp)
 	int		i;
 	t_list	*envpl;
 	t_list	*temp;
+	char	*token;
 
 	i = 0;
 	envpl = NULL;
@@ -49,10 +58,12 @@ t_list	*ft_convlist(char **envp)
 		return (NULL);
 	while (envp[i] != NULL)
 	{
-		temp = ft_lstnew(ft_strdup(envp[i]));
-		if (temp == NULL)
+		token = ft_strdup(envp[i]);
+		temp = ft_lstnew(token);
+		if (token == NULL || temp == NULL)
 		{
 			errno = 1;
+			ft_lstclear(&envpl, &free);
 			return (NULL);
 		}
 		ft_lstadd_back(&envpl, temp);

@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 13:08:17 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:48:15 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,9 @@ int	main(int argc, char **argv, char **envp)
 	mini = init_mini(envp);
 	if (!(mini.envp) || !(mini.envpl))
 	{
+		ft_freeenvp(&(mini.envp), &(mini.envpl)); // check here
 		free_mini(&mini);
-		exit(1); //ceck error code
+		exit(1); //check error code
 	}
 	ft_set_termios_save(&mini);
 	ft_termios_noctl(&mini);
