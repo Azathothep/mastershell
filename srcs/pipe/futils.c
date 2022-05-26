@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:26:43 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 16:50:27 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	ft_seterrfiles(int j)
 	int	i;
 
 	i = errno;
-	if (i == EACCES)
+	if (i == 2)
+		errno = 32;
+	else if (i == EACCES)
 		errno = 25;
 	else if (i == EISDIR)
 		errno = 26;
