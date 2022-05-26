@@ -95,6 +95,24 @@ static char	*replace_env_in_word(char *word, t_mini *mini)
 	return (translation);
 }
 
+static t_list *process_env(t_list *lst, t_mini *mini)
+{
+	int		len;
+	char	*token;
+	
+	token = get_token(lst);
+	len = ft_strlen(token);
+	if (isenv(token[1]))
+		return (cut_by_spaces(replace_env(token, mini)));
+	else
+	{
+		ft_memmove(token, &token[1], len);
+		token[len - 2] = '\0';
+	}
+
+	return (lst);
+}
+
 static t_list	*translate_token(t_list *lst, t_mini *mini)
 {
 	int		len;
@@ -114,10 +132,7 @@ static t_list	*translate_token(t_list *lst, t_mini *mini)
 	}
 	else if (token[0] == '$')
 	{
-		if (isenv(token[1]))
-			return (cut_by_spaces(replace_env(token, mini)));
-		else
-			replace_content(lst, ft_strdup(&token[1]));
+		return (process_env(lst, mini));
 	}
 	return (lst);
 }
