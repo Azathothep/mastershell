@@ -30,7 +30,10 @@ void	free_inout(t_inout *inout, int nbc)
 	if (!inout)
 		return ;
 	while (++i < nbc)
+	{
 		ft_lstclear(&inout[i].files, &lst_del);
+		ft_lstclear(&inout[i].types, &lst_del);
+	}
 	ft_free(inout);
 }
 

@@ -22,7 +22,7 @@ static int	errno_free(char *token)
 }
 
 static void	add_chevron2(char const *sign, t_list *lst_new,
-			t_mini *mini, int index)
+			t_mini *mini, t_list *lst_type, int index)
 {
 	int	i;
 
@@ -31,40 +31,50 @@ static void	add_chevron2(char const *sign, t_list *lst_new,
 	{
 		mini->infhere[index] = 0;
 		ft_lstadd_back(&(mini->infile[index].files), lst_new);
+		ft_lstadd_back(&(mini->infile[index].types), lst_type);
 	}
 	else if (sign[0] == '>' || sign[0] == '1')
 	{
 		if (sign[0] == '1')
 			i = 1;
 		if (sign[i + 1] == '>')
-			mini->outfile[index].type = 1;
+			*((int *)(lst_type->content)) = 1;
 		ft_lstadd_back(&(mini->outfile[index].files), lst_new);
+		ft_lstadd_back(&(mini->outfile[index].types), lst_type);
 	}
 	else if (sign[0] == '2')
 	{
 		if (sign[2] == '>')
-			mini->errfile[index].type = 1;
+			*((int *)(lst_type->content)) = 1;
 		ft_lstadd_back(&(mini->errfile[index].files), lst_new);
+		ft_lstadd_back(&(mini->errfile[index].types), lst_type);
 	}
 }
 
 static int	add_chevron(char const *sign, t_list *lst_token, t_mini *mini, int index)
 {
 	t_list	*lst_new;
+	t_list	*lst_type;
 	char	*token;
+	int		*type;
 
 	token = get_token(lst_token);
 	lst_new = NULL;
 	if (!format_ok(token))
 		return (parse_error(sign));
+	type = malloc(sizeof(int));
 	lst_new = translate_word(lst_token, mini);
-	if (!lst_new)
+	lst_type = ft_lstnew(type);
+	if (!lst_new || !type || !lst_type)
 	{
 		errno = 1;
+		ft_free(type);
 		ft_lstdelone(lst_new, &lst_del);
+		ft_lstdelone(lst_type, &lst_del);
 		return (0);
 	}
-	add_chevron2(sign, lst_new, mini, index);
+	*type = 0;
+	add_chevron2(sign, lst_new, mini, lst_type, index);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:09 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 13:06:08 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:23:39 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ static int	init_inout(t_mini *mini)
 	while (++i < mini->nbc)
 	{
 		mini->infile[i].type = 0;
+		mini->infile[i].types = NULL;
 		mini->infile[i].files = NULL;
 		mini->outfile[i].type = 0;
+		mini->outfile[i].types = NULL;
 		mini->outfile[i].files = NULL;
 		mini->errfile[i].type = 0;
+		mini->errfile[i].types = NULL;
 		mini->errfile[i].files = NULL;
 	}
 	return (1);

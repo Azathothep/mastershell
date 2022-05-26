@@ -17,7 +17,7 @@
 
 void	lst_del(void *content)
 {
-	ft_free((char *)content);
+	ft_free(content);
 }
 
 void	pop_pile(t_list **begin_lst)

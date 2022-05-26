@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/24 15:43:49 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 14:18:46 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ sorties*/
 typedef struct s_inout
 {
 	int		type;
+	t_list	*types;
 	t_list	*files;
 }	t_inout;
 
