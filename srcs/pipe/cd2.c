@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:25:08 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/24 16:23:10 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/05/30 17:58:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath)
 
 int	ft_errorcd2(t_mini *mini, int mode, char *cmd)
 {
-	mode = 1;
+	mode += 1;
 	write(mini->pipex->errfile, "cd : ", 5);
 	if (errno == 14)
 	{

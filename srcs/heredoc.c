@@ -30,7 +30,7 @@ static char	*ft_addalloc(char *s, int size)
 	new_line = malloc(sizeof(char) * (len + size + 1));
 	if (!new_line)
 	{
-		errno = 3;
+		errno = 1;
 		return (NULL);
 	}
 	ft_bzero(new_line, len + size + 1);
@@ -63,7 +63,7 @@ static char	*make_line(int fd)
 	return (content);
 }
 
-static void	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
+static int	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
 {
 	char	*input;
 	char	*translation;
@@ -82,10 +82,12 @@ static void	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
 			ft_free (input);
 			break ;
 		}
-		translation = translate_heredoc(input, mini);
+		translation = translate_heredoc(input, mini);		
+		ft_free (input);
+		if (!translation)
+			exit(1);
 		write(pipe_fd[1], translation, ft_strlen(translation));
 		write(pipe_fd[1], "\n", 1);
-		ft_free (input);
 	}
 	exit(0);
 }
@@ -111,7 +113,7 @@ static char	*heredoc_fork(char *del, t_mini *mini)
 		ft_init_signals_interactive();
 		if (WIFSIGNALED(status))
 			write(1, "\n", 1);
-		else
+		if (WEXITSTATUS(status) == 0)
 			return (make_line(pipe_fd[0]));
 	}
 	return (NULL);

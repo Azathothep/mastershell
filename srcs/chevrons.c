@@ -18,6 +18,7 @@ static int	errno_free(char *token)
 {
 	errno = 1;
 	ft_free(token);
+	token = NULL;
 	return (0);
 }
 

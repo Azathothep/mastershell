@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_by_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:38:17 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 15:40:08 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:28:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	join_by_spaces(t_list **begin_lst)
 		{
 			word = ft_strjoin(get_token(lst), get_token(next));
 			if (!word)
-				return (0); // free some stuff?
+				return (0);
 			replace_content(lst, word);
 			lst->next = next->next;
 		}
@@ -109,7 +109,10 @@ t_list	*cut_by_spaces(char *s)
 				i++;
 		}
 		if (!lst)
-			return (0); // free begin_lst
+		{
+			ft_lstclear(&begin_lst, &lst_del);
+			return (0);
+		}
 		ft_lstadd_back(&begin_lst, lst);
 	}
 	if (i == 0)
