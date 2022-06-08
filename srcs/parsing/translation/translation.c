@@ -33,7 +33,7 @@ static char	*ft_getenv(char const *s, t_list *env)
 	while (env)
 	{
 		line = get_token(env);
-		if (strncmp(s, line, len) == 0)
+		if (ft_strncmp(s, line, len) == 0)
 		{
 			if (line[len] == '=')
 				return (&line[len + 1]);

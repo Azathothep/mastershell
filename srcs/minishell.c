@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:54:09 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:44:11 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_set_termios_save(&mini);
 	ft_termios_noctl(&mini);
+	ft_eraseold(&mini);
 	launch_shell(&mini);
 	ft_termios_ctl(&mini);
 	ft_freeenvp((mini.envp), (mini.envpl));

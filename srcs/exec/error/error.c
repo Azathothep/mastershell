@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:23:43 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 11:36:27 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ int	ft_error(int i, t_mini *mini, int j)
 	char	*temp;
 
 	if (errno == 1)
-		write(mini->pipex->errfile, "mastershell : Malloc error\n", 27);
+		write(mini->pipex->errfile, "mishell : Malloc error\n", 27);
 	if (errno == 2)
-		write(mini->pipex->errfile, "mastershell : PATH is unset\n", 28);
+		write(mini->pipex->errfile, "mishell : PATH is unset\n", 28);
 	if (errno == 3)
 	{
-		write(mini->pipex->errfile, "mastershell : ", 14);
+		write(mini->pipex->errfile, "mishell : ", 14);
 		write(mini->pipex->errfile, mini->commands[i][0],
 			ft_strlen(mini->commands[i][0]));
 		write(mini->pipex->errfile, ": command not found\n", 20);
@@ -101,7 +101,7 @@ int	ft_error(int i, t_mini *mini, int j)
 	if (errno == 4)
 	{
 		temp = ft_getfiles(i, mini, j);
-		write(mini->pipex->errfile, "mastershell : ", 14);
+		write(mini->pipex->errfile, "mishell : ", 14);
 		write(mini->pipex->errfile, temp, ft_strlen(temp));
 		write(mini->pipex->errfile, " : no such file or directory\n", 29);
 	}
