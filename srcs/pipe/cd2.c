@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:25:08 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/30 17:58:31 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/08 09:25:38 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ int	ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath)
 	return (0);
 }
 
-int	ft_errorcd2(t_mini *mini, int mode, char *cmd)
+int	ft_errorcd2(t_mini *mini, char *cmd)
 {
-	mode += 1;
 	write(mini->pipex->errfile, "cd : ", 5);
 	if (errno == 14)
 	{
@@ -134,7 +133,7 @@ int	ft_errorcd(t_mini *mini, int mode, char *cmd)
 	if (mode == 3 && errno == 18)
 		write(mini->pipex->errfile, "cd : OLDPWD not set\n", 20);
 	if (mode == 4 && errno <= 17 && errno >= 14)
-		ft_errorcd2(mini, mode, cmd);
+		ft_errorcd2(mini, cmd);
 	if (mode == 5)
 	{
 		errno = 13;

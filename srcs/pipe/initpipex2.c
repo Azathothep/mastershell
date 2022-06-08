@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:10:37 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:27:02 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 10:09:12 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_errfiles(t_mini *mini, int i)
 		if (j != 0)
 			return (ft_seterr(mini, j));
 		name = ft_lstlast(mini->errfile[i].files)->content;
-		if (mini->errfile[i].type == 0)
+		if (*(int *)(ft_lstlast(mini->errfile->types)->content) == 0)
 		{
 			mini->pipex->errfile = open(name, O_RDWR | O_CREAT | O_TRUNC,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -54,7 +54,7 @@ int	ft_init_files2(t_mini *mini, int i)
 		if (j != 0)
 			return (j);
 		name = ft_lstlast(mini->outfile[i].files)->content;
-		if (mini->outfile[i].type == 0)
+		if (*(int *)(ft_lstlast(mini->outfile[i].types)->content) == 0)
 		{
 			mini->pipex->outfile = open(name, O_RDWR | O_CREAT | O_TRUNC,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);

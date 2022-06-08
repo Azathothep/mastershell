@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:09:12 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:50:27 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 10:04:03 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	ft_openerr(t_inout *lfiles, int j)
 		return (0);
 	while (temp->next != NULL)
 	{
-		if (temp2->content == 0)
+		if (*(int *)temp2->content == 0)
 			fd = open(temp->content, R | C | T, I | W | G | H);
 		else
-			fd = open(temp->content, R | C | T | P, I | W | G | H);
+			fd = open(temp->content, R | C | P, I | W | G | H);
 		if (fd < 0)
 			return (ft_seterrfiles(i));
 		if (close(fd) == -1)
@@ -100,10 +100,10 @@ int	ft_openout(t_inout *lfiles, int j)
 		return (0);
 	while (temp->next != NULL)
 	{
-		if (temp2->content == 0)
+		if (*(int *)(temp2->content) == 0)
 			fd = open(temp->content, R | C | T, I | W | G | H);
 		else
-			fd = open(temp->content, R | C | T | P, I | W | G | H);
+			fd = open(temp->content, R | C | P, I | W | G | H);
 		if (fd < 0)
 			return (ft_seterrout(i));
 		if (close(fd) == -1)

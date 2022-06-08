@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:39:24 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/24 16:26:39 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 09:47:22 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	*ft_copye(char *env)
 	if (env[i] == '=')
 	{
 		temp = ft_strdup(env);
+		if (temp == NULL)
+		{
+			errno = 1;
+			return (NULL);
+		}
 		temp[i + 1] = '\0';
 	}
 	return (temp);
@@ -56,6 +61,8 @@ int	ft_noarg(t_mini *mini, int fd)
 	{
 		write(fd, "declare -x ", 11);
 		temp2 = ft_copye(temp->content);
+		if (temp2 == NULL)
+			return (-1);
 		if (temp2[ft_strlen(temp2) - 1] == '=')
 		{
 			write(fd, temp2, ft_strlen(temp2));
