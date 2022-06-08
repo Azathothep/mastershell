@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/mini.h"
-#include "../incs/lib.h"
-#include "../incs/pipe.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/mini.h"
+#include "../../../incs/lib.h"
+#include "../../../incs/pipe.h"
 
 static char	*seterrno_null(int n)
 {

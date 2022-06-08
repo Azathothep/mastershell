@@ -6,13 +6,13 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 11:16:50 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 16:20:23 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:30:17 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/lib.h"
-#include "../incs/parsing.h"
-#include "../incs/mini.h"
+#include "../../incs/lib.h"
+#include "../../incs/parsing.h"
+#include "../../incs/mini.h"
 
 void	print_lst(t_list **begin_lst)
 {

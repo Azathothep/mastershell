@@ -6,11 +6,11 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:06:32 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/17 16:46:45 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:30:06 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/mini.h"
+#include "../../../incs/mini.h"
 #include <termios.h>
 
 void	ft_termios_ctl(t_mini *mini)

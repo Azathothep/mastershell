@@ -6,13 +6,13 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:38:17 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 09:57:21 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:29:50 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/mini.h"
-#include "../incs/lib.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/mini.h"
+#include "../../../incs/lib.h"
 
 static int	str_size_until_space(char *s)
 {

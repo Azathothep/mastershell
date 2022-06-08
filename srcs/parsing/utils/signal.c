@@ -6,12 +6,12 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:06:04 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 09:52:59 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:30:04 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/lib.h"
-#include "../incs/parsing.h"
+#include "../../../incs/lib.h"
+#include "../../../incs/parsing.h"
 #include <termios.h>
 
 void	ft_sigint_interactive(int signal)

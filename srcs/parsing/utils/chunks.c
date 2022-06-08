@@ -6,12 +6,12 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:42:28 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/17 16:07:32 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:29:46 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../incs/parsing.h"
+#include "../../../incs/parsing.h"
 
 int	matching_quote(char const *s, char c)
 {

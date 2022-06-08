@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/mini.h"
-#include "../incs/lib.h"
-#include "../incs/parsing.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/mini.h"
+#include "../../../incs/lib.h"
+#include "../../../incs/parsing.h"
 
 void	lst_del(void *content)
 {

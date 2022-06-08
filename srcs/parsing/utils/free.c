@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/pipe.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/pipe.h"
 #include <stdlib.h>
 #include <stdio.h>
 

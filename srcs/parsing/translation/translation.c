@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/lib.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/lib.h"
 
 char	*pull_quotes(char *s)
 {

@@ -6,15 +6,15 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 09:45:12 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:30:33 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../incs/parsing.h"
-#include "../incs/mini.h"
-#include "../incs/lib.h"
-#include "../incs/pipe.h"
+#include "../../incs/parsing.h"
+#include "../../incs/mini.h"
+#include "../../incs/lib.h"
+#include "../../incs/pipe.h"
 #include <termios.h>
 
 static int	errno_ok(void)

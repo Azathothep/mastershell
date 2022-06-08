@@ -6,12 +6,12 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 09:53:58 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:30:29 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../incs/parsing.h"
+#include "../../incs/parsing.h"
 
 static t_list	*freeall(t_list *begin_lst, t_list *lst, char *token)
 {

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cuts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:25 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/30 17:38:25 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/08 10:29:54 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../incs/parsing.h"
+#include "../../../incs/parsing.h"
 
 static t_list	*empty_string( void )
 {

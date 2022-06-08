@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 16:03:22 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/08 10:30:10 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/parsing.h"
-#include "../incs/lib.h"
+#include "../../../incs/parsing.h"
+#include "../../../incs/lib.h"
 
 int	parse_error(const char *s)
 {
