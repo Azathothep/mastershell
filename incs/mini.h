@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 14:02:34 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/07 22:22:22 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/08 10:15:05 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ typedef struct s_pipex
 /* Structure globale du minishell*/
 typedef struct s_mini
 {
-	char	***commands;
-	t_inout	*infile;
-	t_inout	*outfile;
-	t_inout	*errfile;
-	t_list	**heredocs;
-	int		*infhere;
-	t_list	*envpl;
-	int		nbc;
-	t_pipex	*pipex;
-	char	**envp;
-	int		exit_status;
-	int		*pid;
-	struct termios	termios_save;
+	char				***commands;
+	t_inout				*infile;
+	t_inout				*outfile;
+	t_inout				*errfile;
+	t_list				**heredocs;
+	int					*infhere;
+	t_list				*envpl;
+	int					nbc;
+	t_pipex				*pipex;
+	char				**envp;
+	int					exit_status;
+	int					*pid;
+	struct termios		termios_save;
 }	t_mini;
 
 void	ft_termios_ctl(t_mini *mini);
