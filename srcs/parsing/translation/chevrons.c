@@ -23,7 +23,7 @@ static int	errno_free(char *token)
 }
 
 static void	add_chevron2(char const *sign, t_list *lst_new,
-			t_mini *mini, t_list *lst_type, int index)
+						t_mini *mini, t_list *lst_type, int index)
 {
 	int	i;
 
@@ -52,7 +52,8 @@ static void	add_chevron2(char const *sign, t_list *lst_new,
 	}
 }
 
-static int	add_chevron(char const *sign, t_list *lst_token, t_mini *mini, int index)
+static int	add_chevron(char const *sign, t_list *lst_token,
+						t_mini *mini, int index)
 {
 	t_list	*lst_new;
 	t_list	*lst_type;

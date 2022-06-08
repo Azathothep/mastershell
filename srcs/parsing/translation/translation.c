@@ -98,11 +98,11 @@ static char	*replace_env_in_word(char *word, t_mini *mini)
 	return (translation);
 }
 
-static t_list *process_env(t_list *lst, t_mini *mini)
+static t_list	*process_env(t_list *lst, t_mini *mini)
 {
 	int		len;
 	char	*token;
-	
+
 	token = get_token(lst);
 	len = ft_strlen(token);
 	if (isenv(token[1]))
@@ -232,7 +232,7 @@ t_list	*translate_word(t_list *to_translate, t_mini *mini)
 		if (!new_chain)
 		{
 			ft_lstclear(&begin_cutlst, &lst_del);
-			return (NULL); // free some stuff?
+			return (NULL);
 		}
 		replace_chain(&lst, new_chain, &prev_lst, &begin_cutlst);
 	}

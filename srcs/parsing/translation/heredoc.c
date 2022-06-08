@@ -82,7 +82,7 @@ static int	fill_heredoc(int pipe_fd[2], char *del, t_mini *mini)
 			ft_free (input);
 			break ;
 		}
-		translation = translate_heredoc(input, mini);		
+		translation = translate_heredoc(input, mini);
 		ft_free (input);
 		if (!translation)
 			exit(1);

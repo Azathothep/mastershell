@@ -6,15 +6,15 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:34:57 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:30:33 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:54:09 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../../incs/parsing.h"
-#include "../../incs/mini.h"
-#include "../../incs/lib.h"
-#include "../../incs/pipe.h"
+#include "../incs/parsing.h"
+#include "../incs/mini.h"
+#include "../incs/lib.h"
+#include "../incs/pipe.h"
 #include <termios.h>
 
 static int	errno_ok(void)
@@ -66,22 +66,16 @@ static void	launch_shell(t_mini *mini)
 		errno = 0;
 		ft_init_signals_interactive();
 		ft_termios_noctl(mini);
-		buffer = readline("-> mastershell #> ");
+		buffer = readline("-> mishell #> ");
 		if (!isempty(buffer))
 		{
 			add_history(buffer);
 			begin_lexicon = lexer(buffer, mini);
 			ft_free (buffer);
-			if (begin_lexicon)
-			{
-				if (parser(&begin_lexicon, mini))
-				{
-					//display_parsing(mini);
-					ft_start_pipe(mini);
-				}
-			}
-			else
+			if (!begin_lexicon)
 				ft_lstclear(&begin_lexicon, &lst_del);
+			else if (parser(&begin_lexicon, mini))
+				ft_start_pipe(mini);
 			free_mini(mini);
 		}
 		if (!buffer)
@@ -106,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_freeenvp((mini.envp), (mini.envpl));
 		free_mini(&mini);
-		exit(1); //check error code
+		exit(1);
 	}
 	ft_set_termios_save(&mini);
 	ft_termios_noctl(&mini);

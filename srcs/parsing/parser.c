@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:30:25 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:38:58 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**set_errno(int i)
 	return (NULL);
 }
 
-static char **free_cmdline(char **cmd_line)
+static char	**free_cmdline(char **cmd_line)
 {
 	int	i;
 
@@ -98,7 +98,7 @@ t_list	*next_cmdstart_lst(t_list *begin_lst)
 
 t_list	**create_lexertab(t_list **begin_lexicon, int nbc)
 {
-	int	i;
+	int		i;
 	t_list	*lst;
 	t_list	**begin_lexertab;
 
@@ -116,9 +116,9 @@ t_list	**create_lexertab(t_list **begin_lexicon, int nbc)
 	return (begin_lexertab);
 }
 
-int parser(t_list **begin_lexicon, t_mini *mini)
+int	parser(t_list **begin_lexicon, t_mini *mini)
 {
-	int	i;
+	int		i;
 	t_list	**begin_lexertab;
 
 	i = -1;

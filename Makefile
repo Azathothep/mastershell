@@ -4,8 +4,9 @@ SRCS_DIR_PARSING = srcs/parsing/
 
 SRCS_DIR_EXEC = srcs/pipe/
 
-SRCS_PARSING =	minishell.c \
-		lexer.c \
+SRCS = minishell.c
+
+SRCS_PARSING =	lexer.c \
 		parser.c \
 		tokenize.c \
 		translation/heredoc.c \
@@ -17,7 +18,6 @@ SRCS_PARSING =	minishell.c \
 		utils/chunks.c \
 		utils/utils.c \
 		utils/free.c \
-		display.c \
 		utils/signal.c \
 		utils/termios.c \
 		utils/cut_by_spaces.c \
@@ -59,7 +59,7 @@ OBJ_DIR_PARSING = ${OBJ_DIR}parsing/
 
 OBJ_DIR_EXEC = ${OBJ_DIR}exec/
 
-OBJS =	${OBJS_PARSING} ${OBJS_EXEC}
+OBJS =	${SRCS:%.c=${OBJ_DIR}%.o} ${OBJS_PARSING} ${OBJS_EXEC}
 
 OBJS_PARSING = ${SRCS_PARSING:%.c=${OBJ_DIR_PARSING}%.o}
 
