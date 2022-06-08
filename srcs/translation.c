@@ -119,6 +119,7 @@ static t_list	*translate_token(t_list *lst, t_mini *mini)
 {
 	int		len;
 	char	*token;
+	char	*token_enved;
 
 	token = get_token(lst);
 	if (!token)
@@ -130,7 +131,10 @@ static t_list	*translate_token(t_list *lst, t_mini *mini)
 	}
 	else if (token[0] == '\"' && token[len - 1] == '\"')
 	{
-		replace_content(lst, replace_env_in_word(pull_quotes(token), mini));
+		token_enved = replace_env_in_word(pull_quotes(token), mini);
+		if (errno == 1)
+			return (NULL);
+		replace_content(lst, token_enved);
 	}
 	else if (token[0] == '$')
 	{
@@ -168,6 +172,7 @@ char	*translate_heredoc(char *line, t_mini *mini)
 	t_list	*lst;
 	t_list	*begin_cutlst;
 	char	*final_line;
+	char	*token_enved;
 
 	begin_cutlst = cut_list(line, &chunk_nquotes);
 	if (!begin_cutlst)
@@ -175,6 +180,12 @@ char	*translate_heredoc(char *line, t_mini *mini)
 	lst = begin_cutlst;
 	while (lst)
 	{
+		token_enved = replace_env_in_word(get_token(lst), mini);
+		if (errno == 1)
+		{
+			ft_lstclear(&begin_cutlst, &lst_del);
+			return (NULL);
+		}
 		replace_content(lst, replace_env_in_word(get_token(lst), mini));
 		lst = lst->next;
 	}
@@ -220,6 +231,7 @@ t_list	*translate_word(t_list *to_translate, t_mini *mini)
 		new_chain = translate_token(lst, mini);
 		if (!new_chain)
 		{
+			ft_lstclear(&begin_cutlst, &lst_del);
 			return (NULL); // free some stuff?
 		}
 		replace_chain(&lst, new_chain, &prev_lst, &begin_cutlst);

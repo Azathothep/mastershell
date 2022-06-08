@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/19 16:09:52 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 09:49:29 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 static char	**set_errno(int i)
 {
 	errno = i;
+	return (NULL);
+}
+
+static char **free_cmdline(char **cmd_line)
+{
+	int	i;
+
+	i = -1;
+	while (cmd_line[++i])
+		free(cmd_line[i]);
+	free(cmd_line);
 	return (NULL);
 }
 
@@ -39,7 +50,7 @@ static char	**get_cmdline(t_list *lexer_line)
 	{
 		cmd_line[i] = ft_strdup(get_token(lst));
 		if (!cmd_line[i])
-			return (set_errno(1));
+			return (free_cmdline(cmd_line));
 		lst = lst->next;
 	}
 	cmd_line[i] = NULL;

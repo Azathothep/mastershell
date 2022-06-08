@@ -113,8 +113,13 @@ static char	*heredoc_fork(char *del, t_mini *mini)
 		ft_init_signals_interactive();
 		if (WIFSIGNALED(status))
 			write(1, "\n", 1);
-		if (WEXITSTATUS(status) == 0)
-			return (make_line(pipe_fd[0]));
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == 0)
+				return (make_line(pipe_fd[0]));
+			else
+				errno = 1;
+		}
 	}
 	return (NULL);
 }

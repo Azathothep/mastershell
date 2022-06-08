@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:40:13 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/26 12:10:45 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/08 09:53:58 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list	*tokenize(char const *s)
 	while (s[i])
 	{
 		token = alloc_token(s + i);
-		lst = ft_lstnew((void *)token);
+		lst = ft_lstnew(token);
 		if (!token || !lst)
 			return (freeall(begin_lst, lst, token));
 		ft_lstadd_back(&begin_lst, lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_by_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:38:17 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/05/30 17:28:41 by marvin           ###   ########.fr       */
+/*   Updated: 2022/06/08 09:57:21 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ t_list	*cut_by_spaces(char *s)
 
 	i = 0;
 	begin_lst = NULL;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] != ' ')
