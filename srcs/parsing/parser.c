@@ -6,30 +6,13 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 00:35:06 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:38:58 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:01:08 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/mini.h"
 #include "../../incs/lib.h"
-
-static char	**set_errno(int i)
-{
-	errno = i;
-	return (NULL);
-}
-
-static char	**free_cmdline(char **cmd_line)
-{
-	int	i;
-
-	i = -1;
-	while (cmd_line[++i])
-		free(cmd_line[i]);
-	free(cmd_line);
-	return (NULL);
-}
 
 static char	**get_cmdline(t_list *lexer_line)
 {
@@ -55,19 +38,6 @@ static char	**get_cmdline(t_list *lexer_line)
 	}
 	cmd_line[i] = NULL;
 	return (cmd_line);
-}
-
-int	free_lexertab(t_list **begin_lexertab)
-{
-	int	i;
-
-	i = -1;
-	while (begin_lexertab[++i])
-	{
-		ft_lstclear(&begin_lexertab[i], &lst_del);
-	}
-	free (begin_lexertab);
-	return (0);
 }
 
 t_list	*next_cmdstart_lst(t_list *begin_lst)

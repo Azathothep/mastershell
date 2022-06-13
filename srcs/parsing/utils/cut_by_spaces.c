@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:38:17 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:56:08 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:41:18 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,40 +58,37 @@ static t_list	*new_env_word_list(char *s)
 	return (lst);
 }
 
-int	join_by_spaces(t_list **begin_lst)
+static int	cut_loop(t_list **begin_lst, char *s)
 {
 	t_list	*lst;
-	t_list	*next;
-	char	*word;
+	int		i;
 
-	lst = *begin_lst;
-	while (lst && lst->next)
+	i = 0;
+	if (*s != ' ')
 	{
-		next = lst->next;
-		if (get_token(next))
-		{
-			word = ft_strjoin(get_token(lst), get_token(next));
-			if (!word)
-				return (0);
-			replace_content(lst, word);
-			lst->next = next->next;
-		}
-		else
-		{
-			lst->next = next->next;
-			lst = lst->next;
-		}
-		ft_lstdelone(next, &lst_del);
-		next = NULL;
+		lst = new_env_word_list(s);
+		i = str_size_until_space(s);
 	}
-	return (1);
+	else
+	{
+		lst = ft_lstnew(NULL);
+		while (s[i] == ' ')
+			i++;
+	}
+	if (!lst)
+	{
+		ft_lstclear(begin_lst, &lst_del);
+		return (-1);
+	}
+	ft_lstadd_back(begin_lst, lst);
+	return (i);
 }
 
 t_list	*cut_by_spaces(char *s)
 {
 	t_list	*begin_lst;
-	t_list	*lst;
 	int		i;
+	int		ret;
 
 	i = 0;
 	begin_lst = NULL;
@@ -99,23 +96,10 @@ t_list	*cut_by_spaces(char *s)
 		return (NULL);
 	while (s[i])
 	{
-		if (s[i] != ' ')
-		{
-			lst = new_env_word_list(&s[i]);
-			i += str_size_until_space(&s[i]);
-		}
-		else
-		{
-			lst = ft_lstnew(NULL);
-			while (s[i] == ' ')
-				i++;
-		}
-		if (!lst)
-		{
-			ft_lstclear(&begin_lst, &lst_del);
+		ret = cut_loop(&begin_lst, &s[i]);
+		if (ret < 0)
 			return (0);
-		}
-		ft_lstadd_back(&begin_lst, lst);
+		i += ret;
 	}
 	if (i == 0)
 		return (ft_lstnew(NULL));

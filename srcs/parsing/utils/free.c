@@ -17,8 +17,11 @@
 
 int	ft_free(void *p)
 {
-	free (p);
-	p = NULL;
+	if (p)
+	{
+		free (p);
+		p = NULL;
+	}
 	return (0);
 }
 

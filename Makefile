@@ -11,8 +11,10 @@ SRCS_PARSING =	lexer.c \
 		tokenize.c \
 		translation/heredoc.c \
 		translation/translation.c \
+		translation/translation_utils.c \
 		translation/chevrons.c \
 		translation/chevrons_utils.c \
+		translation/env.c \
 		utils/lst.c \
 		utils/cuts.c \
 		utils/chunks.c \
@@ -21,6 +23,9 @@ SRCS_PARSING =	lexer.c \
 		utils/signal.c \
 		utils/termios.c \
 		utils/cut_by_spaces.c \
+		utils/cut_by_spaces_utils.c \
+		utils/parser_utils.c \
+		utils/heredoc_utils.c \
 
 SRCS_EXEC = builtin/builtin.c \
         builtin/builtinpipe.c \
