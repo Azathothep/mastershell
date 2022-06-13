@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 10:57:47 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/13 11:32:16 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:36:24 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	pop_null_lst(t_list **lexer_tab)
 		while (lst)
 		{
 			token = get_token(lst);
-			if (token == NULL || token[0] == '\0')
+			if (token == NULL)
 				remove_lst(&lexer_tab[i], lst);
 			lst = lst->next;
 		}

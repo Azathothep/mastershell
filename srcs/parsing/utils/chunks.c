@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:42:28 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/08 10:29:46 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:05:06 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static int	get_endenv(char const *s)
 	i = 1;
 	if (s[1] == '?')
 		return (2);
+	else if (s[1] == '\'' || s[1] == '\"')
+	{
+		return (matching_quote(&s[1], s[1]) + 2);
+	}
 	else
 		while (s[i] && ft_isalnum(s[i]))
 			i++;

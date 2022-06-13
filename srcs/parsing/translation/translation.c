@@ -18,18 +18,20 @@ static t_list	*translate_token(t_list *lst, t_mini *mini)
 	int		len;
 	char	*token;
 	char	*token_enved;
+	int		i;
 
 	token = get_token(lst);
 	if (!token)
 		return (NULL);
 	len = ft_strlen(token);
-	if (token[0] == '\'' && token[len - 1] == '\'')
+	i = 0;
+	if (token[0] == '$' && (token[1] == '\'' || token[1] == '\"'))
+		i = 1;
+	if (token[i] == '\'' && token[len - 1] == '\'')
+		replace_content(lst, pull_quotes(&token[i]));
+	else if (token[i] == '\"' && token[len - 1] == '\"')
 	{
-		replace_content(lst, pull_quotes(token));
-	}
-	else if (token[0] == '\"' && token[len - 1] == '\"')
-	{
-		token_enved = replace_env_in_word(pull_quotes(token), mini);
+		token_enved = replace_env_in_word(pull_quotes(&token[i]), mini);
 		if (errno == 1)
 			return (NULL);
 		replace_content(lst, token_enved);
