@@ -6,7 +6,7 @@
 /*   By: fbelthoi <fbelthoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:17:15 by fbelthoi          #+#    #+#             */
-/*   Updated: 2022/06/13 14:14:40 by fbelthoi         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:21:37 by fbelthoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	parse_error(const char *s)
 
 int	isenv(char c)
 {
-	if (ft_isalnum(c) || c == '?')
+	if (ft_isalnum(c) || ft_inbase(c, "?\'\""))
 		return (1);
 	return (0);
 }
