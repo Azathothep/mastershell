@@ -44,6 +44,7 @@ int	ft_pwd(t_mini *mini, t_pipex *pipex)
 	write(pipex->outfile, name,
 		ft_strlen(name));
 	write(pipex->outfile, "\n", 1);
+	free(buf);
 	ft_setexit(0, 0);
 	return (0);
 }

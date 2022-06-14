@@ -38,7 +38,7 @@ char	*ft_isold(t_mini *mini)
 	return (NULL);
 }
 
-char	*ft_ishome(t_mini *mini)
+char	*ft_ishome(t_mini *mini, char *cmd)
 {
 	t_list	*temp;
 	char	*content;
@@ -48,7 +48,10 @@ char	*ft_ishome(t_mini *mini)
 	{
 		if (ft_strncmp(temp->content, "HOME=", 5) == 0)
 		{
-			content = ft_strdup(temp->content + 5);
+			if (cmd[0] == '~')
+				content = ft_strjoin(temp->content + 5, cmd + 1);
+			else
+				content = ft_strjoin(temp->content + 5, cmd + 2);
 			if (content == NULL)
 			{
 				errno = 1;
@@ -65,9 +68,9 @@ char	*ft_ishome(t_mini *mini)
 int	ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath)
 {
 	if (cmd[1] == NULL || ft_strncmp(cmd[1], "--", 3) == 0
-		|| ft_strncmp(cmd[1], "~", 2) == 0)
+		|| ft_strncmp(cmd[1], "~", 1) == 0)
 	{
-		*path = ft_ishome(mini);
+		*path = ft_ishome(mini, cmd[1]);
 		if (*path == NULL)
 			return (ft_errorcd(mini, 5, cmd[1]));
 	}

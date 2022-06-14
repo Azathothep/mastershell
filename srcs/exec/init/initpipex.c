@@ -79,6 +79,11 @@ char	*ft_path(char *cmd, t_list *envpl, t_mini *mini)
 	char	**tab;
 	char	*path;
 
+	if (cmd[0] == '\0')
+	{
+		ft_seterrno(3);
+		return (NULL);
+	}
 	if (access(cmd, X_OK) == 0 && ft_testdirectory(cmd) != -1)
 		return (ft_strdup(cmd));
 	tab = ft_initpath(&i, envpl);

@@ -26,7 +26,6 @@ int	ft_seterrnocd(char **path, char **last, int mode)
 			errno = 17;
 		else
 			errno = 24;
-		return (-1);
 	}
 	free(*path);
 	free(*last);
@@ -37,6 +36,7 @@ int	ft_seterrnocd(char **path, char **last, int mode)
 char	*ft_getpwd(void)
 {
 	char	*buf;
+	char	*test;
 
 	buf = malloc(sizeof(char) * (PATH_MAX + 1));
 	if (buf == NULL)
@@ -45,8 +45,8 @@ char	*ft_getpwd(void)
 		return (NULL);
 	}
 	buf[PATH_MAX] = '\0';
-	buf = getcwd(buf, PATH_MAX);
-	if (buf == NULL)
+	test = getcwd(buf, PATH_MAX);
+	if (test == NULL)
 	{
 		if (errno == EACCES)
 			errno = 14;
@@ -125,5 +125,7 @@ int	ft_cd(t_mini *mini, char **cmd)
 	if (ft_changepwd(mini, lastpath) == -1)
 		return (ft_seterrnocd(&path, &lastpath, 2));
 	ft_setexit(0, 0);
+	free(path);
+	free(lastpath);
 	return (0);
 }

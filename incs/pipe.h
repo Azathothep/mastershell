@@ -117,7 +117,7 @@ int		ft_echo(char **cmd, t_pipex *pipex);
 
 /* cd.c */
 int		ft_cd(t_mini *mini, char **cmd);
-char	*ft_ishome(t_mini *mini);
+char	*ft_ishome(t_mini *mini, char *cmd);
 int		ft_fill(t_mini *mini, char *cmd, char **path);
 int		ft_errorcd(t_mini *mini, int mode, char *cmd);
 int		ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath);

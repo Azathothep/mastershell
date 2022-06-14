@@ -64,4 +64,5 @@ void	ft_initspace(int *i, t_mini *mini)
 	*i = 0;
 	errno = 0;
 	ft_termios_ctl(mini);
+	
 }
