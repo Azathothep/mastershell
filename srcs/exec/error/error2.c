@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:28:44 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 11:35:13 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 11:21:14 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,28 @@ char	*ft_getfiles(int i, t_mini *mini, int j)
 		}
 		return (temp->content);
 	}
+}
+
+int	ft_error5(t_mini *mini, int i, int j)
+{
+	char	*temp;
+
+	if (errno == 3)
+	{
+		write(mini->pipex->errfile, "mishell : ", 10);
+		write(mini->pipex->errfile, mini->commands[i][0],
+			ft_strlen(mini->commands[i][0]));
+		write(mini->pipex->errfile, ": command not found\n", 20);
+		g_exitstatus = 127;
+	}
+	if (errno == 4)
+	{
+		temp = ft_getfiles(i, mini, j);
+		write(mini->pipex->errfile, "mishell : ", 10);
+		write(mini->pipex->errfile, temp, ft_strlen(temp));
+		write(mini->pipex->errfile, " : no such file or directory\n", 29);
+	}
+	return (0);
 }
 
 int	ft_error4(int i, t_mini *mini)

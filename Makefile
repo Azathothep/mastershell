@@ -36,6 +36,7 @@ SRCS_EXEC = builtin/builtin.c \
         init/initpipex.c \
         init/initpipex2.c \
         init/initpipex3.c \
+		init/initpipex5.c \
         pipe/pipe.c \
         pipe/pipe2.c \
         pipe/pipehere.c \
@@ -49,6 +50,7 @@ SRCS_EXEC = builtin/builtin.c \
         builtin/echo.c \
         builtin/cd.c \
         builtin/cd2.c \
+		builtin/cd3.c \
         error/freeall.c \
         error/freeall2.c \
         utils/futilspipex.c \

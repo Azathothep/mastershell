@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:41:32 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:23:53 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 11:07:36 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,4 @@ void	ft_initspace(int *i, t_mini *mini)
 	*i = 0;
 	errno = 0;
 	ft_termios_ctl(mini);
-	
 }

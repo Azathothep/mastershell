@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:41:47 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:22:38 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 11:15:56 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ int	ft_cd(t_mini *mini, char **cmd)
 		return (ft_setexit(1, -1));
 	if (ft_changepwd(mini, lastpath) == -1)
 		return (ft_seterrnocd(&path, &lastpath, 2));
-	ft_setexit(0, 0);
-	free(path);
-	free(lastpath);
+	ft_endcd(path, lastpath);
 	return (0);
 }

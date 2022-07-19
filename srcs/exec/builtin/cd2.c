@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:25:08 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:22:42 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 14:19:19 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ char	*ft_ishome(t_mini *mini, char *cmd)
 	{
 		if (ft_strncmp(temp->content, "HOME=", 5) == 0)
 		{
-			if (cmd[0] == '~')
+			if (cmd != NULL && cmd[0] == '~')
 				content = ft_strjoin(temp->content + 5, cmd + 1);
-			else
+			else if (cmd != NULL)
 				content = ft_strjoin(temp->content + 5, cmd + 2);
+			else
+				content = ft_strdup(temp->content + 5);
 			if (content == NULL)
 			{
 				errno = 1;

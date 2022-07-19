@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:06:17 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/05/26 16:26:10 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 11:30:25 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		ft_searchout(t_inout *outfile, int i);
 char	*ft_joinpath(char **tab, char *cmd, int i);
 int		ft_init_start(t_mini *mini);
 t_list	*ft_convlist(char **envp);
+int		ft_startpath(char *cmd, char ***tab, int *i, t_list *envpl);
 
 /* f_utilspipex futilspipex2 futilspipehere */
 void	ft_puthere2(t_mini *mini, t_list **t, int i, t_pipex *p);
@@ -85,6 +86,7 @@ int		ft_seterrout(int j);
 int		ft_close(t_mini *mini, int i);
 int		ft_error2(int i, t_mini *mini, int j);
 char	*ft_getfiles(int i, t_mini *mini, int j);
+int		ft_error5(t_mini *mini, int i, int j);
 
 /* builtin.c */
 int		ft_builtin(t_mini *mini, char **cmd, t_pipex *pipex);
@@ -123,6 +125,7 @@ int		ft_errorcd(t_mini *mini, int mode, char *cmd);
 int		ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath);
 char	*ft_getpwd(void);
 int		ft_oldpwd(t_mini *mini, char *lastpath);
+void	ft_endcd(char *path, char *lastpath);
 
 /* ft_utils.c */
 char	**ft_convert(t_list *envpl); /* Conversion de la liste env en char** */

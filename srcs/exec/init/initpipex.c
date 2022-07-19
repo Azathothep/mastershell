@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:08:54 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:24:12 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/06/28 11:31:30 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,11 @@ char	*ft_path(char *cmd, t_list *envpl, t_mini *mini)
 	char	**tab;
 	char	*path;
 
-	if (cmd[0] == '\0')
-	{
-		ft_seterrno(3);
+	i = ft_startpath(cmd, &tab, &i, envpl);
+	if (i == -1)
 		return (NULL);
-	}
-	if (access(cmd, X_OK) == 0 && ft_testdirectory(cmd) != -1)
+	if (i == 1)
 		return (ft_strdup(cmd));
-	tab = ft_initpath(&i, envpl);
-	if (tab == NULL)
-		return (NULL);
 	while (tab[i] != NULL)
 	{
 		path = ft_joinpath(tab, cmd, i);
