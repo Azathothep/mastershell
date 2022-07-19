@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:25:08 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/07/19 14:19:19 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 14:56:05 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_cd2(t_mini *mini, char **path, char **cmd, char **lastpath)
 	if (cmd[1] != NULL && ft_strncmp(cmd[1], "-", 2) == 0)
 	{
 		*path = ft_isold(mini);
-		if (path == NULL)
+		if (*path == NULL)
 			return (ft_errorcd(mini, 3, cmd[1]));
 	}
 	if (cmd[1] != NULL && cmd[1][0] == '\0')
@@ -109,6 +109,7 @@ int	ft_errorcd2(t_mini *mini, char *cmd)
 	}
 	else if (errno == 16)
 	{
+		printf("lol\n");
 		write(mini->pipex->errfile, cmd, ft_strlen(cmd));
 		write(mini->pipex->errfile, " no such file or directory\n", 27);
 	}

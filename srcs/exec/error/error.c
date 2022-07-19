@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:31:26 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/28 11:20:32 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 15:47:43 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int	ft_seterrout(int j)
 	int	i;
 
 	i = errno;
-	if (i == 2)
-		errno = 30;
-	else if (i == EACCES)
+	if (i == EACCES)
 		errno = 8;
 	else if (i == EISDIR)
 		errno = 9;
@@ -62,9 +60,7 @@ int	ft_seterrin(int j)
 	int	i;
 
 	i = errno;
-	if (i == 2)
-		errno = 31;
-	else if (i == EACCES)
+	if (i == EACCES)
 		errno = 5;
 	else if (i == ENOENT)
 		errno = 4;
@@ -91,7 +87,7 @@ int	ft_error(int i, t_mini *mini, int j)
 		write(mini->pipex->errfile, "mishell : ", 10);
 		write(mini->pipex->errfile, mini->commands[i][0],
 			ft_strlen(mini->commands[i][0]));
-		write(mini->pipex->errfile, " no such file or directory\n", 27);
+		write(mini->pipex->errfile, " No such file or directory\n", 27);
 	}
 	ft_error5(mini, i, j);
 	if (errno >= 5)

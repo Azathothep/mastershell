@@ -6,7 +6,7 @@
 /*   By: rmonacho <rmonacho@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:19:38 by rmonacho          #+#    #+#             */
-/*   Updated: 2022/06/08 10:23:13 by rmonacho         ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 15:14:15 by rmonacho         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_readd(t_mini *mini, char *cmd)
 	if (name == NULL)
 		return (ft_seterrno(1));
 	temp = mini->envpl;
-	if (cmd[ft_checkequal(cmd)] == '\0' || cmd[ft_checkequal(cmd) + 1] == '\0')
+	if (cmd[ft_checkequal(cmd)] == '\0')
 		return (ft_freechar(name, 0));
 	while (temp != NULL)
 	{
